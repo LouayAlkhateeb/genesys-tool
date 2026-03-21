@@ -18,18 +18,22 @@
 /* Mobile filter overlay */
 @media (max-width: 767px) {
     #filters-sidebar {
-        transform: translateX(100%);
+        transform: translateX(-100%) !important;
         max-width: 85%;
         width: 280px;
-        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.5);
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
         top: 0;
         bottom: 0;
         padding-top: 150px;
         z-index: 99;
+        position: fixed !important;
+        left: 0 !important;
+        right: auto !important;
+        height: 100vh !important;
     }
 
     #filters-sidebar.mobile-open {
-        transform: translateX(0);
+        transform: translateX(0) !important;
     }
 }
 
@@ -43,20 +47,40 @@
     display: block;
 }
 
-/* Fixed sidebar for desktop */
-@media (min-width: 768px) {
+/* sidebar desktop */
+@media (min-width: 1024px) {
     #filters-sidebar {
         position: fixed !important;
-        top: 4rem; /* Header height */
+        top: 7.3rem; 
         left: 0;
-        height: calc(100vh - 4rem); /* Account for header height */
+        height: calc(100vh - 7.3rem);
         overflow-y: auto;
         transform: none !important;
     }
     
-    /* Adjust main content area to account for fixed sidebar */
     #card-container-wrapper {
-        margin-left: 14rem; /* Match the width of the sidebar (md:w-56 = 14rem) */
+        margin-left: 16rem; 
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    #filters-sidebar {
+        position: fixed !important;
+        top: 8rem; 
+        left: 0;
+        height: calc(100vh - 8rem); 
+        overflow-y: auto;
+        transform: none !important;
+    }
+        #card-container-wrapper {
+        margin-left: 14rem; 
+    }
+}
+
+/* Ensure main content doesn't shift on mobile when filters are toggled */
+@media (max-width: 767px) {
+    #card-container-wrapper {
+        margin-left: 0;
     }
 }
 

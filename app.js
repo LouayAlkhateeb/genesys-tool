@@ -456,6 +456,9 @@ function showList(listId) {
     // Update stats
     statsEl.textContent =
         `${filteredCards.length} cards in "${listData.name}"`;
+    if (statsMobileEl) {
+        statsMobileEl.textContent = `${filteredCards.length} cards in "${listData.name}"`;
+    }
 }
 
 // Render all cards from the current list
@@ -607,6 +610,7 @@ const listBackBtn = document.getElementById('list-back-btn');
 const filtersSidebar = document.getElementById('filters-sidebar');
 const viewIcon = document.getElementById('view-icon');
 const statsEl = document.getElementById('stats');
+const statsMobileEl = document.getElementById('stats-mobile');
 const sortSelect = document.getElementById('sort-select');
 const loadingSentinel = document.getElementById('loading-sentinel');
 const noResults = document.getElementById('no-results');
@@ -622,6 +626,9 @@ const tagFilterBar = document.getElementById('tag-filter-bar');
 async function init() {
     try {
         statsEl.textContent = 'Loading card data...';
+        if (statsMobileEl) {
+            statsMobileEl.textContent = 'Loading card data...';
+        }
         
         // Debug file access
         await debugFileAccess();
@@ -684,6 +691,9 @@ async function init() {
         preloadChunks();
         
         statsEl.textContent = `${allCards.length.toLocaleString()} cards loaded`;
+        if (statsMobileEl) {
+            statsMobileEl.textContent = `${allCards.length.toLocaleString()} cards loaded`;
+        }
 
         // Load available lists
         await loadAvailableLists();
@@ -697,6 +707,9 @@ async function init() {
     } catch (error) {
         console.error('Initialization failed:', error);
         statsEl.textContent = `Error loading data: ${error.message}`;
+        if (statsMobileEl) {
+            statsMobileEl.textContent = `Error loading data: ${error.message}`;
+        }
     }
 }
 
@@ -1061,6 +1074,9 @@ function applyFiltersAndSort() {
 
     // Update stats to show filtered results
     statsEl.textContent = `${filteredCards.length.toLocaleString()} of ${allCards.length.toLocaleString()} cards`;
+    if (statsMobileEl) {
+        statsMobileEl.textContent = `${filteredCards.length.toLocaleString()} of ${allCards.length.toLocaleString()} cards`;
+    }
     
 }
 

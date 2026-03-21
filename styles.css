@@ -43,12 +43,20 @@
     display: block;
 }
 
-/* Ensure desktop always shows filters without transform */
+/* Fixed sidebar for desktop */
 @media (min-width: 768px) {
     #filters-sidebar {
+        position: fixed !important;
+        top: 4rem; /* Header height */
+        left: 0;
+        height: calc(100vh - 4rem); /* Account for header height */
+        overflow-y: auto;
         transform: none !important;
-        position: relative !important;
-        inset: auto !important;
+    }
+    
+    /* Adjust main content area to account for fixed sidebar */
+    #card-container-wrapper {
+        margin-left: 14rem; /* Match the width of the sidebar (md:w-56 = 14rem) */
     }
 }
 

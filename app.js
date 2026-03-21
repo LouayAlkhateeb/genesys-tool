@@ -32,7 +32,7 @@ const IMAGE_BASE_URL = 'https://ik.imagekit.io/louaykh/cards/';
 //const IMAGE_BASE_URL = 'https://images.ygoprodeck.com/images/cards_small/';
 const DATA_BASE_URL = './data/';
 
-const LIST_BUILD_VERSION = "2026-03-20-21-25";
+const LIST_BUILD_VERSION = "2026-03-22-02-23";
 const CARD_BUILD_VERSION = "2026-03-19-11-23";
 
 const imageCache = new ImageCache();
@@ -185,8 +185,9 @@ function toggleBrowseView(force = null) {
     isBrowseView = force !== null ? force : !isBrowseView;
     
     if (isBrowseView) {
-        // Reset navigation path
+        // Reset navigation path and current list
         navigationPath = [];
+        currentList = null;
         
         // Hide filters, card grid, loading sentinel, and tag filter bar
         filtersSidebar.classList.add('hidden');
@@ -1269,6 +1270,10 @@ function setupEventListeners() {
             if (currentList) {
                 showAllCards();
             } else {
+                // If we're in browse view, exit it first before showing staples list
+                if (isBrowseView) {
+                    toggleBrowseView(false);
+                }
                 showList('0-point-staples');
             }
         });

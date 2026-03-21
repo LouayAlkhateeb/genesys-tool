@@ -1,0 +1,121 @@
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #4b5563;
+    border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
+}
+
+/* Mobile filter overlay */
+@media (max-width: 767px) {
+    #filters-sidebar {
+        transform: translateX(100%);
+        max-width: 85%;
+        width: 280px;
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.5);
+        top: 0;
+        bottom: 0;
+        padding-top: 150px;
+        z-index: 99;
+    }
+
+    #filters-sidebar.mobile-open {
+        transform: translateX(0);
+    }
+}
+
+/* Filter overlay backdrop for mobile */
+#filter-backdrop {
+    display: none;
+    z-index: 98;
+}
+
+#filter-backdrop.active {
+    display: block;
+}
+
+/* Ensure desktop always shows filters without transform */
+@media (min-width: 768px) {
+    #filters-sidebar {
+        transform: none !important;
+        position: relative !important;
+        inset: auto !important;
+    }
+}
+
+.card-container {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-container:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+}
+
+.points-badge {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.9) 0%, rgba(147, 51, 234, 0.9) 100%);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.card-list-view {
+    grid-template-cols: 1fr !important;
+}
+
+.card-list-view .card-container {
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.75rem;
+    background: #1f2937;
+    border-radius: 0.75rem;
+}
+
+.card-list-view .card-image-wrapper {
+    width: 60px;
+    height: 87px;
+    flex-shrink: 0;
+}
+
+.card-list-view .card-info {
+    display: block !important;
+}
+
+/* Hide points on list view or adjust them */
+.card-list-view .points-badge {
+    top: -8px;
+    right: -8px;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.card-animate {
+    animation: fadeIn 0.3s ease forwards;
+}
+
+/* Lazy loading styles */
+.lazy-loading {
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.lazy-loaded {
+    opacity: 1;
+}
+
+

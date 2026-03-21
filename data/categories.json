@@ -1,0 +1,193 @@
+[
+  {
+    "name": "XYZ Engines",
+    "subcategories": [
+      {
+        "name": "Rank 1 Engines",
+        "lists": [
+          { "id": "snake-eyes", "name": "Snake Eyes" },
+          { "id": "yummy", "name": "Yummy" },
+          { "id": "r1-extenders", "name": "Level 1 Extenders" }
+        ]
+      },
+      {
+        "name": "Rank 2 Engines",
+        "lists": [
+          { "id": "nimble", "name": "Nimble Beaver" },
+          { "id": "dbb-r2", "name": "Dark Beckoning Beast" },
+          { "id": "live-twin", "name": "Live Twin" },
+          { "id": "deep-sea-diva", "name": "Deep Sea Diva" },
+          { "id": "gishki", "name": "Gishki" },
+          { "id": "krawler", "name": "Krawler" },
+          { "id": "r2-extenders", "name": "Level 2 Extenders" }
+        ]
+      },
+      {
+        "name": "Rank 3 Engines",
+        "lists": [
+          { "id": "speedroid-r3", "name": "Speedroid" },
+          { "id": "radiant-r3", "name": "Radiant Typhoon" },
+          { "id": "tour-guide", "name": "Tour Guide" },
+          { "id": "materiactor", "name": "Materiactor" },
+          { "id": "melodious-r3", "name": "Melodious" },
+          { "id": "salamangreat", "name": "Salamangreat" },
+          { "id": "phantom-knights", "name": "PHantom Knights" },
+          { "id": "allure-r3", "name": "Allure Queen (enchantess)" },
+          { "id": "punk-r3", "name": "P.U.N.K."},
+          { "id": "r3-extenders", "name": "Level 3 Extenders" }
+        ]
+      },
+      {
+        "name": "Rank 4 Engines",
+        "lists": [
+          { "id": "sharks", "name": "Sharks" },
+          { "id": "dragluxion", "name": "Dragluxion" },
+          { "id": "magnet-warrior", "name": "Magnet Warrior" },
+          { "id": "melodious-r4", "name": "Melodious" },
+          { "id": "gem-knight-r4", "name": "Gem-Knights" },
+          { "id": "nekroz-r4", "name": "Nekroz"},
+          { "id": "flame-swordsman", "name": "Flame Swordsman" },
+          { "id": "prisma-r4", "name": "Prisma"},
+          { "id": "r4-extenders", "name": "Level 4 Extenders" }
+        ]
+      },
+      {
+        "name": "Rank 5 Engines",
+        "lists": [
+          { "id": "mother-spider", "name": "Mother Spider" },
+          { "id": "allure-r5", "name": "Allure Queen" },
+          { "id": "r5-extenders", "name": "Level 5 Extenders" }
+        ]
+      },
+      {
+        "name": "Rank 6 Engines",
+        "lists": [
+          { "id": "r6-extenders", "name": "Level 6 Extenders" }
+        ]
+      },
+      {
+        "name": "Rank 7 Engines",
+        "lists": [
+          { "id": "allure-r7", "name": "Allure Queen" },
+          { "id": "melodious-r7", "name": "Melodious"},
+          { "id": "r7-extenders", "name": "Level 7 Extenders" }
+        ]
+      },
+      {
+        "name": "Rank 8 Engines",
+        "lists": [
+          { "id": "shining-sarc", "name": "Shining Sarcophagus" },
+          { "id": "millennium", "name": "Millennium" },
+          { "id": "diabel", "name": "Diabel" },
+          { "id": "punk-r8", "name": "P.U.N.K." },
+          { "id": "r8-extenders", "name": "Rank 8 Extenders" }
+        ]
+      },
+      {
+        "name": "Rank 9 Engines",
+        "lists": [
+          { "id": "nekroz-r9", "name": "Nekroz" }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Synchro Engines",
+    "subcategories": [
+      {
+        "name": "Lvl 2 Synchro Engines",
+        "lists": [
+          { "id": "diabolantis", "name": "Diabolantis/Danylion" }
+        ]
+      },
+      {
+        "name": "Lvl 3 Synchro Engines",
+        "lists": [
+          { "id": "driver-l3", "name": "Lefty/Righty Driver" },
+          { "id": "deep-sea-diva-l3", "name": "Deep Sea Diva" }
+        ]
+      },
+      {
+        "name": "Level 4 Synchro Engines",
+        "lists": [
+          { "id": "driver-l4", "name": "Lefty/Righty Driver" },
+          { "id": "deep-sea-diva-l4", "name": "Deep Sea Diva" },
+          { "id": "melffy", "name": "Melffy" }    
+        ]
+      },
+      {
+        "name": "Lvl 5 Synchro Engines",
+        "lists": [
+          { "id": "elfnote-l5", "name": "Elfnote"},
+          { "id": "driver-l5", "name": "Lefty/Righty Driver" },
+          {"id": "deep-sea-diva-l5", "name": "Deep Sea Diva" }
+        ]
+      },
+      {
+        "name": "Lvl 6 Synchro Engines",
+        "lists": [
+          { "id": "earthbound-l6", "name": "Earthbound" },
+          { "id": "white-forest-l6", "name": "White Forest" },
+          { "id": "supay", "name": "Supay" },
+          { "id": "assault-l6", "name": "Assault Mode" },
+          { "id": "driver-l6", "name": "Lefty/Righty Driver" }
+        ]
+      },
+      {
+        "name": "Lvl 7 Synchro Engines",
+        "lists": [
+          { "id": "elfnote-l7", "name": "Elfnote" },
+          { "id": "assault-l7", "name": "Assault Mode" },
+          { "id": "deep-sea-diva-l7", "name": "Deep Sea Diva" }
+        ]
+      },
+      {
+        "name": "Lvl 8 Synchro Engines",
+        "lists": [
+          { "id": "centurion", "name": "Centurion" },
+          { "id": "earthbound-l8", "name": "Earthbound/Elzette"},
+          { "id": "elfnote-l8", "name": "Elfnote" },
+          { "id": "ascator", "name": "Ascator" },
+          { "id": "punk-l8", "name": "P.U.N.K." },
+          { "id": "deep-sea-diva-l8", "name": "Deep Sea Diva" }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Negate Engines",
+    "subcategories": [
+      {
+        "name": "Omni Negate Engines",
+        "lists": [
+          { "id": "metalmorph", "name": "Metalmorph" },
+          { "id": "adventure", "name": "Adventure" },
+          { "id": "dragluxion-omni", "name": "Dragluxion" },
+          { "id": "visas", "name": "Visas Amritara" },
+          { "id": "primite", "name": "Primite" },
+          { "id": "yang-zing", "name": "Yang Zing" },
+          { "id": "diabellstar", "name": "Diabellstar" },
+          { "id": "springans", "name": "Springans" }
+        ]
+      },
+      {
+        "name": "Spell/Trap Negate Engines",
+        "lists": [
+          { "id": "hecahands", "name": "Hecahands" },
+          { "id": "dark-paladin", "name": "Dark Paladin" },
+          { "id": "time-thief", "name": "Time Thief" }
+        ]
+      },
+      {
+        "name": "Monster Negate Engines",
+        "lists": [
+          { "id": "rafflesia", "name": "Rafflesia" },
+          { "id": "dmod", "name": "Destined Rivals" },
+          { "id": "udf", "name": "Utopic Draco Future/Ghostrick" },
+          { "id": "elfnote-crystal", "name": "Crystal Wing/Elfnote"},
+          { "id": "mudragon", "name": "Mudragon Fusion"}
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "name": "Rank 6 Extenders",
+  "description": "Leve 6 Monsters that summon themselves for (relatively) free",
+  "card_ids": [
+    2501624, 30603688, 94979322, 13597785, 85976588, 59581480, 60764609,
+    74169516, 41002238, 63526052, 58143852, 34456146, 56099748, 13744068
+  ]
+}

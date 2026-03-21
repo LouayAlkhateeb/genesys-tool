@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genesys Yu-Gi-Oh! Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col">
+    <header class="bg-gray-800 border-b border-gray-700 p-4 sticky top-0 z-50">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="flex flex-col space-y-2">
+                    <!-- Title -->
+                    <div class="flex items-center">
+                        <a href="#" id="home-link" class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent hover:opacity-80 transition-opacity whitespace-nowrap">
+                            GENESYS TOOL
+                        </a>
+                    </div>
+                    <!-- Description -->
+                    <div class="text-xs text-gray-400">
+                        For suggestions: @Louay1 on Discord
+                    </div>
+                </div>
+
+                <div class="flex flex-col space-y-2 md:col-span-2 lg:col-span-1">
+                    <!-- Search -->
+                    <div class="relative w-full">
+                        <input type="text" id="search-input"
+                            placeholder="Search cards..."
+                            class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                        <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5"></i>
+                    </div>
+                    <!-- List buttons -->
+                    <div class="flex gap-2">
+                        <button id="list-toggle" class="flex-1 py-2 px-4 bg-gray-700 border-2 border-gray-600 rounded-lg hover:bg-gray-600 hover:border-blue-500 transition-all font-bold text-xs tracking-wider hidden" title="0 Point Staples">
+                            0 POINT STAPLES
+                        </button>
+                        <button id="browse-toggle" class="flex-1 py-2 px-4 bg-gray-700 border-2 border-gray-600 rounded-lg hover:bg-gray-600 hover:border-blue-500 transition-all font-bold text-xs tracking-wider" title="Browse Engines Lists">
+                            ENGINES LISTS
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex flex-col space-y-2">
+                    <!-- Stats -->
+                    <div class="flex justify-end">
+                        <div id="stats" class="text-sm text-gray-400 italic whitespace-nowrap text-right">Loading index...</div>
+                    </div>
+                    <!-- Last update -->
+                    <div class="text-xs text-gray-500 text-right">
+                        Last Points Update: Mar 5
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- View Toggle Button -->
+    <button id="view-toggle" class="fixed bottom-4 right-4 p-3 bg-gray-700 rounded-full hover:bg-gray-600 transition-colors shadow-lg z-40" title="Toggle Grid/List">
+        <i data-lucide="layout-grid" id="view-icon" class="w-6 h-6"></i>
+    </button>
+
+    <!-- Mobile Filter Toggle Button -->
+    <button id="mobile-filter-toggle" class="md:hidden fixed bottom-20 right-4 p-3 bg-gray-700 rounded-full hover:bg-gray-600 transition-colors shadow-lg z-40" title="Toggle Filters">
+        <i data-lucide="filter" id="mobile-filter-icon" class="w-6 h-6"></i>
+    </button>
+
+    <div class="flex flex-1 overflow-hidden">
+        <!-- Mobile Filter Backdrop -->
+        <div id="filter-backdrop" class="fixed inset-0 bg-black/50 z-30 md:hidden hidden"></div>
+
+        <!-- Sidebar Filters -->
+        <aside id="filters-sidebar" class="w-full md:w-56 lg:w-64 bg-gray-800 border-r border-gray-700 p-4 overflow-y-auto md:block fixed md:relative inset-y-0 right-0 z-40 transform transition-transform duration-200 ease-in-out md:translate-x-0">
+            <div class="space-y-6">
+                <div class="md:hidden mb-4">
+                    <h2 class="text-xl font-bold text-white">Filters</h2>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-3 text-gray-300 uppercase text-xs tracking-wider">Sort Order</h3>
+                    <select id="sort-select" class="w-full bg-gray-700 border border-gray-600 rounded p-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
+                        <option value="points-desc">Points: High to Low</option>
+                        <option value="points-asc">Points: Low to High</option>
+                        <option value="name-asc">Name: A to Z</option>
+                        <option value="name-desc">Name: Z to A</option>
+                    </select>
+                </div>
+
+                <div id="filter-container" class="space-y-4">
+                    <!-- Card Type Filter (Single Select) -->
+                    <div>
+                        <h3 class="font-semibold mb-2 text-gray-300 text-xs uppercase tracking-wider">Card Type</h3>
+                        <div id="card-type-filters" class="space-y-1"></div>
+                    </div>
+
+                    <!-- Monster Frame Filter (Multi Select, hidden until Monster selected) -->
+                    <div id="monster-frame-filter-container" class="hidden">
+                        <h3 class="font-semibold mb-2 text-gray-300 text-xs uppercase tracking-wider">Monster Frame</h3>
+                        <div id="monster-frame-filters" class="space-y-1"></div>
+                    </div>
+
+                    <!-- Attribute Filter (Multi Select, hidden until Monster selected) -->
+                    <div id="attribute-filter-container" class="hidden">
+                        <h3 class="font-semibold mb-2 text-gray-300 text-xs uppercase tracking-wider">Attribute</h3>
+                        <div id="attribute-filters" class="space-y-1 max-h-40 overflow-y-auto pr-2 custom-scrollbar"></div>
+                    </div>
+
+                    <!-- Race Filter (Multi Select, hidden until type selected) -->
+                    <div id="race-filter-container" class="hidden">
+                        <h3 class="font-semibold mb-2 text-gray-300 text-xs uppercase tracking-wider">Type</h3>
+                        <div id="race-filters" class="space-y-1 max-h-40 overflow-y-auto pr-2 custom-scrollbar"></div>
+                    </div>
+
+                    <!-- Level Filter (Multi Select) -->
+                    <div id="level-filter-container" class="hidden">
+                        <h3 class="font-semibold mb-2 text-gray-300 text-xs uppercase tracking-wider">Level</h3>
+                        <div id="level-filters" class="grid grid-cols-4 gap-1"></div>
+                    </div>
+                </div>
+
+                <button id="reset-filters" class="w-full py-2 bg-red-900/30 text-red-400 rounded border border-red-900/50 hover:bg-red-900/50 transition-colors text-sm">
+                    Reset Filters
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto p-4 md:p-6" id="card-container-wrapper">
+            <!-- List Info Header -->
+            <div id="list-info-header" class="hidden mb-8 p-6 bg-gray-800 rounded-xl border border-gray-700 shadow-xl">
+                <button id="list-back-btn" class="flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition-colors mb-4 group hidden">
+                    <i data-lucide="arrow-left" class="w-4 h-4 transition-transform group-hover:-translate-x-1"></i>
+                    <span>Back to Categories</span>
+                </button>
+                <h1 id="list-title" class="text-3xl font-bold text-white mb-2"></h1>
+                <p id="list-description" class="text-gray-400 leading-relaxed"></p>
+            </div>
+
+            <!-- Tag Filter Bar -->
+            <div id="tag-filter-bar" class="hidden mb-4 flex flex-wrap gap-2">
+            </div>
+
+            <!-- Category Browser -->
+            <div id="category-browser" class="hidden space-y-4 max-w-2xl mx-auto py-8">
+                <div id="category-path" class="flex items-center gap-2 text-sm text-gray-500 mb-6"></div>
+                <div id="category-buttons" class="flex flex-col gap-3"></div>
+            </div>
+
+            <div id="card-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+            </div>
+            <div id="loading-sentinel" class="h-20 flex items-center justify-center mt-8">
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+            </div>
+            <div id="no-results" class="hidden text-center py-20">
+                <i data-lucide="search-x" class="mx-auto w-16 h-16 text-gray-600 mb-4"></i>
+                <h2 class="text-xl font-semibold text-gray-400">No cards found</h2>
+                <p class="text-gray-500">Try adjusting your search or filters</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Card Detail Modal -->
+    <div id="modal" class="fixed inset-0 bg-black/80 z-[100] flex items-center justify-center p-4 hidden">
+        <div class="bg-gray-800 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col md:flex-row relative">
+            <button id="close-modal" class="absolute top-4 right-4 p-2 bg-black/50 rounded-full hover:bg-black/70 transition-colors z-10">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="md:w-1/3 bg-black flex items-center justify-center p-6">
+                <img id="modal-image" src="" alt="Card" class="max-w-full max-h-full shadow-2xl rounded-lg">
+            </div>
+            <div class="md:w-2/3 p-6 overflow-y-auto" id="modal-content">
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "name": "Rank 7 Extenders",
+  "description": "Leve 7 Monsters that summon themselves for (relatively) free",
+  "card_ids": [
+    20011655, 29925614, 5560911, 72270339, 83711531, 1665819, 42198835,
+    70493141, 23431858, 81476402
+  ]
+}

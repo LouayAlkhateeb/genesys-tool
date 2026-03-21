@@ -1,0 +1,5 @@
+{
+  "name": "Radiant Typoon",
+  "description": "3x Radiant Typhoon Swen\n1x Radiant Typhoon Eldam\n1x Radiant Typhoon Chant\n0-1x Radiant Typhoon Meghala\nRatios can be flipped but this is the cheapest implementation",
+  "card_ids": [80538047, 54143349, 67115133, 27755794]
+}

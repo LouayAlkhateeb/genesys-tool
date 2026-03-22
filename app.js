@@ -1046,8 +1046,9 @@ function applyFiltersAndSort() {
         return true;
     });
 
-    // Only sort if not viewing a list - lists preserve JSON order
+    // Sort logic: regular view uses current sort, 0-point staples uses type-based sorting
     if (!currentList) {
+        // Regular browsing view - use selected sort
         const [field, direction] = currentSort.split('-');
         filteredCards.sort((a, b) => {
             let valA = field === 'points' ? (a.genesys_points || 0) : a.name;
@@ -1058,6 +1059,32 @@ function applyFiltersAndSort() {
             } else {
                 return direction === 'desc' ? valB.localeCompare(valA) : valA.localeCompare(valB);
             }
+        });
+    } else if (currentList === '0-point-staples') {
+        // 0-point staples list - always use type-based sorting
+        const typeOrder = [
+            'Effect Monster',
+            'Tuner Monster',
+            'Fusion Monster',
+            'Synchro Monster',
+            'Synchro Tuner Monster',
+            'XYZ Monster',
+            'Spell Card',
+            'Trap Card'
+        ];
+        
+        filteredCards.sort((a, b) => {
+            const indexA = typeOrder.indexOf(a.type);
+            const indexB = typeOrder.indexOf(b.type);
+            
+            if (indexA !== -1 && indexB !== -1) {
+                return indexA - indexB;
+            }
+            
+            if (indexA !== -1) return -1;
+            if (indexB !== -1) return 1;
+            
+            return a.type.localeCompare(b.type);
         });
     }
 

@@ -1,5 +1,5 @@
 {
   "name": "Assault Mode",
-  "description": "3x Psi-Reflector\n1x Assault Beast\n1x Assault Mode Activate\n**Search Beast, add Activate, revive Beast and change its level",
-  "card_ids": [74644400, 3431737, 80280737]
+  "description": "3x Psi-Reflector\n1x Assault Beast\n1x Assault Mode Activate\n0-3x Assault Sentinel\n0-3x Crimson Blader/Assault Mode\n0-3x Duel Evolution - Assault Zone\n**Flexible ratios depending on the space you have, the more space you have the more Reflector searchers you can add\n**Get to Psi-Reflector, search Beast, add Activate, revive Beast and change its level\nThanks to Luiz Alexandre for the info!",
+  "card_ids": [74644400, 3431737, 80280737, 39015, 50604072, 91002901]
 }

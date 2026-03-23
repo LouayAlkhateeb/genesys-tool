@@ -108,7 +108,7 @@
         ]
       },
       {
-        "name": "Level 4 Synchro Engines",
+        "name": "Lvl 4 Synchro Engines",
         "lists": [
           { "id": "driver-l4", "name": "Lefty/Righty Driver" },
           { "id": "deep-sea-diva-l4", "name": "Deep Sea Diva" },
@@ -148,8 +148,16 @@
           { "id": "earthbound-l8", "name": "Earthbound/Elzette"},
           { "id": "elfnote-l8", "name": "Elfnote" },
           { "id": "ascator", "name": "Ascator" },
+          { "id": "assault-l8", "name": "Assault Mode" },
+          { "id": "sentinel-lich", "name": "Assault Sentinel/Lich" },
           { "id": "punk-l8", "name": "P.U.N.K." },
           { "id": "deep-sea-diva-l8", "name": "Deep Sea Diva" }
+        ]
+      },
+      {
+        "name": "Lvl 9 Synchro Engines",
+        "lists": [
+          { "id": "assault-l9", "name": "Assault Mode" }
         ]
       }
     ]

@@ -145,7 +145,7 @@ async function loadAvailableLists() {
 async function loadCustomTags() {
     try {
         // Load all tag files from the tags directory
-        const tagFiles = ['hand_trap', 'board_breaker'];
+        const tagFiles = ['hand_trap', 'board_breaker', 'floodgates'];
         
         for (const tagFile of tagFiles) {
             const response = await fetch(`${DATA_BASE_URL}tags/${tagFile}.json?v=${LIST_BUILD_VERSION}`);

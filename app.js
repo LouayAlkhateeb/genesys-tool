@@ -1689,8 +1689,20 @@ function displayCardUsageStats(finalStats) {
     
     // Convert map to array and sort by usage rate (descending)
     const sortedStats = Array.from(finalStats.entries())
-        .filter(([cardId, stats]) => stats.listCount > 0 && stats.totalLists > 0) // Only show cards that appear in at least one list
-        .sort((a, b) => (b[1].totalLists / b[1].listCount) - (a[1].totalLists / a[1].listCount));
+      .filter(([cardId, stats]) => stats.listCount > 0 && stats.totalLists > 0) // Only show cards that appear in at least one list
+      .sort((a, b) => {
+        // Primary sort: usage rate
+        const usageRateA = b[1].totalLists / b[1].listCount;
+        const usageRateB = a[1].totalLists / a[1].listCount;
+        const usageDiff = usageRateA - usageRateB;
+
+        // secondary sort: copies per decklist (
+        if (usageDiff === 0) {
+          return b[1].copiesPerDecklist - a[1].copiesPerDecklist;
+        }
+
+        return usageDiff;
+      });
     
     // Create table rows
     sortedStats.forEach(([cardId, stats]) => {

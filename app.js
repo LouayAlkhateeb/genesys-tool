@@ -32,7 +32,7 @@ const IMAGE_BASE_URL = 'https://ik.imagekit.io/louaykh/cards/';
 //const IMAGE_BASE_URL = 'https://images.ygoprodeck.com/images/cards_small/';
 const DATA_BASE_URL = './data/';
 
-const LIST_BUILD_VERSION = "2026-03-23-14-54";
+const LIST_BUILD_VERSION = "2026-03-26-15-46";
 const CARD_BUILD_VERSION = "2026-03-19-11-23";
 
 const imageCache = new ImageCache();
@@ -109,6 +109,7 @@ let browseToggle = null;
 let categories = [];
 let isBrowseView = false;
 let navigationPath = []; // track position in the hierarchy [categoryIndex, subcategoryIndex]
+let trackedCardsData = { additional_card_ids: [] };
 
 // Spell and Trap race options
 const SPELL_RACES = ['Normal', 'Quick-Play', 'Continuous', 'Equip', 'Field', 'Ritual'];
@@ -136,7 +137,6 @@ async function loadAvailableLists() {
             if (listToggle) listToggle.classList.remove('hidden');
         }
 
-        // load other lists on demand
     } catch (error) {
     }
 }
@@ -162,6 +162,18 @@ async function loadCustomTags() {
     }
 }
 
+// Load tracked cards data
+async function loadTrackedCardsData() {
+    try {
+        const response = await fetch(`${DATA_BASE_URL}tracked_cards.json?v=${LIST_BUILD_VERSION}`);
+        if (response.ok) {
+            trackedCardsData = await response.json();
+        }
+    } catch (error) {
+        console.error('Failed to load tracked cards data:', error);
+    }
+}
+
 // Apply loaded tags to card objects
 function applyTagsToCards() {
     // Initialize custom_tags property for all cards
@@ -183,6 +195,9 @@ function applyTagsToCards() {
 // Toggle the browse view
 function toggleBrowseView(force = null) {
     isBrowseView = force !== null ? force : !isBrowseView;
+    
+    // Hide card usage view when browsing engine lists
+    cardUsageView.classList.add('hidden');
     
     if (isBrowseView) {
         // Reset navigation path and current list
@@ -213,7 +228,7 @@ function toggleBrowseView(force = null) {
         resetAllFilters();
         
         // Show filters, card grid, and loading sentinel
-        if (window.innerWidth >= 768) { // Only on desktop
+        if (window.innerWidth >= 768) {
             filtersSidebar.classList.remove('hidden');
         } else {
             // On mobile, keep filters hidden by default but available via toggle
@@ -385,6 +400,9 @@ function showList(listId) {
     // Hide browser and sidebar
     categoryBrowser.classList.add('hidden');
     filtersSidebar.classList.add('hidden');
+    
+    // Hide card usage view
+    cardUsageView.classList.add('hidden');
 
     // Update UI to show we're viewing a list
     searchInput.placeholder = `Search in ${listData.name}...`;
@@ -491,15 +509,23 @@ function renderAllListCards() {
 // Show all cards (exit list view)
 function showAllCards() {
     currentList = null;
+    isBrowseView = false;
+    navigationPath = [];
     searchInput.placeholder = 'Search cards...';
     
-    // Hide list info header
+    // Hide other views
     listInfoHeader.classList.add('hidden');
-
+    cardUsageView.classList.add('hidden');
+    categoryBrowser.classList.add('hidden');
+    
+    // Show main card grid and related elements
+    cardGrid.classList.remove('hidden');
+    loadingSentinel.classList.remove('hidden');
+    
     // Show sidebar on desktop
-    if (!isBrowseView && window.innerWidth >= 768) {
+    if (window.innerWidth >= 768) {
         filtersSidebar.classList.remove('hidden');
-    } else if (!isBrowseView && window.innerWidth < 768) {
+    } else {
         // On mobile, keep filters hidden by default but available via toggle
         filtersSidebar.classList.add('hidden');
     }
@@ -510,12 +536,8 @@ function showAllCards() {
         listToggle.classList.add('bg-gray-700', 'border-gray-600');
     }
 
-    // Show tag filter bar in main browsing view (not in category view)
-    if (!isBrowseView) {
-        tagFilterBar.classList.remove('hidden');
-    } else {
-        tagFilterBar.classList.add('hidden');
-    }
+    // Show tag filter bar
+    tagFilterBar.classList.remove('hidden');
 
     applyFiltersAndSort();
 }
@@ -622,6 +644,16 @@ const modalContent = document.getElementById('modal-content');
 const monsterFrameContainer = document.getElementById('monster-frame-filter-container');
 const monsterFrameFilters = document.getElementById('monster-frame-filters');
 const tagFilterBar = document.getElementById('tag-filter-bar');
+const cardUsageBtn = document.getElementById('card-usage-btn');
+const cardUsageBtnMobile = document.getElementById('card-usage-btn-mobile');
+const cardUsageView = document.getElementById('card-usage-view');
+const cardUsageTagFilters = document.getElementById('card-usage-tag-filters');
+const formatDropdown = document.getElementById('format-dropdown');
+const cardUsageTableBody = document.getElementById('card-usage-table-body');
+
+// Card usage tracking state
+let cardUsageData = {};
+let trackedCardIds = new Set();
 
 // Initialization
 async function init() {
@@ -700,6 +732,7 @@ async function init() {
         await loadAvailableLists();
         await loadCategories();
         await loadCustomTags();
+        await loadTrackedCardsData();
         
         // Ensure tag filter bar is shown in main view after tags are loaded
         if (!currentList && !isBrowseView) {
@@ -1284,12 +1317,22 @@ function setupEventListeners() {
     });
 
     // Home link - reset to main page
-    document.getElementById('home-link').addEventListener('click', (e) => {
-        e.preventDefault();
-        showAllCards();
-        searchInput.value = '';
-        searchQuery = '';
-    });
+    const homeLinkMobile = document.getElementById('home-link-mobile');
+    const homeLinkDesktop = document.getElementById('home-link');
+    
+    const setupHomeLink = (element) => {
+        if (element) {
+            element.addEventListener('click', (e) => {
+                e.preventDefault();
+                showAllCards();
+                searchInput.value = '';
+                searchQuery = '';
+            });
+        }
+    };
+    
+    setupHomeLink(homeLinkMobile);
+    setupHomeLink(homeLinkDesktop);
 
     // List toggle functionality
     if (listToggle) {
@@ -1414,6 +1457,354 @@ const handleSearchInput = debounce((value) => {
 }, 200);
 
 
+// Card Usage Tracking Functions
+function getAdditionalCardIds() {
+    return trackedCardsData.additional_card_ids || [];
+}
+
+function getTrackedCardsFromTags() {
+    const tagCards = new Set();
+    Object.values(availableTags).forEach(tag => {
+        if (['hand_trap', 'board_breaker', 'floodgates'].includes(tag.name.toLowerCase().replace(/\s+/g, '_'))) {
+            tag.card_ids.forEach(id => tagCards.add(id));
+        }
+    });
+    return tagCards;
+}
+
+function initializeTrackedCards() {
+    getAdditionalCardIds().forEach(id => trackedCardIds.add(id));
+    
+    // Add cards from the hand_trap, board_breaker, and floodgate tags
+    getTrackedCardsFromTags().forEach(id => trackedCardIds.add(id));
+}
+
+function getCurrentlyTrackedCards() {
+    const currentTracked = new Set();
+    
+    getAdditionalCardIds().forEach(id => currentTracked.add(id));
+    
+    getTrackedCardsFromTags().forEach(id => currentTracked.add(id));
+    
+    return currentTracked;
+}
+
+async function loadDecklistFormats() {
+    try {
+        // Get all format folders from the decklist_formats.json file
+        const response = await fetch(`${DATA_BASE_URL}decklist_formats.json?v=${CARD_BUILD_VERSION}`);
+        if (response.ok) {
+            const formatsData = await response.json();
+            
+            // Populate the format dropdown
+            formatDropdown.innerHTML = '<option value="">Select a format</option>';
+            formatsData.formats.forEach(format => {
+                const option = document.createElement('option');
+                option.value = format.path;
+                option.textContent = format.name;
+                formatDropdown.appendChild(option);
+            });
+            
+            // Set default format
+            let defaultFormatPath = null;
+            if (formatsData.defaultFormat) {
+                defaultFormatPath = formatsData.defaultFormat;
+            } else if (formatsData.formats.length === 1) {
+                defaultFormatPath = formatsData.formats[0].path;
+            }
+            
+            if (defaultFormatPath) {
+                formatDropdown.value = defaultFormatPath;
+                // Trigger change event to load the data for the default format
+                formatDropdown.dispatchEvent(new Event('change'));
+            }
+        } else {
+            console.error('Could not load decklist formats');
+        }
+    } catch (error) {
+        console.error('Error loading decklist formats:', error);
+    }
+}
+
+async function loadDecklistsForFormat(formatPath) {
+    try {
+        // Load the decklist formats JSON to get the decklists for the selected format
+        const response = await fetch(`${DATA_BASE_URL}decklist_formats.json?v=${CARD_BUILD_VERSION}`);
+        if (!response.ok) {
+            throw new Error('Could not load decklist formats');
+        }
+        
+        const formatsData = await response.json();
+        
+        // Find the selected format
+        const selectedFormat = formatsData.formats.find(f => f.path === formatPath);
+        if (!selectedFormat) {
+            console.error(`Format not found: ${formatPath}`);
+            return [];
+        }
+        
+        // Collect all decklists from all events in the format
+        const decklists = [];
+        selectedFormat.events.forEach(event => {
+            event.decklists.forEach(decklist => {
+                decklists.push(decklist.path);
+            });
+        });
+        
+        return decklists;
+    } catch (error) {
+        console.error(`Error loading decklists for format ${formatPath}:`, error);
+        return [];
+    }
+}
+
+async function parseDecklistFile(filePath) {
+    try {
+        const response = await fetch(`${DATA_BASE_URL}${filePath}`);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch decklist: ${response.status}`);
+        }
+        
+        const text = await response.text();
+        const lines = text.split('\n');
+        
+        let currentSection = ''; // 'main', 'extra', 'side'
+        const decklistData = {
+            main: [],
+            extra: [],
+            side: []
+        };
+        
+        for (const line of lines) {
+            const trimmedLine = line.trim();
+            
+            if (trimmedLine.startsWith('#main')) {
+                currentSection = 'main';
+            } else if (trimmedLine.startsWith('#extra')) {
+                currentSection = 'extra';
+            } else if (trimmedLine.startsWith('!side')) {
+                currentSection = 'side';
+            } else if (trimmedLine.match(/^\d+$/)) { // Line contains only digits (card ID)
+                const cardId = parseInt(trimmedLine);
+                if (!isNaN(cardId)) {
+                    if (currentSection) {
+                        decklistData[currentSection].push(cardId);
+                    }
+                }
+            }
+        }
+        
+        return decklistData;
+    } catch (error) {
+        console.error(`Error parsing decklist file ${filePath}:`, error);
+        return null;
+    }
+}
+
+function calculateCardUsageStats(decklistsData) {
+    const currentTracked = getCurrentlyTrackedCards();
+    const cardStats = new Map();
+    
+    // Initialize stats for all tracked cards that appear in at least one decklist
+    currentTracked.forEach(cardId => {
+        cardStats.set(cardId, {
+            totalLists: 0, // Number of lists where this card appears
+            totalCopies: 0, // Total copies across all lists
+            mainExtraCopies: 0, // Total copies in main/extra decks
+            sideCopies: 0, // Total copies in side decks
+        });
+    });
+    
+    // Process each decklist
+    decklistsData.forEach(decklist => {
+        // Track unique cards present in *this* decklist, for totalLists calculation
+        const uniqueCardsInDecklist = new Set();
+
+        // Process main deck
+        decklist.main.forEach(cardId => {
+            if (currentTracked.has(cardId)) {
+                const stats = cardStats.get(cardId);
+                if (stats) {
+                    stats.totalCopies++;
+                    stats.mainExtraCopies++;
+                    uniqueCardsInDecklist.add(cardId);
+                }
+            }
+        });
+        
+        // Process extra deck
+        decklist.extra.forEach(cardId => {
+            if (currentTracked.has(cardId)) {
+                const stats = cardStats.get(cardId);
+                if (stats) {
+                    stats.totalCopies++;
+                    stats.mainExtraCopies++;
+                    uniqueCardsInDecklist.add(cardId);
+                }
+            }
+        });
+        
+        // Process side deck
+        decklist.side.forEach(cardId => {
+            if (currentTracked.has(cardId)) {
+                const stats = cardStats.get(cardId);
+                if (stats) {
+                    stats.totalCopies++;
+                    stats.sideCopies++;
+                    uniqueCardsInDecklist.add(cardId);
+                }
+            }
+        });
+        
+        // Update list counts for cards that appeared in this decklist
+        uniqueCardsInDecklist.forEach(cardId => {
+            const stats = cardStats.get(cardId);
+            if (stats) {
+                stats.totalLists++; // Increment for each decklist where the card appears at least once
+            }
+        });
+    });
+    
+    // Calculate final averages and percentages
+    const finalStats = new Map();
+    cardStats.forEach((stats, cardId) => {
+        if (stats.totalLists > 0) {
+            finalStats.set(cardId, {
+                usageRate: (stats.totalLists / decklistsData.length) * 100,
+                copiesPerDecklist: stats.totalCopies / stats.totalLists,
+                mainExtraCopies: stats.mainExtraCopies / stats.totalLists,
+                sideCopies: stats.sideCopies / stats.totalLists,
+                listCount: decklistsData.length, // Total number of decklists processed
+                totalLists: stats.totalLists, // Number of lists where this card appears
+            });
+        }
+    });
+    
+    return finalStats;
+}
+
+function displayCardUsageStats(finalStats) {
+    // Clear the table
+    cardUsageTableBody.innerHTML = '';
+    
+    // Convert map to array and sort by usage rate (descending)
+    const sortedStats = Array.from(finalStats.entries())
+        .filter(([cardId, stats]) => stats.listCount > 0 && stats.totalLists > 0) // Only show cards that appear in at least one list
+        .sort((a, b) => (b[1].totalLists / b[1].listCount) - (a[1].totalLists / a[1].listCount));
+    
+    // Create table rows
+    sortedStats.forEach(([cardId, stats]) => {
+        const card = allCards.find(c => c.id === cardId);
+        if (!card) return; // Skip if card not found in our database
+        
+        const usageRate = stats.usageRate || 0;
+        const copiesPerDecklist = stats.copiesPerDecklist || 0;
+        const mainExtraAvg = stats.mainExtraCopies || 0;
+        const sideAvg = stats.sideCopies || 0;
+        
+        const row = document.createElement('tr');
+        row.className = 'hover:bg-gray-750';
+        
+        row.innerHTML = `
+            <td class="py-3 px-4">
+                <img src="${IMAGE_BASE_URL}${card.id}.webp" alt="${card.name}" class="w-12 h-16 object-contain" onerror="this.src='https://images.ygoprodeck.com/images/assets/CardBack.jpg';">
+            </td>
+            <td class="py-3 px-4 text-sm font-medium">${card.name}</td>
+            <td class="py-3 px-4 text-sm">${usageRate.toFixed(2)}% (${stats.totalLists}/${stats.listCount})</td>
+            <td class="py-3 px-4 text-sm">${copiesPerDecklist.toFixed(2)}</td>
+            <td class="py-3 px-4 text-sm">${mainExtraAvg.toFixed(2)}</td>
+            <td class="py-3 px-4 text-sm">${sideAvg.toFixed(2)}</td>
+        `;
+        
+        cardUsageTableBody.appendChild(row);
+    });
+}
+
+function showCardUsageView() {
+    // Hide other views
+    cardGrid.classList.add('hidden');
+    listInfoHeader.classList.add('hidden');
+    categoryBrowser.classList.add('hidden');
+    loadingSentinel.classList.add('hidden');
+    noResults.classList.add('hidden');
+    
+    // Show card usage view
+    cardUsageView.classList.remove('hidden');
+    
+    // Load data if a format is selected, otherwise show message
+    if (formatDropdown.value) {
+        loadCardUsageData(formatDropdown.value);
+    } else {
+        cardUsageTableBody.innerHTML = '<tr><td colspan="6" class="py-8 px-4 text-center text-gray-500">Please select a format from the dropdown to view card usage statistics</td></tr>';
+    }
+}
+
+function hideCardUsageView() {
+    // Hide card usage view
+    cardUsageView.classList.add('hidden');
+    
+    // Show main card grid
+    cardGrid.classList.remove('hidden');
+}
+
+
+// Event listeners for the card usage buttons
+cardUsageBtn?.addEventListener('click', () => {
+    showCardUsageView();
+});
+
+cardUsageBtnMobile?.addEventListener('click', () => {
+    showCardUsageView();
+});
+
+// load card usage data with loading indicator
+async function loadCardUsageData(formatPath) {
+    // Show loading state
+    cardUsageTableBody.innerHTML = '<tr><td colspan="6" class="py-8 px-4 text-center"><div class="flex flex-col items-center gap-3"><div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div><span class="text-sm text-gray-400">Loading decklists...</span></div></td></tr>';
+    
+    try {
+        // Load decklists for the selected format
+        const decklistPaths = await loadDecklistsForFormat(formatPath);
+        
+        if (decklistPaths.length === 0) {
+            cardUsageTableBody.innerHTML = '<tr><td colspan="6" class="py-8 px-4 text-center text-gray-500">No decklists found for this format</td></tr>';
+            return;
+        }
+        
+        // Process each decklist
+        const decklistsData = [];
+        for (const decklistPath of decklistPaths) {
+            const decklistData = await parseDecklistFile(decklistPath);
+            if (decklistData) {
+                decklistsData.push(decklistData);
+            }
+        }
+        
+        if (decklistsData.length === 0) {
+            cardUsageTableBody.innerHTML = '<tr><td colspan="6" class="py-8 px-4 text-center text-gray-500">No valid decklists found</td></tr>';
+            return;
+        }
+        
+        // Calculate and display stats
+        const cardStats = calculateCardUsageStats(decklistsData);
+        displayCardUsageStats(cardStats);
+    } catch (error) {
+        console.error('Error processing decklists:', error);
+        cardUsageTableBody.innerHTML = '<tr><td colspan="6" class="py-8 px-4 text-center text-red-500">Error loading decklist data: ' + error.message + '</td></tr>';
+    }
+}
+
+// Event listener for the format dropdown
+formatDropdown?.addEventListener('change', async (e) => {
+    const selectedFormat = e.target.value;
+    if (!selectedFormat) {
+        cardUsageTableBody.innerHTML = '<tr><td colspan="6" class="py-8 px-4 text-center text-gray-500">Please select a format</td></tr>';
+        return;
+    }
+    
+    await loadCardUsageData(selectedFormat);
+});
+
 // Periodic cache maintenance
 setInterval(() => {
   imageCache.clearExpired();
@@ -1454,7 +1845,7 @@ function initImageObserver() {
       }
     });
   }, {
-    rootMargin: '200px', // Start loading when 200px away from viewport
+    rootMargin: '200px', // Start loading when 2000px away from viewport
     threshold: 0.1
   });
 }
@@ -1479,26 +1870,26 @@ function createCardElement(card, index) {
       <div class="card-image-wrapper relative aspect-[0.68] overflow-visible rounded-lg bg-gradient-to-br from-gray-700 to-gray-800">
           <img src="${finalImgSrc}"
                ${shouldLazyLoad ? `data-src="${dataSrc}"` : ''}
-               data-card-id="${card.id}"
-               alt="${card.name}"
-               decoding="async"
-               loading="lazy"
-               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                data-card-id="${card.id}"
+                alt="${card.name}"
+                decoding="async"
+                loading="lazy"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
 
-          ${points > 0 ? `<div class="points-badge absolute -top-3 -right-3 px-3 py-1 rounded-md text-white font-bold text-sm z-10 shadow-lg">
-              ${points}
-          </div>` : ''}
+           ${points > 0 ? `<div class="points-badge absolute -top-3 -right-3 px-3 py-1 rounded-md text-white font-bold text-sm z-10 shadow-lg">
+               ${points}
+           </div>` : ''}
 
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-3">
-              <p class="text-xs font-medium text-blue-400 uppercase tracking-tighter">${card.type}</p>
-              <p class="text-sm font-bold truncate">${card.name}</p>
-          </div>
-      </div>
-      <div class="card-info mt-2 hidden">
-          <h3 class="font-bold text-sm truncate">${card.name}</h3>
-          <p class="text-xs text-gray-500">${card.type} • ${card.race}</p>
-      </div>
-  `;
+           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-3">
+               <p class="text-xs font-medium text-blue-400 uppercase tracking-tighter">${card.type}</p>
+               <p class="text-sm font-bold truncate">${card.name}</p>
+           </div>
+       </div>
+       <div class="card-info mt-2 hidden">
+           <h3 class="font-bold text-sm truncate">${card.name}</h3>
+           <p class="text-xs text-gray-500">${card.type} • ${card.race}</p>
+       </div>
+   `;
 
   // Set up lazy loading for uncached images
   if (shouldLazyLoad) {
@@ -1594,4 +1985,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Listen for resize events to handle orientation changes and window resizing
     window.addEventListener('resize', handleResize);
+    
+    // Initialize card usage tracking after app initialization
+    initializeTrackedCards();
+    loadDecklistFormats();
 });

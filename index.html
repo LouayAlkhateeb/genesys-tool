@@ -17,7 +17,7 @@
                                 <div class="flex flex-col space-y-2">
                                     <!-- Title -->
                                     <div class="flex items-center">
-                                        <a href="#" id="home-link" class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent hover:opacity-80 transition-opacity whitespace-nowrap">
+                                        <a href="#" id="home-link-mobile" class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent hover:opacity-80 transition-opacity whitespace-nowrap py-1 px-2 -mx-2">
                                             GENESYS TOOL
                                         </a>
                                     </div>
@@ -36,6 +36,9 @@
                                     <div class="text-xs text-gray-500">
                                         Last Points Update: Mar 5
                                     </div>
+                                    <button id="card-usage-btn-mobile" class="card-usage-btn px-4 py-2 rounded-lg font-bold text-sm transition-all duration-300 shadow-lg">
+                                        📊 Card Usage Stats
+                                    </button>
                                 </div>
                             </div>
             
@@ -43,7 +46,7 @@
                             <div class="hidden md:flex flex-col space-y-2 lg:col-span-1">
                                 <!-- Title -->
                                 <div class="flex items-center">
-                                    <a href="#" id="home-link" class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent hover:opacity-80 transition-opacity whitespace-nowrap">
+                                    <a href="#" id="home-link" class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent hover:opacity-80 transition-opacity whitespace-nowrap py-1 px-2 -mx-2">
                                         GENESYS TOOL
                                     </a>
                                 </div>
@@ -73,15 +76,18 @@
                                 </div>
                             </div>
             
-                            <!-- Desktop/Tablet: Stats -->
+                            <!-- Desktop/Tablet: Stats and Card Usage Button -->
                             <div class="hidden md:flex flex-col space-y-2 lg:col-span-1">
                                 <!-- Stats -->
-                                <div class="flex justify-end">
+                                <div class="flex flex-col justify-end">
                                     <div id="stats" class="text-sm text-gray-400 italic whitespace-nowrap text-right">Loading index...</div>
+                                    <div class="text-xs text-gray-500 text-right">Last Points Update: Mar 5</div>
                                 </div>
-                                <!-- Last update -->
-                                <div class="text-xs text-gray-500 text-right">
-                                    Last Points Update: Mar 5
+                                <!-- Card Usage Button -->
+                                <div class="flex justify-end space-x-2">
+                                    <button id="card-usage-btn" class="card-usage-btn px-4 py-2 rounded-lg font-bold text-sm transition-all duration-300 shadow-lg">
+                                        📊 Card Usage Stats
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -179,6 +185,39 @@
                 <div id="category-buttons" class="flex flex-col gap-3"></div>
             </div>
 
+            <!-- Card Usage View -->
+            <div id="card-usage-view" class="hidden">
+                <div class="mb-6">
+                    <div id="card-usage-tag-filters" class="flex flex-wrap gap-2 mb-4">
+                        <!-- Tag filters will be populated by JavaScript -->
+                    </div>
+                    <div class="flex flex-wrap gap-4 items-center">
+                        <label for="format-dropdown" class="text-sm font-medium text-gray-300">Format:</label>
+                        <select id="format-dropdown" class="bg-gray-700 border border-gray-600 rounded p-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
+                            <option value="">Select a format</option>
+                            <!-- Options will be populated by JavaScript -->
+                        </select>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-gray-800 rounded-lg overflow-hidden">
+                        <thead class="bg-gray-700">
+                            <tr>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-300">Card</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-300">Name</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-300">Usage Rate</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-300">Copies Per Decklist</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-300">Copies in Main/Extra</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-300">Copies in Side</th>
+                            </tr>
+                        </thead>
+                        <tbody id="card-usage-table-body" class="divide-y divide-gray-700">
+                            <!-- Table rows will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
             <div id="card-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
             </div>
             <div id="loading-sentinel" class="h-20 flex items-center justify-center mt-8">

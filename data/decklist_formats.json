@@ -112,6 +112,20 @@
               "path": "decklists/Maze of Muertos - March 5th update/UK Open Genesys Challenge/Toy White Forest.txt"
             }
           ]
+        },
+        {
+          "name": "Genesys Celebration Copenhagen",
+          "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Copenhagen",
+          "decklists": [
+            {
+              "name": "Branded Blue-Eyes Dracotail",
+              "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Copenhagen/Magnet Warrior.txt"
+            },
+            {
+              "name": "Hecahands Chimera",
+              "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Copenhagen/Odion.txt"
+            }
+          ]
         }
       ]
     }

@@ -1,0 +1,5 @@
+{
+  "name": "Allure Queen",
+  "description": "3x Allure Dance\n1-3x Allure Palace\n2x Chaos Allure Queen\n1x Allure Queen LV3\n1x any Level 3 Spellcaster Tuner with ATK <= 1500\nOR\n1x Allure Queen LV5\n1x any Level 1 Spellcaster Tuner with ATK <= 1500\n**does NOT require a normal summon",
+  "card_ids": [68316358, 31322640, 29925614, 87257460, 73979030, 23756165, 54941203, 97268402]
+}

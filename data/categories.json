@@ -112,6 +112,7 @@
         "lists": [
           { "id": "driver-l4", "name": "Lefty/Righty Driver" },
           { "id": "deep-sea-diva-l4", "name": "Deep Sea Diva" },
+          { "id": "allure-l4", "name": "Allure Queen" },
           { "id": "melffy", "name": "Melffy" }    
         ]
       },
@@ -120,6 +121,7 @@
         "lists": [
           { "id": "elfnote-l5", "name": "Elfnote"},
           { "id": "driver-l5", "name": "Lefty/Righty Driver" },
+          { "id": "allure-l5", "name": "Allure Queen" },
           {"id": "deep-sea-diva-l5", "name": "Deep Sea Diva" }
         ]
       },
@@ -130,7 +132,8 @@
           { "id": "white-forest-l6", "name": "White Forest" },
           { "id": "supay", "name": "Supay" },
           { "id": "assault-l6", "name": "Assault Mode" },
-          { "id": "driver-l6", "name": "Lefty/Righty Driver" }
+          { "id": "driver-l6", "name": "Lefty/Righty Driver" },
+          { "id": "allure-l6", "name": "Allure Queen" }
         ]
       },
       {
@@ -138,7 +141,8 @@
         "lists": [
           { "id": "elfnote-l7", "name": "Elfnote" },
           { "id": "assault-l7", "name": "Assault Mode" },
-          { "id": "deep-sea-diva-l7", "name": "Deep Sea Diva" }
+          { "id": "deep-sea-diva-l7", "name": "Deep Sea Diva" },
+          { "id": "allure-l7", "name": "Allure Queen" }
         ]
       },
       {
@@ -151,13 +155,15 @@
           { "id": "assault-l8", "name": "Assault Mode" },
           { "id": "sentinel-lich", "name": "Assault Sentinel/Lich" },
           { "id": "punk-l8", "name": "P.U.N.K." },
-          { "id": "deep-sea-diva-l8", "name": "Deep Sea Diva" }
+          { "id": "deep-sea-diva-l8", "name": "Deep Sea Diva" },
+          { "id": "allure-l8", "name": "Allure Queen" }
         ]
       },
       {
         "name": "Lvl 9 Synchro Engines",
         "lists": [
-          { "id": "assault-l9", "name": "Assault Mode" }
+          { "id": "assault-l9", "name": "Assault Mode" },
+          { "id": "allure-l9", "name": "Allure Queen" }
         ]
       }
     ]

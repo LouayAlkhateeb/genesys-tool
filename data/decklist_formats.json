@@ -118,12 +118,58 @@
           "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Copenhagen",
           "decklists": [
             {
-              "name": "Branded Blue-Eyes Dracotail",
+              "name": "Magnet Warrior",
               "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Copenhagen/Magnet Warrior.txt"
             },
             {
-              "name": "Hecahands Chimera",
+              "name": "Odion",
               "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Copenhagen/Odion.txt"
+            }
+          ]
+        },
+        {
+          "name": "Genesys Celebration Spanish Fork",
+          "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Spanish Fork",
+          "decklists": [
+            {
+              "name": "Dogmatika Despia Branded",
+              "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Spanish Fork/Dogmatika Despia Branded.txt"
+            },
+            {
+              "name": "DoomZ",
+              "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Spanish Fork/DoomZ.txt"
+            }
+          ]
+        },
+        {
+          "name": "Genesys Celebration Braunschweig",
+          "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Braunschweig",
+          "decklists": [
+            {
+              "name": "Artmage",
+              "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Braunschweig/Artmage.txt"
+            },
+            {
+              "name": "Kewl Tune",
+              "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Braunschweig/Kewl Tune.txt"
+            },
+            {
+              "name": "Magnet Warrior (1)",
+              "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Braunschweig/Magnet Warrior (1).txt"
+            },
+            {
+              "name": "Magnet Warrior",
+              "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Braunschweig/Magnet Warrior.txt"
+            }
+          ]
+        },
+        {
+          "name": "Edinburgh Genesys Celebration",
+          "path": "decklists/Maze of Muertos - March 5th update/Edinburgh Genesys Celebration",
+          "decklists": [
+            {
+              "name": "Armed Dragon Dragon Ruler",
+              "path": "decklists/Maze of Muertos - March 5th update/Edinburgh Genesys Celebration/Armed Dragon Dragon Ruler.txt"
             }
           ]
         }

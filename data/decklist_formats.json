@@ -1,5 +1,5 @@
 {
-  "defaultFormat": "decklists/Maze of Muertos - March 5th update",
+  "defaultFormat": "decklists/Blaze of Dominion - April 30th update",
   "formats": [
     {
       "name": "Maze of Muertos - March 5th update",
@@ -170,6 +170,192 @@
             {
               "name": "Armed Dragon Dragon Ruler",
               "path": "decklists/Maze of Muertos - March 5th update/Edinburgh Genesys Celebration/Armed Dragon Dragon Ruler.txt"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Blaze of Dominion - April 30th update",
+      "path": "decklists/Blaze of Dominion - April 30th update",
+      "events": [
+        {
+          "name": "Austrian Nationals",
+          "path": "decklists/Blaze of Dominion - April 30th update/Austrian Nationals",
+          "decklists": [
+            {
+              "name": "Magnet Warrior",
+              "path": "decklists/Blaze of Dominion - April 30th update/Austrian Nationals/Magnet Warrior.txt"
+            },
+            {
+              "name": "Elfnote Crystron",
+              "path": "decklists/Blaze of Dominion - April 30th update/Austrian Nationals/Elfnote Crystron.txt"
+            },
+            {
+              "name": "Magnet Warrior",
+              "path": "decklists/Blaze of Dominion - April 30th update/Austrian Nationals/Atlantean Ice Barrier.txt"
+            }
+          ]
+        },
+        {
+          "name": "Irish Nationals",
+          "path": "decklists/Blaze of Dominion - April 30th update/Irish Nationals",
+          "decklists": [
+            {
+              "name": "Chimera Hecahands",
+              "path": "decklists/Blaze of Dominion - April 30th update/Irish Nationals/Chimera Hecahands.txt"
+            },
+            {
+              "name": "Exosister",
+              "path": "decklists/Blaze of Dominion - April 30th update/Irish Nationals/Exosister.txt"
+            }
+          ]
+        },
+        {
+          "name": "Richmond WCQ Regional",
+          "path": "decklists/Blaze of Dominion - April 30th update/Richmond WCQ Regional",
+          "decklists": [
+            {
+              "name": "Monarch",
+              "path": "decklists/Blaze of Dominion - April 30th update/Richmond WCQ Regional/Monarch.txt"
+            }
+          ]
+        },
+        {
+          "name": "Salem WCQ Regional",
+          "path": "decklists/Blaze of Dominion - April 30th update/Salem WCQ Regional",
+          "decklists": [
+            {
+              "name": "Kewl Tune",
+              "path": "decklists/Blaze of Dominion - April 30th update/Salem WCQ Regional/Kewl Tune.txt"
+            }
+          ]
+        },
+        {
+          "name": "YCS Columbus (Genesys)",
+          "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)",
+          "decklists": [
+            {
+              "name": "Chimera Hecahands",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Chimera Hecahands.txt"
+            },
+            {
+              "name": "Clown Crew(1)",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Clown Crew(1).txt"
+            },
+            {
+              "name": "Clown Crew(2)",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Clown Crew(2).txt"
+            },
+            {
+              "name": "Dark_Timelord Exodia",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Dark_Timelord Exodia.txt"
+            },
+            {
+              "name": "Darklord",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Darklord.txt"
+            },
+            {
+              "name": "Eldlich Artmage",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Eldlich Artmage.txt"
+            },
+            {
+              "name": "Exosister",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Exosister.txt"
+            },
+            {
+              "name": "HERO",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/HERO.txt"
+            },
+            {
+              "name": "Jurrac GMX",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Jurrac GMX.txt"
+            },
+            {
+              "name": "Kewl Tune Elfnote",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Kewl Tune Elfnote.txt"
+            },
+            {
+              "name": "Kewl Tune",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Kewl Tune.txt"
+            },
+            {
+              "name": "Lyrilusc Mimighoul",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Lyrilusc Mimighoul.txt"
+            },
+            {
+              "name": "Magnet Warrior DoomZ",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Magnet Warrior DoomZ.txt"
+            },
+            {
+              "name": "Mimighoul",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Mimighoul.txt"
+            },
+            {
+              "name": "Monarch(1)",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Monarch(1).txt"
+            },
+            {
+              "name": "Monarch(2)",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Monarch(2).txt"
+            },
+            {
+              "name": "Predaplant",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Predaplant.txt"
+            },
+            {
+              "name": "Purrely",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Purrely.txt"
+            },
+            {
+              "name": "Radiant Typhoon (1)",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Radiant Typhoon (1).txt"
+            },
+            {
+              "name": "Radiant Typhoon (2)",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Radiant Typhoon (2).txt"
+            },
+            {
+              "name": "Radiant Typhoon",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Radiant Typhoon.txt"
+            },
+            {
+              "name": "Red Dragon Archfiend (1)",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Red Dragon Archfiend (1).txt"
+            },
+            {
+              "name": "Red Dragon Archfiend",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Red Dragon Archfiend.txt"
+            },
+            {
+              "name": "Regenesis Voiceless Voice",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Regenesis Voiceless Voice.txt"
+            },
+            {
+              "name": "Super Quant",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Super Quant.txt"
+            },
+            {
+              "name": "Vanquish Soul",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Vanquish Soul.txt"
+            }
+          ]
+        },
+        {
+          "name": "Victoria State Championships",
+          "path": "decklists/Blaze of Dominion - April 30th update/Victoria State Championships",
+          "decklists": [
+            {
+              "name": "_Assault Mode Elfnote",
+              "path": "decklists/Blaze of Dominion - April 30th update/Victoria State Championships/_Assault Mode Elfnote.txt"
+            },
+            {
+              "name": "Odion",
+              "path": "decklists/Blaze of Dominion - April 30th update/Victoria State Championships/Odion.txt"
+            },
+            {
+              "name": "Runick Clown Crew",
+              "path": "decklists/Blaze of Dominion - April 30th update/Victoria State Championships/Runick Clown Crew.txt"
             }
           ]
         }

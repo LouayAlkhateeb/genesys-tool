@@ -236,6 +236,10 @@
           "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)",
           "decklists": [
             {
+              "name": "Centur-Ion Elfnote",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Centur-Ion Elfnote.txt"
+            },
+            {
               "name": "Chimera Hecahands",
               "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Chimera Hecahands.txt"
             },
@@ -300,6 +304,14 @@
               "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Monarch(2).txt"
             },
             {
+              "name": "Monarch (3)",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Monarch (3).txt"
+            },
+            {
+              "name": "Odion",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Odion.txt"
+            },
+            {
               "name": "Predaplant",
               "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Predaplant.txt"
             },
@@ -320,12 +332,24 @@
               "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Radiant Typhoon.txt"
             },
             {
+              "name": "Radiant Typhoon (3)",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Radiant Typhoon (3).txt"
+            },
+            {
               "name": "Red Dragon Archfiend (1)",
               "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Red Dragon Archfiend (1).txt"
             },
             {
               "name": "Red Dragon Archfiend",
               "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Red Dragon Archfiend.txt"
+            },
+            {
+              "name": "Red Dragon Archfiend (3)",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Red Dragon Archfiend (3).txt"
+            },
+            {
+              "name": "Red Dragon Archfiend (4)",
+              "path": "decklists/Blaze of Dominion - April 30th update/YCS Columbus (Genesys)/Red Dragon Archfiend (4).txt"
             },
             {
               "name": "Regenesis Voiceless Voice",

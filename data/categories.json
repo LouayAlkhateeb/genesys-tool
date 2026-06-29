@@ -40,6 +40,7 @@
       {
         "name": "Rank 4 Engines",
         "lists": [
+          { "id": "hero-r4", "name": "Hero R4"},
           { "id": "sharks", "name": "Sharks" },
           { "id": "dragluxion", "name": "Dragluxion" },
           { "id": "magnet-warrior", "name": "Magnet Warrior" },
@@ -128,6 +129,7 @@
       {
         "name": "Lvl 6 Synchro Engines",
         "lists": [
+          {"id": "junk-l6", "name": "Junk Level 6 Synchro"},
           { "id": "earthbound-l6", "name": "Earthbound" },
           { "id": "white-forest-l6", "name": "White Forest" },
           { "id": "supay", "name": "Supay" },
@@ -139,6 +141,7 @@
       {
         "name": "Lvl 7 Synchro Engines",
         "lists": [
+          {"id": "junk-l7", "name": "Junk Level 7 Synchro"},
           { "id": "elfnote-l7", "name": "Elfnote" },
           { "id": "assault-l7", "name": "Assault Mode" },
           { "id": "deep-sea-diva-l7", "name": "Deep Sea Diva" },
@@ -148,6 +151,7 @@
       {
         "name": "Lvl 8 Synchro Engines",
         "lists": [
+          {"id": "junk-l8", "name": "Junk Level 8 Synchro"},
           { "id": "centurion", "name": "Centurion" },
           { "id": "earthbound-l8", "name": "Earthbound/Elzette"},
           { "id": "elfnote-l8", "name": "Elfnote" },

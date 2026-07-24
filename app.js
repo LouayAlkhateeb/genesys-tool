@@ -32,7 +32,7 @@ const IMAGE_BASE_URL = 'https://ik.imagekit.io/louaykh/cards/';
 //const IMAGE_BASE_URL = 'https://images.ygoprodeck.com/images/cards_small/';
 const DATA_BASE_URL = './data/';
 
-const LIST_BUILD_VERSION = "2026-06-28-23-11";
+const LIST_BUILD_VERSION = "2026-07-24-20-52";
 const CARD_BUILD_VERSION = "2026-06-28-23-11";
 
 const imageCache = new ImageCache();

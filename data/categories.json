@@ -207,5 +207,15 @@
         ]
       }
     ]
+  },
+  {"name": "Miscellaneous",
+  "subcategories": [
+    {
+      "name": "Field Spell Engines",
+      "lists": [
+        { "id": "sorcerer-of-the-swamp", "name": "Sorcerer of the Swamp"}
+      ]
+    }
+  ]
   }
 ]

@@ -195,6 +195,7 @@ function applyTagsToCards() {
 
 // Toggle the browse view
 function toggleBrowseView(force = null) {
+    if (isDeckBuilder) exitDeckBuilder();
     isBrowseView = force !== null ? force : !isBrowseView;
     
     // Hide card usage view when browsing engine lists
@@ -215,10 +216,6 @@ function toggleBrowseView(force = null) {
         // Show category browser
         categoryBrowser.classList.remove('hidden');
         
-        // Update browse toggle button state
-        browseToggleBtn.classList.add('bg-blue-600', 'border-blue-400', 'shadow-lg', 'shadow-blue-500/30');
-        browseToggleBtn.classList.remove('bg-gray-700', 'border-gray-600');
-        
         renderCategoryBrowser();
     } else {
         // Reset to main view
@@ -237,11 +234,9 @@ function toggleBrowseView(force = null) {
         }
         cardGrid.classList.remove('hidden');
         loadingSentinel.classList.remove('hidden');
-        
-        // Update browse toggle button state
-        browseToggleBtn.classList.remove('bg-blue-600', 'border-blue-400', 'shadow-lg', 'shadow-blue-500/30');
-        browseToggleBtn.classList.add('bg-gray-700', 'border-gray-600');
     }
+
+    updateNavButtonStates();
 }
 
 // Render the category browser content based on current navigationPath
@@ -480,6 +475,8 @@ function showList(listId) {
     if (statsMobileEl) {
         statsMobileEl.textContent = `${filteredCards.length} cards in "${listData.name}"`;
     }
+
+    updateNavButtonStates();
 }
 
 // Render all cards from the current list
@@ -495,17 +492,6 @@ function renderAllListCards() {
     // Update displayed count to prevent infinite scroll from re-rendering
     displayedCount = filteredCards.length;
     loadingSentinel.classList.add('hidden');
-
-    // Update list toggle button appearance - active state
-    if (listToggle) {
-        if (currentList === '0-point-staples') {
-            listToggle.classList.add('bg-blue-600', 'border-blue-400', 'shadow-lg', 'shadow-blue-500/30');
-            listToggle.classList.remove('bg-gray-700', 'border-gray-600');
-        } else {
-            listToggle.classList.remove('bg-blue-600', 'border-blue-400', 'shadow-lg', 'shadow-blue-500/30');
-            listToggle.classList.add('bg-gray-700', 'border-gray-600');
-        }
-    }
 }
 
 // Show all cards (exit list view)
@@ -533,15 +519,10 @@ function showAllCards() {
         filtersSidebar.classList.add('hidden');
     }
 
-    // Update list toggle button appearance - inactive state
-    if (listToggle) {
-        listToggle.classList.remove('bg-blue-600', 'border-blue-400', 'shadow-lg', 'shadow-blue-500/30');
-        listToggle.classList.add('bg-gray-700', 'border-gray-600');
-    }
-
     // Show tag filter bar
     tagFilterBar.classList.remove('hidden');
 
+    updateNavButtonStates();
     applyFiltersAndSort();
 }
 
@@ -658,6 +639,31 @@ const cardUsageView = document.getElementById('card-usage-view');
 const cardUsageTagFilters = document.getElementById('card-usage-tag-filters');
 const formatDropdown = document.getElementById('format-dropdown');
 const cardUsageTableBody = document.getElementById('card-usage-table-body');
+
+// Sync nav button active states with the current view
+function updateNavButtonStates() {
+    const inDeckBuilder = isDeckBuilder;
+    const inCardUsage = !cardUsageView.classList.contains('hidden');
+    const browseActive = isBrowseView && !inDeckBuilder && !inCardUsage;
+    const staplesActive = currentList === '0-point-staples' && !inDeckBuilder && !inCardUsage;
+
+    if (browseToggleBtn) {
+        browseToggleBtn.classList.toggle('bg-blue-600', browseActive);
+        browseToggleBtn.classList.toggle('border-blue-400', browseActive);
+        browseToggleBtn.classList.toggle('shadow-lg', browseActive);
+        browseToggleBtn.classList.toggle('shadow-blue-500/30', browseActive);
+        browseToggleBtn.classList.toggle('bg-gray-700', !browseActive);
+        browseToggleBtn.classList.toggle('border-gray-600', !browseActive);
+    }
+    if (listToggle) {
+        listToggle.classList.toggle('bg-blue-600', staplesActive);
+        listToggle.classList.toggle('border-blue-400', staplesActive);
+        listToggle.classList.toggle('shadow-lg', staplesActive);
+        listToggle.classList.toggle('shadow-blue-500/30', staplesActive);
+        listToggle.classList.toggle('bg-gray-700', !staplesActive);
+        listToggle.classList.toggle('border-gray-600', !staplesActive);
+    }
+}
 
 // Card usage tracking state
 let cardUsageData = {};
@@ -1374,6 +1380,7 @@ function setupEventListeners() {
             categoryBrowser.classList.remove('hidden');
             currentList = null;
             renderCategoryBrowser();
+            updateNavButtonStates();
         });
     }
 
@@ -1752,7 +1759,9 @@ function showCardUsageView() {
     
     // Show card usage view
     cardUsageView.classList.remove('hidden');
-    
+
+    updateNavButtonStates();
+
     // Load data if a format is selected, otherwise show message
     if (formatDropdown.value) {
         loadCardUsageData(formatDropdown.value);
@@ -2117,7 +2126,10 @@ function enterDeckBuilder() {
     if (mainEl) {
         mainEl.style.overflow = 'hidden';
         mainEl.style.position = 'relative';
+        mainEl.style.scrollbarGutter = 'auto';
     }
+
+    updateNavButtonStates();
 
     loadAllChunks();
 }
@@ -2138,6 +2150,7 @@ function exitDeckBuilder() {
         wrapper.style.marginLeft = '';
         wrapper.style.overflow = '';
         wrapper.style.position = '';
+        wrapper.style.scrollbarGutter = '';
     }
 
     saveDeck();

@@ -80,6 +80,7 @@ async function debugFileAccess() {
 
 // State
 let allCards = [];
+let cardMap = new Map();
 let filteredCards = [];
 let displayedCount = 0;
 let viewMode = 'grid'; // 'grid' or 'list'
@@ -394,6 +395,7 @@ function resetAllFilters() {
 
 // Show a specific list
 function showList(listId) {
+    if (isDeckBuilder) exitDeckBuilder();
     currentList = listId;
     const listData = availableLists[listId];
 
@@ -508,6 +510,7 @@ function renderAllListCards() {
 
 // Show all cards (exit list view)
 function showAllCards() {
+    if (isDeckBuilder) exitDeckBuilder();
     currentList = null;
     isBrowseView = false;
     navigationPath = [];
@@ -549,15 +552,20 @@ let recentlyViewedChunks = new Set(); // Track recently accessed chunks
 // Cache expiration time
 const CACHE_EXPIRATION_TIME = 30 * 60 * 1000;
 
-// Enhanced cache entry with timestamp
+// Enhanced cache entry with timestamp and version
 class CacheEntry {
-    constructor(data, timestamp = Date.now()) {
+    constructor(data, version, timestamp = Date.now()) {
         this.data = data;
+        this.version = version;
         this.timestamp = timestamp;
     }
     
     isExpired() {
         return (Date.now() - this.timestamp) > CACHE_EXPIRATION_TIME;
+    }
+
+    isValid(currentVersion) {
+        return this.version === currentVersion && !this.isExpired();
     }
 }
 
@@ -595,12 +603,12 @@ async function preloadChunks() {
     for (const chunkFile of limitedChunks) {
         // Check if cache entry exists and is not expired
         const cacheEntry = chunkCache.get(chunkFile);
-        if (!cacheEntry || cacheEntry.isExpired()) {
+        if (!cacheEntry || !cacheEntry.isValid(CARD_BUILD_VERSION)) {
             try {
                 const response = await fetch(`${chunkFile}?v=${CARD_BUILD_VERSION}`);
                 if (response.ok) {
                     const chunk = await response.json();
-                    chunkCache.set(chunkFile, new CacheEntry(chunk));
+                    chunkCache.set(chunkFile, new CacheEntry(chunk, CARD_BUILD_VERSION));
                 }
             } catch (error) {
             }
@@ -710,6 +718,7 @@ async function init() {
             genesys_points: card.g, // genesys_points
             location: card.loc // location
         }));
+        cardMap = new Map(allCards.map(c => [c.id, c]));
 
         setupCardTypeFilters();
         setupLevels(levels);
@@ -1250,7 +1259,7 @@ async function showCardDetails(card) {
             chunk = await response.json();
             
             // Cache the chunk for future use with timestamp
-            chunkCache.set(chunkPath, new CacheEntry(chunk));
+            chunkCache.set(chunkPath, new CacheEntry(chunk, CARD_BUILD_VERSION));
             
             // Trigger additional prefetching after loading a new chunk
             setTimeout(() => {
@@ -1733,6 +1742,7 @@ function displayCardUsageStats(finalStats) {
 }
 
 function showCardUsageView() {
+    if (isDeckBuilder) exitDeckBuilder();
     // Hide other views
     cardGrid.classList.add('hidden');
     listInfoHeader.classList.add('hidden');
@@ -1987,6 +1997,1382 @@ function handleResize() {
     
     lucide.createIcons();
 }
+
+// ==================== DECK BUILDER ====================
+
+const THUMBNAIL_BASE_URL = 'https://ik.imagekit.io/louaykh/cards/thumbnails/';
+
+let isDeckBuilder = false;
+let fullCardDataMap = new Map();
+let currentDeck = { main: [], extra: [], side: [] };
+let deckbuilderSearchQuery = '';
+let deckbuilderSortMode = 'name-asc';
+let deckbuilderFilteredCards = [];
+let deckSortMode = 'default';
+let isLoadingChunks = false;
+let chunksFullyLoaded = false;
+let dbActiveFilters = { cardType: null, attributes: new Set(), frames: new Set(), races: new Set(), levels: new Set(), tags: new Set(), staplesOnly: false, spellTypes: new Set(), trapTypes: new Set(), pointsMin: null, pointsMax: null, atkMin: null, atkMax: null, defMin: null, defMax: null };
+let dbDescTerms = [];
+let dbDefaultCardOrder = [];
+let deckBuilderEventsSetup = false;
+
+function getDBEl(id) {
+    return document.getElementById(id);
+}
+
+function getDBElements() {
+    return {
+        view: getDBEl('deckbuilder-view'),
+        loading: getDBEl('deckbuilder-loading'),
+        loadingProgress: getDBEl('deckbuilder-loading-progress'),
+        loadingTotal: getDBEl('deckbuilder-loading-total'),
+        loadingBar: getDBEl('deckbuilder-loading-bar'),
+        content: getDBEl('deckbuilder-content'),
+        backBtn: getDBEl('deckbuilder-back-btn'),
+        toggleBtn: getDBEl('deckbuilder-toggle'),
+        previewPanel: getDBEl('deckbuilder-preview-panel'),
+        previewEmpty: getDBEl('deckbuilder-preview-empty'),
+        previewContent: getDBEl('deckbuilder-preview-content'),
+        previewImage: getDBEl('deckbuilder-preview-image'),
+        previewName: getDBEl('deckbuilder-preview-name'),
+        previewType: getDBEl('deckbuilder-preview-type'),
+        previewPoints: getDBEl('deckbuilder-preview-points'),
+        previewAttribute: getDBEl('deckbuilder-preview-attribute'),
+        previewRace: getDBEl('deckbuilder-preview-race'),
+        previewLevel: getDBEl('deckbuilder-preview-level'),
+        previewStats: getDBEl('deckbuilder-preview-stats'),
+        previewAtk: getDBEl('deckbuilder-preview-atk'),
+        previewDef: getDBEl('deckbuilder-preview-def'),
+        previewDesc: getDBEl('deckbuilder-preview-desc'),
+        searchInput: getDBEl('deckbuilder-search-input'),
+        searchResults: getDBEl('deckbuilder-search-results'),
+        searchEmpty: getDBEl('deckbuilder-search-empty'),
+        filterBtn: getDBEl('deckbuilder-filter-btn'),
+        filterModal: getDBEl('deckbuilder-filter-modal'),
+        filterApply: getDBEl('deckbuilder-filter-apply'),
+        filterReset: getDBEl('deckbuilder-filter-reset'),
+        addTermBtn: getDBEl('deckbuilder-add-term'),
+        descTerms: getDBEl('deckbuilder-desc-terms'),
+        sortSelect: getDBEl('db-sort-select'),
+        dbCardTypeRadios: document.querySelectorAll('input[name="db-card-type"]'),
+        mainCount: getDBEl('deckbuilder-main-count'),
+        mainPoints: getDBEl('deckbuilder-main-points'),
+        mainGrid: getDBEl('deckbuilder-main-grid'),
+        extraCount: getDBEl('deckbuilder-extra-count'),
+        extraPoints: getDBEl('deckbuilder-extra-points'),
+        extraGrid: getDBEl('deckbuilder-extra-grid'),
+        sideCount: getDBEl('deckbuilder-side-count'),
+        sidePoints: getDBEl('deckbuilder-side-points'),
+        sideGrid: getDBEl('deckbuilder-side-grid'),
+        totalCards: getDBEl('deckbuilder-total-cards'),
+        totalPts: getDBEl('deckbuilder-total-pts'),
+        exportBtn: getDBEl('deckbuilder-export-btn'),
+        exportDropdown: getDBEl('deckbuilder-export-dropdown'),
+        exportYdk: getDBEl('deckbuilder-export-ydk'),
+        exportYdke: getDBEl('deckbuilder-export-ydke'),
+        exportTxt: getDBEl('deckbuilder-export-txt'),
+        clearBtn: getDBEl('deckbuilder-clear-btn'),
+        sortBtn: getDBEl('deckbuilder-sort-btn'),
+        sortDropdown: getDBEl('deckbuilder-sort-dropdown'),
+        sortType: getDBEl('deckbuilder-sort-type'),
+        sortName: getDBEl('deckbuilder-sort-name'),
+        mobilePreview: getDBEl('deckbuilder-mobile-preview'),
+        mobilePreviewClose: getDBEl('db-mobile-preview-close'),
+        mobilePreviewImage: getDBEl('db-mobile-preview-image'),
+        mobilePreviewName: getDBEl('db-mobile-preview-name'),
+        mobilePreviewType: getDBEl('db-mobile-preview-type'),
+        mobilePreviewPoints: getDBEl('db-mobile-preview-points'),
+        mobilePreviewAttribute: getDBEl('db-mobile-preview-attribute'),
+        mobilePreviewRace: getDBEl('db-mobile-preview-race'),
+        mobilePreviewDesc: getDBEl('db-mobile-preview-desc'),
+    };
+}
+
+function enterDeckBuilder() {
+    const els = getDBElements();
+    if (isDeckBuilder) return;
+    isDeckBuilder = true;
+
+    const fs = document.getElementById('filters-sidebar');
+    if (fs) fs.style.display = 'none';
+    const wrapper = document.getElementById('card-container-wrapper');
+    if (wrapper) wrapper.style.marginLeft = '0';
+
+    document.getElementById('card-grid')?.classList.add('hidden');
+    document.getElementById('loading-sentinel')?.classList.add('hidden');
+    document.getElementById('no-results')?.classList.add('hidden');
+    document.getElementById('tag-filter-bar')?.classList.add('hidden');
+    document.getElementById('list-info-header')?.classList.add('hidden');
+    document.getElementById('card-usage-view')?.classList.add('hidden');
+    document.getElementById('category-browser')?.classList.add('hidden');
+
+    els.view.classList.remove('hidden');
+    els.loading.classList.remove('hidden');
+    els.content.classList.add('hidden');
+
+    els.toggleBtn.classList.add('deckbuilder-nav-btn-active');
+    document.getElementById('view-toggle')?.classList.add('hidden');
+
+    const mainEl = document.getElementById('card-container-wrapper');
+    if (mainEl) {
+        mainEl.style.overflow = 'hidden';
+        mainEl.style.position = 'relative';
+    }
+
+    loadAllChunks();
+}
+
+function exitDeckBuilder() {
+    const els = getDBElements();
+    if (!isDeckBuilder) return;
+    isDeckBuilder = false;
+
+    els.view.classList.add('hidden');
+    els.toggleBtn.classList.remove('deckbuilder-nav-btn-active');
+    document.getElementById('view-toggle')?.classList.remove('hidden');
+
+    const fs = document.getElementById('filters-sidebar');
+    if (fs) fs.style.display = '';
+    const wrapper = document.getElementById('card-container-wrapper');
+    if (wrapper) {
+        wrapper.style.marginLeft = '';
+        wrapper.style.overflow = '';
+        wrapper.style.position = '';
+    }
+
+    saveDeck();
+    showAllCards();
+}
+
+function showToast(message, type) {
+    const existing = document.querySelector('.deckbuilder-toast');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.className = `deckbuilder-toast ${type}`;
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+        toast.classList.add('toast-out');
+        setTimeout(() => toast.remove(), 300);
+    }, 2000);
+}
+
+async function loadAllChunks() {
+    const els = getDBElements();
+    if (isLoadingChunks) return;
+
+    if (chunksFullyLoaded && fullCardDataMap.size > 0) {
+        initializeChunkFilesMap();
+        let allValid = true;
+        for (const file of chunkFilesMap) {
+            const entry = chunkCache.get(file);
+            if (!entry || !entry.isValid(CARD_BUILD_VERSION)) {
+                allValid = false;
+                break;
+            }
+        }
+        if (allValid) {
+            loadDeck();
+            dbDefaultCardOrder = [...allCards];
+            deckbuilderFilteredCards = [...allCards];
+            deckbuilderSearchQuery = '';
+            deckbuilderSortMode = els.sortSelect.value;
+            els.loading.classList.add('hidden');
+            els.content.classList.remove('hidden');
+            renderSearchResults();
+            renderDeck();
+            setupDeckBuilderEvents();
+            lucide.createIcons();
+            return;
+        }
+        chunksFullyLoaded = false;
+        chunkCache.clear();
+        fullCardDataMap = new Map();
+    }
+
+    isLoadingChunks = true;
+
+    initializeChunkFilesMap();
+    const chunkFiles = Array.from(chunkFilesMap);
+    const total = chunkFiles.length;
+    els.loadingTotal.textContent = total;
+    els.loadingProgress.textContent = '0';
+
+    fullCardDataMap = new Map();
+    let loaded = 0;
+
+    const BATCH_SIZE = 8;
+    for (let i = 0; i < chunkFiles.length; i += BATCH_SIZE) {
+        const batch = chunkFiles.slice(i, i + BATCH_SIZE);
+        const results = await Promise.allSettled(
+            batch.map(async (file) => {
+                const cacheEntry = chunkCache.get(file);
+        if (cacheEntry && cacheEntry.isValid(CARD_BUILD_VERSION)) {
+                    return { file, data: cacheEntry.data };
+                }
+                const response = await fetch(`${file}?v=${CARD_BUILD_VERSION}`);
+                if (!response.ok) throw new Error(`Failed: ${response.status}`);
+                const data = await response.json();
+                chunkCache.set(file, new CacheEntry(data, CARD_BUILD_VERSION));
+                return { file, data };
+            })
+        );
+
+        for (const result of results) {
+            if (result.status === 'fulfilled') {
+                const { data } = result.value;
+                for (const card of data) {
+                    if (card.id) {
+                        fullCardDataMap.set(card.id, card);
+                    }
+                }
+            }
+            loaded++;
+            els.loadingProgress.textContent = loaded;
+            els.loadingBar.style.width = `${(loaded / total) * 100}%`;
+        }
+
+        await new Promise(r => setTimeout(r, 0));
+    }
+
+    isLoadingChunks = false;
+    chunksFullyLoaded = true;
+
+    loadDeck();
+    dbDefaultCardOrder = [...allCards];
+    deckbuilderFilteredCards = [...allCards];
+    deckbuilderSearchQuery = '';
+    deckbuilderSortMode = els.sortSelect.value;
+
+    els.loading.classList.add('hidden');
+    els.content.classList.remove('hidden');
+
+    renderSearchResults();
+    renderDeck();
+    setupDeckBuilderEvents();
+    lucide.createIcons();
+}
+
+function getAutoZone(card) {
+    const type = card.type || '';
+    if (type.includes('Fusion') || type.includes('Synchro') || type.includes('XYZ') || type.includes('Link')) {
+        return 'extra';
+    }
+    return 'main';
+}
+
+function getCardCountInDeck(cardId) {
+    let count = 0;
+    for (const zone of ['main', 'extra', 'side']) {
+        for (const id of currentDeck[zone]) {
+            if (id === cardId) count++;
+        }
+    }
+    return count;
+}
+
+function addToDeck(card, targetZone) {
+    const count = getCardCountInDeck(card.id);
+    if (count >= 3) return 'limit';
+
+    if (currentDeck.main.length + currentDeck.extra.length + currentDeck.side.length >= 80) return 'max';
+
+    const zone = targetZone || getAutoZone(card);
+    if (zone === 'main' && currentDeck.main.length >= 60) return 'main_full';
+    if (zone === 'extra' && currentDeck.extra.length >= 15) return 'extra_full';
+    if (zone === 'side' && currentDeck.side.length >= 15) return 'side_full';
+
+    currentDeck[zone].push(card.id);
+    return true;
+}
+
+function removeFromDeck(cardId, zone) {
+    const idx = currentDeck[zone].indexOf(cardId);
+    if (idx !== -1) {
+        currentDeck[zone].splice(idx, 1);
+        return true;
+    }
+    return false;
+}
+
+function moveCard(cardId, fromZone, toZone) {
+    const idx = currentDeck[fromZone].indexOf(cardId);
+    if (idx === -1) return false;
+
+    if (toZone === 'main' && currentDeck.main.length >= 60) return false;
+    if (toZone === 'extra' && currentDeck.extra.length >= 15) return false;
+    if (toZone === 'side' && currentDeck.side.length >= 15) return false;
+
+    currentDeck[fromZone].splice(idx, 1);
+    currentDeck[toZone].push(cardId);
+    return true;
+}
+
+function clearDeck() {
+    currentDeck = { main: [], extra: [], side: [] };
+    deckSortMode = 'default';
+}
+
+function getDeckTypeSortRank(card) {
+    const cat = getCardTypeFromTypeName(card.type);
+    if (cat === 'monster') {
+        const t = card.type;
+        if (t.includes('Normal')) return 0;
+        if (t.includes('Ritual')) return 2;
+        if (t.includes('Fusion')) return 3;
+        if (t.includes('Synchro')) return 4;
+        if (t.includes('XYZ')) return 5;
+        if (t.includes('Link')) return 6;
+        return 1;
+    }
+    if (cat === 'spell') {
+        const raceOrder = { 'Normal': 7, 'Quick-Play': 8, 'Continuous': 9, 'Equip': 10, 'Ritual': 11, 'Field': 12 };
+        return raceOrder[card.race] !== undefined ? raceOrder[card.race] : 13;
+    }
+    const trapOrder = { 'Normal': 14, 'Continuous': 15, 'Counter': 16 };
+    return trapOrder[card.race] !== undefined ? trapOrder[card.race] : 17;
+}
+
+function sortDeck(mode) {
+    for (const zone of ['main', 'extra', 'side']) {
+        const arr = currentDeck[zone];
+        const sorted = arr.slice().sort((a, b) => {
+            const ca = getCardById(a);
+            const cb = getCardById(b);
+            if (!ca || !cb) return 0;
+            if (mode === 'type') {
+                const ra = getDeckTypeSortRank(ca);
+                const rb = getDeckTypeSortRank(cb);
+                if (ra !== rb) return ra - rb;
+            }
+            return ca.name.localeCompare(cb.name);
+        });
+        currentDeck[zone] = sorted;
+    }
+    deckSortMode = mode;
+    renderDeck();
+}
+
+function getDeckStats() {
+    let totalCards = 0;
+    let totalPoints = 0;
+    const zonePoints = { main: 0, extra: 0, side: 0 };
+
+    for (const zone of ['main', 'extra', 'side']) {
+        for (const id of currentDeck[zone]) {
+            const card = cardMap.get(id);
+            if (card) {
+                zonePoints[zone] += card.genesys_points || 0;
+                totalPoints += card.genesys_points || 0;
+            }
+        }
+        totalCards += currentDeck[zone].length;
+    }
+
+    return { totalCards, totalPoints, zonePoints };
+}
+
+function getCardById(cardId) {
+    return cardMap.get(cardId) || null;
+}
+
+function getFullCardData(cardId) {
+    return fullCardDataMap.get(cardId) || null;
+}
+
+function renderDeck() {
+    const els = getDBElements();
+    const zoneConfigs = [
+        { name: 'main', grid: els.mainGrid, count: els.mainCount, points: els.mainPoints, limit: 60 },
+        { name: 'extra', grid: els.extraGrid, count: els.extraCount, points: els.extraPoints, limit: 15 },
+        { name: 'side', grid: els.sideGrid, count: els.sideCount, points: els.sidePoints, limit: 15 },
+    ];
+
+    for (const zone of zoneConfigs) {
+        zone.grid.innerHTML = '';
+        const cards = currentDeck[zone.name];
+        const frag = document.createDocumentFragment();
+
+        for (let i = 0; i < cards.length; i++) {
+            const id = cards[i];
+            const card = getCardById(id);
+            if (!card) continue;
+
+            const slot = document.createElement('div');
+            slot.className = 'deck-card-slot filled';
+            slot.dataset.cardId = id;
+            slot.dataset.zone = zone.name;
+            slot.draggable = true;
+
+            const thumbSrc = `${THUMBNAIL_BASE_URL}${id}.webp`;
+            const pts = card.genesys_points || 0;
+            slot.innerHTML = `
+                <img src="${thumbSrc}" alt="${card.name}" loading="lazy" onerror="this.src='https://images.ygoprodeck.com/images/assets/CardBack.jpg';">
+                ${pts > 0 ? `<span class="deck-card-points">${pts}</span>` : ''}
+            `;
+
+            const slotCardId = id;
+            const slotZoneName = zone.name;
+
+            slot.addEventListener('click', () => {
+                removeFromDeck(slotCardId, slotZoneName);
+                renderDeck();
+            });
+
+            slot.addEventListener('mouseenter', () => updatePreview(slotCardId));
+
+            frag.appendChild(slot);
+        }
+
+        for (let i = cards.length; i < zone.limit; i++) {
+            const empty = document.createElement('div');
+            empty.className = 'deck-card-slot empty';
+            empty.dataset.zone = zone.name;
+            frag.appendChild(empty);
+        }
+
+        zone.grid.appendChild(frag);
+    }
+
+    setupDeckGridDragDrop(zoneConfigs);
+
+    const stats = getDeckStats();
+    for (const zone of zoneConfigs) {
+        zone.count.textContent = `(${currentDeck[zone.name].length}/${zone.limit})`;
+        zone.points.textContent = `${stats.zonePoints[zone.name]} pts`;
+    }
+    els.totalCards.textContent = stats.totalCards;
+    els.totalPts.textContent = stats.totalPoints;
+    saveDeck();
+}
+
+function saveDeck() {
+    try {
+        localStorage.setItem('genesys_deckbuilder_deck', JSON.stringify(currentDeck));
+    } catch (e) {}
+}
+
+function loadDeck() {
+    try {
+        const saved = localStorage.getItem('genesys_deckbuilder_deck');
+        if (saved) {
+            const parsed = JSON.parse(saved);
+            if (parsed && typeof parsed === 'object' && 
+                Array.isArray(parsed.main) && Array.isArray(parsed.extra) && Array.isArray(parsed.side)) {
+                currentDeck = parsed;
+            }
+        }
+    } catch (e) {}
+}
+
+function setupDeckGridDragDrop(zoneConfigs) {
+    for (const zone of zoneConfigs) {
+        if (zone.grid.dataset.dragSetup) continue;
+        zone.grid.dataset.dragSetup = '1';
+
+        let hoveredSlot = null;
+
+        zone.grid.addEventListener('dragstart', (e) => {
+            const slot = e.target.closest('.deck-card-slot.filled');
+            if (!slot) return;
+            const idx = Array.from(zone.grid.children).indexOf(slot);
+            e.dataTransfer.setData('text/plain', JSON.stringify({
+                cardId: slot.dataset.cardId,
+                zone: slot.dataset.zone,
+                source: 'deck',
+                fromIdx: idx
+            }));
+            e.dataTransfer.effectAllowed = 'move';
+        });
+
+        zone.grid.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            const slot = e.target.closest('.deck-card-slot');
+            if (!slot) return;
+            if (hoveredSlot && hoveredSlot !== slot) {
+                hoveredSlot.classList.remove('drag-over');
+            }
+            slot.classList.add('drag-over');
+            hoveredSlot = slot;
+        });
+
+        zone.grid.addEventListener('dragleave', (e) => {
+            if (!zone.grid.contains(e.relatedTarget)) {
+                if (hoveredSlot) {
+                    hoveredSlot.classList.remove('drag-over');
+                    hoveredSlot = null;
+                }
+            }
+        });
+
+        zone.grid.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const slot = e.target.closest('.deck-card-slot');
+            if (hoveredSlot) {
+                hoveredSlot.classList.remove('drag-over');
+                hoveredSlot = null;
+            }
+            if (!slot) return;
+            const targetIdx = Array.from(zone.grid.children).indexOf(slot);
+            try {
+                const data = JSON.parse(e.dataTransfer.getData('text/plain'));
+                if (data.source === 'search') {
+                    const card = getCardById(data.cardId);
+                    if (!card) return;
+                    const result = addToDeck(card, zone.name);
+                    renderDeck();
+                } else if (data.source === 'deck') {
+                    const fromZone = data.zone;
+                    const toZone = zone.name;
+                    if (fromZone === toZone) {
+                        const arr = currentDeck[toZone];
+                        const fromIdx = data.fromIdx;
+                        if (fromIdx < 0 || fromIdx >= arr.length) return;
+                        const [moved] = arr.splice(fromIdx, 1);
+                        const adjusted = targetIdx > fromIdx ? targetIdx - 1 : targetIdx;
+                        arr.splice(adjusted, 0, moved);
+                        renderDeck();
+                    } else {
+                        const fromArr = currentDeck[fromZone];
+                        const fromIdx = data.fromIdx;
+                        if (fromIdx < 0 || fromIdx >= fromArr.length) return;
+                        const [moved] = fromArr.splice(fromIdx, 1);
+                        const toArr = currentDeck[toZone];
+                        const limit = toZone === 'main' ? 60 : 15;
+                        if (toArr.length >= limit) {
+                            fromArr.splice(fromIdx, 0, moved);
+                            renderDeck();
+                            return;
+                        }
+                        const insertAt = Math.min(targetIdx, toArr.length);
+                        toArr.splice(insertAt, 0, moved);
+                        renderDeck();
+                    }
+                }
+            } catch (err) {}
+        });
+
+        zone.grid.addEventListener('dragend', () => {
+            if (hoveredSlot) {
+                hoveredSlot.classList.remove('drag-over');
+                hoveredSlot = null;
+            }
+        });
+    }
+}
+
+function renderSearchResults() {
+    const els = getDBElements();
+
+    let cards = [...allCards];
+
+    if (deckbuilderSearchQuery) {
+        const q = deckbuilderSearchQuery.toLowerCase();
+        cards = cards.filter(c => c.name.toLowerCase().includes(q));
+
+        if (cards.length === 0 && q.length > 0) {
+            cards = allCards.filter(c => {
+                const full = getFullCardData(c.id);
+                return full && full.desc && full.desc.toLowerCase().includes(q);
+            });
+        }
+    }
+
+    if (dbActiveFilters.cardType) {
+        cards = cards.filter(c => getCardTypeFromTypeName(c.type) === dbActiveFilters.cardType);
+    }
+
+    if (dbActiveFilters.attributes.size > 0) {
+        cards = cards.filter(c => dbActiveFilters.attributes.has(c.attribute));
+    }
+
+    if (dbActiveFilters.frames.size > 0) {
+        cards = cards.filter(c => {
+            const frame = getFrameTypeFromTypeName(c.type);
+            return dbActiveFilters.frames.has(frame);
+        });
+    }
+
+    if (dbActiveFilters.spellTypes.size > 0) {
+        cards = cards.filter(c => {
+            if (c.type !== 'Spell Card') return false;
+            return dbActiveFilters.spellTypes.has(c.race);
+        });
+    }
+
+    if (dbActiveFilters.trapTypes.size > 0) {
+        cards = cards.filter(c => {
+            if (c.type !== 'Trap Card') return false;
+            return dbActiveFilters.trapTypes.has(c.race);
+        });
+    }
+
+    if (dbActiveFilters.races.size > 0) {
+        cards = cards.filter(c => dbActiveFilters.races.has(c.race));
+    }
+
+    if (dbActiveFilters.levels.size > 0) {
+        cards = cards.filter(c => dbActiveFilters.levels.has(c.level));
+    }
+
+    if (dbActiveFilters.pointsMin !== null) {
+        cards = cards.filter(c => c.genesys_points >= dbActiveFilters.pointsMin);
+    }
+    if (dbActiveFilters.pointsMax !== null) {
+        cards = cards.filter(c => c.genesys_points <= dbActiveFilters.pointsMax);
+    }
+
+    if (dbActiveFilters.atkMin !== null || dbActiveFilters.atkMax !== null) {
+        cards = cards.filter(c => {
+            const full = getFullCardData(c.id);
+            const atk = full?.atk;
+            if (atk === undefined || atk === null) return false;
+            if (dbActiveFilters.atkMin !== null && atk < dbActiveFilters.atkMin) return false;
+            if (dbActiveFilters.atkMax !== null && atk > dbActiveFilters.atkMax) return false;
+            return true;
+        });
+    }
+
+    if (dbActiveFilters.defMin !== null || dbActiveFilters.defMax !== null) {
+        cards = cards.filter(c => {
+            const full = getFullCardData(c.id);
+            const def = full?.def;
+            if (def === undefined || def === null) return false;
+            if (dbActiveFilters.defMin !== null && def < dbActiveFilters.defMin) return false;
+            if (dbActiveFilters.defMax !== null && def > dbActiveFilters.defMax) return false;
+            return true;
+        });
+    }
+
+    if (dbDescTerms.length > 0) {
+        cards = cards.filter(c => {
+            const full = getFullCardData(c.id);
+            if (!full || !full.desc) return false;
+            const desc = full.desc.toLowerCase();
+            return dbDescTerms.every(term => {
+                const match = desc.includes(term.text.toLowerCase());
+                return term.negate ? !match : match;
+            });
+        });
+    }
+
+    if (dbActiveFilters.tags.size > 0) {
+        cards = cards.filter(c =>
+            Array.from(dbActiveFilters.tags).some(tag =>
+                c.custom_tags && c.custom_tags.includes(tag)
+            )
+        );
+    }
+
+    if (dbActiveFilters.staplesOnly && availableLists['0-point-staples']) {
+        const stapleIds = new Set(availableLists['0-point-staples'].card_ids);
+        cards = cards.filter(c => stapleIds.has(c.id));
+    }
+
+    if (deckbuilderSortMode === 'name-asc') {
+        cards.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (deckbuilderSortMode === 'name-desc') {
+        cards.sort((a, b) => b.name.localeCompare(a.name));
+    } else if (deckbuilderSortMode === 'points-desc') {
+        cards.sort((a, b) => (b.genesys_points || 0) - (a.genesys_points || 0));
+    } else if (deckbuilderSortMode === 'points-asc') {
+        cards.sort((a, b) => (a.genesys_points || 0) - (b.genesys_points || 0));
+    } else if (deckbuilderSortMode === 'type') {
+        const typeOrder = ['Effect Monster', 'Normal Monster', 'Tuner Monster', 'Fusion Monster', 'Synchro Monster', 'Synchro Tuner Monster', 'XYZ Monster', 'Link Monster', 'Spell Card', 'Trap Card'];
+        cards.sort((a, b) => {
+            const ia = typeOrder.indexOf(a.type);
+            const ib = typeOrder.indexOf(b.type);
+            return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
+        });
+    }
+
+    deckbuilderFilteredCards = cards;
+
+    els.searchResults.innerHTML = '';
+
+    if (cards.length === 0) {
+        els.searchEmpty.classList.remove('hidden');
+        return;
+    }
+    els.searchEmpty.classList.add('hidden');
+
+    const frag = document.createDocumentFragment();
+    for (const card of cards) {
+        const thumb = document.createElement('div');
+        thumb.className = 'db-thumb-card';
+        thumb.dataset.cardId = card.id;
+        thumb.draggable = true;
+
+        const thumbSrc = `${THUMBNAIL_BASE_URL}${card.id}.webp`;
+        const pts = card.genesys_points || 0;
+
+        thumb.innerHTML = `
+            <img src="${thumbSrc}" alt="${card.name}" loading="lazy" onerror="this.src='https://images.ygoprodeck.com/images/assets/CardBack.jpg';">
+            ${pts > 0 ? `<span class="deck-card-points">${pts}</span>` : ''}
+        `;
+
+        thumb.addEventListener('click', (e) => {
+            const targetZone = e.shiftKey ? 'side' : undefined;
+            const result = addToDeck(card, targetZone);
+            if (result === true) {
+                renderDeck();
+            }
+        });
+
+        thumb.addEventListener('mouseenter', () => updatePreview(card.id));
+
+        if (window.innerWidth < 1024) {
+            let holdTimer = null;
+            thumb.addEventListener('touchstart', (e) => {
+                holdTimer = setTimeout(() => {
+                    updatePreview(card.id);
+                    getDBElements().mobilePreview.classList.add('active');
+                }, 500);
+            });
+            thumb.addEventListener('touchend', () => {
+                clearTimeout(holdTimer);
+            });
+            thumb.addEventListener('touchmove', () => {
+                clearTimeout(holdTimer);
+            });
+        }
+
+        thumb.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('text/plain', JSON.stringify({ cardId: card.id, source: 'search' }));
+            thumb.style.opacity = '0.5';
+        });
+
+        thumb.addEventListener('dragend', () => {
+            thumb.style.opacity = '1';
+        });
+
+        frag.appendChild(thumb);
+    }
+    els.searchResults.appendChild(frag);
+}
+
+function updatePreview(cardId) {
+    const els = getDBElements();
+    const full = getFullCardData(cardId);
+    const card = getCardById(cardId);
+    if (!full || !card) return;
+
+    els.previewEmpty.classList.add('hidden');
+    els.previewContent.classList.remove('hidden');
+
+    els.previewImage.src = 'https://images.ygoprodeck.com/images/assets/CardBack.jpg';
+    const img = new Image();
+    img.src = `${IMAGE_BASE_URL}${cardId}.webp`;
+    img.onload = () => { els.previewImage.src = img.src; };
+    img.onerror = () => {
+        els.previewImage.src = 'https://images.ygoprodeck.com/images/assets/CardBack.jpg';
+    };
+    els.previewName.textContent = full.name || card.name;
+    els.previewType.textContent = full.type || card.type;
+    els.previewPoints.textContent = `${card.genesys_points || 0} pts`;
+
+    els.previewAttribute.textContent = full.attribute || '';
+    els.previewRace.textContent = full.race || card.race || '';
+    els.previewLevel.textContent = full.level ? `★${full.level}` : (card.level ? `★${card.level}` : '');
+    els.previewDesc.textContent = full.desc || '';
+
+    if (full.atk !== undefined) {
+        els.previewStats.classList.remove('hidden');
+        els.previewAtk.textContent = `ATK/${full.atk === -1 ? '?' : full.atk}`;
+        els.previewDef.textContent = `DEF/${full.def === -1 ? '?' : full.def}`;
+    } else {
+        els.previewStats.classList.add('hidden');
+    }
+
+    const mobileEls = getDBElements();
+    mobileEls.mobilePreviewImage.src = 'https://images.ygoprodeck.com/images/assets/CardBack.jpg';
+    const mobileImg = new Image();
+    mobileImg.src = `${IMAGE_BASE_URL}${cardId}.webp`;
+    mobileImg.onload = () => { mobileEls.mobilePreviewImage.src = mobileImg.src; };
+    mobileEls.mobilePreviewName.textContent = full.name || card.name;
+    mobileEls.mobilePreviewType.textContent = full.type || card.type;
+    mobileEls.mobilePreviewPoints.textContent = `${card.genesys_points || 0} pts`;
+    mobileEls.mobilePreviewAttribute.textContent = full.attribute || '';
+    mobileEls.mobilePreviewRace.textContent = full.race || card.race || '';
+    mobileEls.mobilePreviewDesc.textContent = full.desc || '';
+}
+
+function clearPreview() {
+    const els = getDBElements();
+    els.previewEmpty.classList.remove('hidden');
+    els.previewContent.classList.add('hidden');
+}
+
+function setupDeckBuilderFilterModal() {
+    const els = getDBElements();
+
+    const attributes = ['DARK', 'DIVINE', 'EARTH', 'FIRE', 'LIGHT', 'WATER', 'WIND'];
+    const attrContainer = document.getElementById('db-attribute-filters');
+    attrContainer.innerHTML = '';
+    attributes.forEach(attr => {
+        const label = document.createElement('label');
+        label.className = 'flex items-center gap-1.5 text-xs text-gray-400 cursor-pointer px-2 py-1 bg-gray-700 rounded hover:bg-gray-600 transition-colors';
+        label.innerHTML = `<input type="checkbox" value="${attr}" class="text-blue-500 focus:ring-blue-500 bg-gray-700 border-gray-600 rounded"><span>${attr}</span>`;
+        label.querySelector('input').addEventListener('change', (e) => {
+            if (e.target.checked) dbActiveFilters.attributes.add(attr);
+            else dbActiveFilters.attributes.delete(attr);
+        });
+        attrContainer.appendChild(label);
+    });
+
+    const frameContainer = document.getElementById('db-frame-filters');
+    frameContainer.innerHTML = '';
+    const frameTypes = ['normal', 'effect', 'fusion', 'synchro', 'xyz', 'ritual', 'spell', 'trap'];
+    frameTypes.forEach(ft => {
+        const label = document.createElement('label');
+        label.className = 'flex items-center gap-1.5 text-xs text-gray-400 cursor-pointer px-2 py-1 bg-gray-700 rounded hover:bg-gray-600 transition-colors';
+        const display = ft.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        label.innerHTML = `<input type="checkbox" value="${ft}" class="text-blue-500 focus:ring-blue-500 bg-gray-700 border-gray-600 rounded"><span>${display}</span>`;
+        label.querySelector('input').addEventListener('change', (e) => {
+            if (e.target.checked) dbActiveFilters.frames.add(ft);
+            else dbActiveFilters.frames.delete(ft);
+        });
+        frameContainer.appendChild(label);
+    });
+
+    const raceContainer = document.getElementById('db-race-filters');
+    raceContainer.innerHTML = '';
+    const uniqueRaces = [...new Set(allCards.map(c => c.race).filter(Boolean))].sort();
+    uniqueRaces.forEach(race => {
+        const label = document.createElement('label');
+        label.className = 'flex items-center gap-1.5 text-xs text-gray-400 cursor-pointer px-2 py-1 bg-gray-700 rounded hover:bg-gray-600 transition-colors';
+        label.innerHTML = `<input type="checkbox" value="${race}" class="text-blue-500 focus:ring-blue-500 bg-gray-700 border-gray-600 rounded"><span>${race}</span>`;
+        label.querySelector('input').addEventListener('change', (e) => {
+            if (e.target.checked) dbActiveFilters.races.add(race);
+            else dbActiveFilters.races.delete(race);
+        });
+        raceContainer.appendChild(label);
+    });
+
+    const levelContainer = document.getElementById('db-level-filters');
+    levelContainer.innerHTML = '';
+    const uniqueLevels = [...new Set(allCards.map(c => c.level).filter(l => l != null))].sort((a, b) => a - b);
+    uniqueLevels.forEach(lvl => {
+        const btn = document.createElement('button');
+        btn.className = 'px-2 py-1 bg-gray-700 hover:bg-gray-600 rounded text-xs transition-colors border border-transparent';
+        btn.textContent = lvl;
+        btn.addEventListener('click', () => {
+            if (dbActiveFilters.levels.has(lvl)) {
+                dbActiveFilters.levels.delete(lvl);
+                btn.classList.remove('bg-blue-600', 'border-blue-400');
+                btn.classList.add('bg-gray-700');
+            } else {
+                dbActiveFilters.levels.add(lvl);
+                btn.classList.add('bg-blue-600', 'border-blue-400');
+                btn.classList.remove('bg-gray-700');
+            }
+        });
+        levelContainer.appendChild(btn);
+    });
+
+    const uniqueSpellTypes = [...new Set(allCards.filter(c => c.type === 'Spell Card').map(c => c.race).filter(Boolean))].sort();
+    const spellTypeContainer = document.getElementById('db-spell-type-filters');
+    if (spellTypeContainer) {
+        spellTypeContainer.innerHTML = '';
+        uniqueSpellTypes.forEach(st => {
+            const label = document.createElement('label');
+            label.className = 'flex items-center gap-1.5 text-xs text-gray-400 cursor-pointer px-2 py-1 bg-gray-700 rounded hover:bg-gray-600 transition-colors';
+            label.innerHTML = `<input type="checkbox" value="${st}" class="text-blue-500 focus:ring-blue-500 bg-gray-700 border-gray-600 rounded"><span>${st}</span>`;
+            label.querySelector('input').addEventListener('change', (e) => {
+                if (e.target.checked) dbActiveFilters.spellTypes.add(st);
+                else dbActiveFilters.spellTypes.delete(st);
+            });
+            spellTypeContainer.appendChild(label);
+        });
+    }
+
+    const uniqueTrapTypes = [...new Set(allCards.filter(c => c.type === 'Trap Card').map(c => c.race).filter(Boolean))].sort();
+    const trapTypeContainer = document.getElementById('db-trap-type-filters');
+    if (trapTypeContainer) {
+        trapTypeContainer.innerHTML = '';
+        uniqueTrapTypes.forEach(tt => {
+            const label = document.createElement('label');
+            label.className = 'flex items-center gap-1.5 text-xs text-gray-400 cursor-pointer px-2 py-1 bg-gray-700 rounded hover:bg-gray-600 transition-colors';
+            label.innerHTML = `<input type="checkbox" value="${tt}" class="text-blue-500 focus:ring-blue-500 bg-gray-700 border-gray-600 rounded"><span>${tt}</span>`;
+            label.querySelector('input').addEventListener('change', (e) => {
+                if (e.target.checked) dbActiveFilters.trapTypes.add(tt);
+                else dbActiveFilters.trapTypes.delete(tt);
+            });
+            trapTypeContainer.appendChild(label);
+        });
+    }
+
+    els.sortSelect.addEventListener('change', (e) => {
+        deckbuilderSortMode = e.target.value;
+        renderSearchResults();
+    });
+
+    const tagContainer = document.getElementById('db-tag-filters');
+    if (tagContainer) {
+        tagContainer.innerHTML = '';
+        Object.values(availableTags).forEach(tag => {
+            const label = document.createElement('label');
+            label.className = 'flex items-center gap-1.5 text-xs text-gray-400 cursor-pointer px-2 py-1 bg-gray-700 rounded hover:bg-gray-600 transition-colors';
+            label.innerHTML = `<input type="checkbox" value="${tag.name}" class="text-blue-500 focus:ring-blue-500 bg-gray-700 border-gray-600 rounded"><span>${tag.name}</span>`;
+            label.querySelector('input').addEventListener('change', (e) => {
+                if (e.target.checked) dbActiveFilters.tags.add(tag.name);
+                else dbActiveFilters.tags.delete(tag.name);
+            });
+            tagContainer.appendChild(label);
+        });
+    }
+
+    const staplesCheckbox = document.getElementById('db-staples-filter');
+    if (staplesCheckbox) {
+        staplesCheckbox.addEventListener('change', (e) => {
+            dbActiveFilters.staplesOnly = e.target.checked;
+        });
+    }
+
+    const pointsMinInput = document.getElementById('db-points-min');
+    const pointsMaxInput = document.getElementById('db-points-max');
+    function readPointsInput() {
+        const v1 = pointsMinInput?.value;
+        const v2 = pointsMaxInput?.value;
+        const p1 = v1 !== '' ? parseInt(v1, 10) : null;
+        const p2 = v2 !== '' ? parseInt(v2, 10) : null;
+        dbActiveFilters.pointsMin = p1 !== null && !isNaN(p1) ? p1 : null;
+        dbActiveFilters.pointsMax = p2 !== null && !isNaN(p2) ? p2 : null;
+    }
+    if (pointsMinInput) {
+        pointsMinInput.addEventListener('input', readPointsInput);
+    }
+    if (pointsMaxInput) {
+        pointsMaxInput.addEventListener('input', readPointsInput);
+    }
+
+    const atkMinInput = document.getElementById('db-atk-min');
+    const atkMaxInput = document.getElementById('db-atk-max');
+    const defMinInput = document.getElementById('db-def-min');
+    const defMaxInput = document.getElementById('db-def-max');
+    function readAtkDefInput() {
+        const a1 = atkMinInput?.value;
+        const a2 = atkMaxInput?.value;
+        const d1 = defMinInput?.value;
+        const d2 = defMaxInput?.value;
+        const p1 = a1 !== '' ? parseInt(a1, 10) : null;
+        const p2 = a2 !== '' ? parseInt(a2, 10) : null;
+        const p3 = d1 !== '' ? parseInt(d1, 10) : null;
+        const p4 = d2 !== '' ? parseInt(d2, 10) : null;
+        dbActiveFilters.atkMin = p1 !== null && !isNaN(p1) ? p1 : null;
+        dbActiveFilters.atkMax = p2 !== null && !isNaN(p2) ? p2 : null;
+        dbActiveFilters.defMin = p3 !== null && !isNaN(p3) ? p3 : null;
+        dbActiveFilters.defMax = p4 !== null && !isNaN(p4) ? p4 : null;
+    }
+    if (atkMinInput) atkMinInput.addEventListener('input', readAtkDefInput);
+    if (atkMaxInput) atkMaxInput.addEventListener('input', readAtkDefInput);
+    if (defMinInput) defMinInput.addEventListener('input', readAtkDefInput);
+    if (defMaxInput) defMaxInput.addEventListener('input', readAtkDefInput);
+}
+
+function setupDeckBuilderEvents() {
+    if (deckBuilderEventsSetup) return;
+    deckBuilderEventsSetup = true;
+
+    const els = getDBElements();
+
+    if (els.backBtn) els.backBtn.addEventListener('click', exitDeckBuilder);
+
+    els.searchInput.addEventListener('input', (e) => {
+        deckbuilderSearchQuery = e.target.value;
+        renderSearchResults();
+    });
+
+    els.filterBtn.addEventListener('click', () => {
+        els.filterModal.classList.remove('hidden');
+    });
+
+    if (els.filterApply) {
+        els.filterApply.addEventListener('click', () => {
+            readDeckBuilderFilters();
+            els.filterModal.classList.add('hidden');
+            updateDeckBuilderFilterIndicator();
+            renderSearchResults();
+        });
+    }
+
+    function readDeckBuilderFilters() {
+        const cardTypeRadio = document.querySelector('input[name="db-card-type"]:checked');
+        dbActiveFilters.cardType = cardTypeRadio ? cardTypeRadio.value || null : null;
+
+        dbActiveFilters.attributes = new Set();
+        document.querySelectorAll('#db-attribute-filters input[type="checkbox"]:checked').forEach(cb => {
+            dbActiveFilters.attributes.add(cb.value);
+        });
+
+        dbActiveFilters.frames = new Set();
+        document.querySelectorAll('#db-frame-filters input[type="checkbox"]:checked').forEach(cb => {
+            dbActiveFilters.frames.add(cb.value);
+        });
+
+        dbActiveFilters.races = new Set();
+        document.querySelectorAll('#db-race-filters input[type="checkbox"]:checked').forEach(cb => {
+            dbActiveFilters.races.add(cb.value);
+        });
+
+        dbActiveFilters.levels = new Set();
+        document.querySelectorAll('#db-level-filters button.bg-blue-600').forEach(btn => {
+            dbActiveFilters.levels.add(parseInt(btn.textContent));
+        });
+
+        dbActiveFilters.tags = new Set();
+        document.querySelectorAll('#db-tag-filters input[type="checkbox"]:checked').forEach(cb => {
+            dbActiveFilters.tags.add(cb.value);
+        });
+
+        dbActiveFilters.spellTypes = new Set();
+        document.querySelectorAll('#db-spell-type-filters input[type="checkbox"]:checked').forEach(cb => {
+            dbActiveFilters.spellTypes.add(cb.value);
+        });
+
+        dbActiveFilters.trapTypes = new Set();
+        document.querySelectorAll('#db-trap-type-filters input[type="checkbox"]:checked').forEach(cb => {
+            dbActiveFilters.trapTypes.add(cb.value);
+        });
+
+        dbActiveFilters.staplesOnly = document.getElementById('db-staples-filter')?.checked || false;
+
+        const pointsMin = document.getElementById('db-points-min')?.value;
+        const pointsMax = document.getElementById('db-points-max')?.value;
+        const p1 = pointsMin !== '' ? parseInt(pointsMin, 10) : null;
+        const p2 = pointsMax !== '' ? parseInt(pointsMax, 10) : null;
+        dbActiveFilters.pointsMin = p1 !== null && !isNaN(p1) ? p1 : null;
+        dbActiveFilters.pointsMax = p2 !== null && !isNaN(p2) ? p2 : null;
+
+        const atkMin = document.getElementById('db-atk-min')?.value;
+        const atkMax = document.getElementById('db-atk-max')?.value;
+        const a1 = atkMin !== '' ? parseInt(atkMin, 10) : null;
+        const a2 = atkMax !== '' ? parseInt(atkMax, 10) : null;
+        dbActiveFilters.atkMin = a1 !== null && !isNaN(a1) ? a1 : null;
+        dbActiveFilters.atkMax = a2 !== null && !isNaN(a2) ? a2 : null;
+
+        const defMin = document.getElementById('db-def-min')?.value;
+        const defMax = document.getElementById('db-def-max')?.value;
+        const d1 = defMin !== '' ? parseInt(defMin, 10) : null;
+        const d2 = defMax !== '' ? parseInt(defMax, 10) : null;
+        dbActiveFilters.defMin = d1 !== null && !isNaN(d1) ? d1 : null;
+        dbActiveFilters.defMax = d2 !== null && !isNaN(d2) ? d2 : null;
+    }
+
+    els.filterModal.addEventListener('click', (e) => {
+        if (e.target === els.filterModal) {
+            readDeckBuilderFilters();
+            els.filterModal.classList.add('hidden');
+            updateDeckBuilderFilterIndicator();
+            renderSearchResults();
+        }
+    });
+
+    els.filterReset.addEventListener('click', () => {
+        dbActiveFilters = { cardType: null, attributes: new Set(), frames: new Set(), races: new Set(), levels: new Set(), tags: new Set(), staplesOnly: false, spellTypes: new Set(), trapTypes: new Set(), pointsMin: null, pointsMax: null, atkMin: null, atkMax: null, defMin: null, defMax: null };
+        dbDescTerms = [];
+        deckbuilderSortMode = 'name-asc';
+
+        document.querySelectorAll('input[name="db-card-type"]').forEach(r => r.checked = r.value === '');
+        document.querySelectorAll('#db-attribute-filters input[type="checkbox"]').forEach(cb => cb.checked = false);
+        document.querySelectorAll('#db-frame-filters input[type="checkbox"]').forEach(cb => cb.checked = false);
+        document.querySelectorAll('#db-race-filters input[type="checkbox"]').forEach(cb => cb.checked = false);
+        document.querySelectorAll('#db-level-filters button').forEach(btn => {
+            btn.classList.remove('bg-blue-600', 'border-blue-400');
+            btn.classList.add('bg-gray-700');
+        });
+        document.querySelectorAll('#db-tag-filters input[type="checkbox"]').forEach(cb => cb.checked = false);
+        document.querySelectorAll('#db-spell-type-filters input[type="checkbox"]').forEach(cb => cb.checked = false);
+        document.querySelectorAll('#db-trap-type-filters input[type="checkbox"]').forEach(cb => cb.checked = false);
+        document.getElementById('db-staples-filter').checked = false;
+        document.getElementById('db-points-min').value = '';
+        document.getElementById('db-points-max').value = '';
+        document.getElementById('db-atk-min').value = '';
+        document.getElementById('db-atk-max').value = '';
+        document.getElementById('db-def-min').value = '';
+        document.getElementById('db-def-max').value = '';
+
+        els.descTerms.innerHTML = `<div class="flex items-center gap-2 desc-term">
+            <input type="text" placeholder="Search term..." class="flex-1 bg-gray-700 border border-gray-600 rounded px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
+            <select class="bg-gray-700 border border-gray-600 rounded px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-blue-500">
+                <option value="and">AND</option>
+                <option value="or">OR</option>
+                <option value="not">NOT</option>
+            </select>
+            <button class="deckbuilder-remove-term p-1 hover:bg-gray-700 rounded transition-colors">
+                <i data-lucide="x" class="w-3.5 h-3.5 text-gray-500"></i>
+            </button>
+        </div>`;
+
+        els.sortSelect.value = 'name-asc';
+
+        updateDeckBuilderFilterIndicator();
+        renderSearchResults();
+        lucide.createIcons();
+    });
+
+    document.querySelectorAll('input[name="db-card-type"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            dbActiveFilters.cardType = e.target.value || null;
+        });
+    });
+
+    els.addTermBtn.addEventListener('click', () => {
+        const termDiv = document.createElement('div');
+        termDiv.className = 'flex items-center gap-2 desc-term';
+        termDiv.innerHTML = `
+            <input type="text" placeholder="Search term..." class="flex-1 bg-gray-700 border border-gray-600 rounded px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
+            <select class="bg-gray-700 border border-gray-600 rounded px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-blue-500">
+                <option value="and">AND</option>
+                <option value="or">OR</option>
+                <option value="not">NOT</option>
+            </select>
+            <button class="deckbuilder-remove-term p-1 hover:bg-gray-700 rounded transition-colors">
+                <i data-lucide="x" class="w-3.5 h-3.5 text-gray-500"></i>
+            </button>
+        `;
+        termDiv.querySelector('.deckbuilder-remove-term').addEventListener('click', () => {
+            termDiv.remove();
+        });
+        els.descTerms.appendChild(termDiv);
+        lucide.createIcons();
+    });
+
+    els.descTerms.addEventListener('click', (e) => {
+        if (e.target.closest('.deckbuilder-remove-term')) {
+            e.target.closest('.desc-term').remove();
+        }
+    });
+
+    // Export
+    els.exportBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        els.exportDropdown.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', () => {
+        els.exportDropdown.classList.add('hidden');
+    }, { once: false });
+
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('#deckbuilder-export-btn')) {
+            els.exportDropdown.classList.add('hidden');
+        }
+    });
+
+    els.exportYdk.addEventListener('click', exportYDK);
+    els.exportYdke.addEventListener('click', exportYDKE);
+    els.exportTxt.addEventListener('click', exportTXT);
+
+    function updateSortButtonLabel() {
+        els.sortBtn.textContent = deckSortMode === 'type' ? 'Sort: Type ▼' : deckSortMode === 'name' ? 'Sort: A-Z ▼' : 'Sort ▼';
+    }
+
+    els.sortBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        els.sortDropdown.classList.toggle('hidden');
+        els.exportDropdown.classList.add('hidden');
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('#deckbuilder-sort-btn')) {
+            els.sortDropdown.classList.add('hidden');
+        }
+    });
+
+    els.sortType.addEventListener('click', () => {
+        els.sortDropdown.classList.add('hidden');
+        sortDeck('type');
+        updateSortButtonLabel();
+    });
+
+    els.sortName.addEventListener('click', () => {
+        els.sortDropdown.classList.add('hidden');
+        sortDeck('name');
+        updateSortButtonLabel();
+    });
+
+    updateSortButtonLabel();
+
+    els.clearBtn.addEventListener('click', () => {
+        clearDeck();
+        renderDeck();
+        renderSearchResults();
+        updateSortButtonLabel();
+    });
+
+    // Mobile preview close
+    els.mobilePreviewClose.addEventListener('click', () => {
+        els.mobilePreview.classList.remove('active');
+    });
+
+    document.addEventListener('dragend', () => {
+        document.querySelectorAll('.deck-card-slot.drag-over').forEach(el => {
+            el.classList.remove('drag-over');
+        });
+    });
+
+    function updateDeckBuilderFilterIndicator() {
+        const active =
+            dbActiveFilters.cardType ||
+            dbActiveFilters.attributes.size > 0 ||
+            dbActiveFilters.frames.size > 0 ||
+            dbActiveFilters.races.size > 0 ||
+            dbActiveFilters.levels.size > 0 ||
+            dbActiveFilters.tags.size > 0 ||
+            dbActiveFilters.spellTypes.size > 0 ||
+            dbActiveFilters.trapTypes.size > 0 ||
+            dbActiveFilters.pointsMin !== null ||
+            dbActiveFilters.pointsMax !== null ||
+            dbActiveFilters.atkMin !== null ||
+            dbActiveFilters.atkMax !== null ||
+            dbActiveFilters.defMin !== null ||
+            dbActiveFilters.defMax !== null ||
+            dbActiveFilters.staplesOnly ||
+            dbDescTerms.length > 0;
+        els.filterBtn.classList.toggle('deckbuilder-filter-active', active);
+    }
+
+    setupDeckBuilderFilterModal();
+    updateDeckBuilderFilterIndicator();
+}
+
+function exportYDK() {
+    const lines = ['#main'];
+    for (const id of currentDeck.main) {
+        lines.push(String(id));
+    }
+    lines.push('#extra');
+    for (const id of currentDeck.extra) {
+        lines.push(String(id));
+    }
+    lines.push('!side');
+    for (const id of currentDeck.side) {
+        lines.push(String(id));
+    }
+
+    const content = lines.join('\n');
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'deck.ydk';
+    a.click();
+    URL.revokeObjectURL(url);
+    getDBElements().exportDropdown.classList.add('hidden');
+    showToast('YDK exported', 'success');
+}
+
+function exportYDKE() {
+    const encodeSection = (cardIds) => {
+        if (!cardIds || !Array.isArray(cardIds) || cardIds.length === 0) {
+            return '';
+        }
+
+        const byteArray = new Uint8Array(cardIds.length * 4);
+
+        for (let i = 0; i < cardIds.length; i++) {
+            const numId = Number(cardIds[i]);
+            if (isNaN(numId)) continue;
+
+            const offset = i * 4;
+            byteArray[offset]     = numId & 0xFF;
+            byteArray[offset + 1] = (numId >> 8) & 0xFF;
+            byteArray[offset + 2] = (numId >> 16) & 0xFF;
+            byteArray[offset + 3] = (numId >> 24) & 0xFF;
+        }
+
+        let binaryString = '';
+        for (let i = 0; i < byteArray.length; i++) {
+            binaryString += String.fromCharCode(byteArray[i]);
+        }
+
+        return btoa(binaryString);
+    };
+
+    const url = `ydke://${encodeSection(currentDeck.main)}!${encodeSection(currentDeck.extra)}!${encodeSection(currentDeck.side)}!`;
+
+    const done = () => {
+        getDBElements().exportDropdown.classList.add('hidden');
+        showToast('YDKE URL copied', 'success');
+    };
+
+    const fallbackCopy = (text) => {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            document.execCommand('copy');
+        } catch (e) {}
+        document.body.removeChild(textarea);
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(done, () => {
+            fallbackCopy(url);
+            done();
+        });
+    } else {
+        fallbackCopy(url);
+        done();
+    }
+}
+
+function exportTXT() {
+    const sections = [
+        { title: 'Main Deck', cards: currentDeck.main },
+        { title: 'Extra Deck', cards: currentDeck.extra },
+        { title: 'Side Deck', cards: currentDeck.side },
+    ];
+
+    const lines = [];
+    for (const section of sections) {
+        if (section.cards.length === 0) continue;
+        lines.push(`--- ${section.title} ---`);
+
+        const grouped = new Map();
+        for (const id of section.cards) {
+            const card = getCardById(id);
+            if (card) grouped.set(card.name, (grouped.get(card.name) || 0) + 1);
+        }
+
+        for (const [name, count] of grouped) {
+            lines.push(`${count}x ${name}`);
+        }
+        lines.push('');
+    }
+
+    const content = lines.join('\n').trim();
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'deck.txt';
+    a.click();
+    URL.revokeObjectURL(url);
+    getDBElements().exportDropdown.classList.add('hidden');
+    showToast('TXT exported', 'success');
+}
+
+// Deck builder toggle button listener
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleBtn = document.getElementById('deckbuilder-toggle');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            if (isDeckBuilder) {
+                exitDeckBuilder();
+            } else {
+                enterDeckBuilder();
+            }
+        });
+    }
+});
 
 // Start the app
 init();

@@ -73,6 +73,9 @@
                                     <button id="browse-toggle" class="flex-1 py-2 px-4 bg-gray-700 border-2 border-gray-600 rounded-lg hover:bg-gray-600 hover:border-blue-500 transition-all font-bold text-xs tracking-wider" title="Browse Engines Lists">
                                         ENGINES LISTS
                                     </button>
+                                    <button id="deckbuilder-toggle" class="flex-1 py-2 px-4 rounded-lg font-bold text-xs tracking-wider transition-all duration-300 deckbuilder-nav-btn" title="Deck Builder">
+                                        DECK BUILDER
+                                    </button>
                                 </div>
                             </div>
             
@@ -217,6 +220,295 @@
                 </div>
             </div>
             
+            <!-- Deck Builder View -->
+            <div id="deckbuilder-view" class="hidden">
+                <div id="deckbuilder-loading" class="flex flex-col items-center justify-center py-32 flex-shrink-0">
+                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mb-6"></div>
+                    <p class="text-lg text-gray-300 font-medium">Loading card data...</p>
+                    <p class="text-sm text-gray-500 mt-2">
+                        <span id="deckbuilder-loading-progress">0</span> / <span id="deckbuilder-loading-total">0</span>
+                    </p>
+                    <div class="w-64 bg-gray-700 rounded-full h-2 mt-4 overflow-hidden">
+                        <div id="deckbuilder-loading-bar" class="h-full bg-blue-500 rounded-full" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div id="deckbuilder-content" class="hidden">
+                    <div class="deckbuilder-layout flex gap-3" style="flex: 1; min-height: 0;">
+                        <!-- Left: Preview Panel (wider) -->
+                        <aside id="deckbuilder-preview-panel" class="w-80 flex-shrink-0 hidden lg:flex lg:flex-col" style="min-height: 0;">
+                            <div class="bg-gray-800 rounded-xl border border-gray-700 p-3 flex flex-col" style="flex: 1; min-height: 0;">
+                                <div id="deckbuilder-preview-empty" class="flex flex-col items-center justify-center flex-1 text-gray-500">
+                                    <i data-lucide="mouse-pointer-2" class="w-8 h-8 mx-auto mb-2"></i>
+                                    <p class="text-sm">Hover over a card to preview</p>
+                                </div>
+                                <div id="deckbuilder-preview-content" class="flex flex-col hidden" style="min-height: 0;">
+                                    <img id="deckbuilder-preview-image" src="https://images.ygoprodeck.com/images/assets/CardBack.jpg" alt="Card preview" class="w-full rounded-lg mb-3 flex-shrink-0">
+                                    <div class="flex-shrink-0">
+                                        <h2 id="deckbuilder-preview-name" class="text-base font-bold text-white mb-0.5"></h2>
+                                        <p id="deckbuilder-preview-type" class="text-xs text-blue-400 uppercase tracking-wider mb-1.5"></p>
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <span id="deckbuilder-preview-points" class="px-2 py-0.5 bg-blue-600/30 text-blue-400 rounded text-xs font-bold"></span>
+                                            <span id="deckbuilder-preview-attribute" class="text-xs text-gray-400"></span>
+                                            <span id="deckbuilder-preview-race" class="text-xs text-gray-400"></span>
+                                            <span id="deckbuilder-preview-level" class="text-xs text-gray-400"></span>
+                                        </div>
+                                        <div id="deckbuilder-preview-stats" class="hidden flex gap-2 mb-2">
+                                            <span id="deckbuilder-preview-atk" class="px-2 py-0.5 bg-gray-700 rounded text-xs font-bold text-orange-400"></span>
+                                            <span id="deckbuilder-preview-def" class="px-2 py-0.5 bg-gray-700 rounded text-xs font-bold text-purple-400"></span>
+                                        </div>
+                                    </div>
+                                    <p id="deckbuilder-preview-desc" class="text-xs text-gray-400 leading-relaxed overflow-y-auto flex-1 min-h-0"></p>
+                                </div>
+                            </div>
+                        </aside>
+
+                        <!-- Center: Deck Grid -->
+                        <div id="deckbuilder-deck-panel" class="flex-1 flex flex-col min-w-0" style="min-height: 0;">
+                            <div class="deck-sections flex-1 custom-scrollbar" style="min-height: 0; padding: 2px 4px 0 4px;">
+                                <!-- Main Deck -->
+                                <div class="deck-section mb-0.5" data-zone="main">
+                                    <div class="flex items-center justify-between">
+                                        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider">
+                                            Main Deck <span id="deckbuilder-main-count" class="text-gray-600 font-normal">(0/60)</span>
+                                        </h3>
+                                        <span id="deckbuilder-main-points" class="text-xs text-gray-500">0 pts</span>
+                                    </div>
+                                    <div id="deckbuilder-main-grid" class="deck-card-grid" style="grid-template-columns: repeat(15, 1fr);"></div>
+                                </div>
+
+                                <!-- Extra Deck -->
+                                <div class="deck-section mb-0.5" data-zone="extra">
+                                    <div class="flex items-center justify-between">
+                                        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider">
+                                            Extra Deck <span id="deckbuilder-extra-count" class="text-gray-600 font-normal">(0/15)</span>
+                                        </h3>
+                                        <span id="deckbuilder-extra-points" class="text-xs text-gray-500">0 pts</span>
+                                    </div>
+                                    <div id="deckbuilder-extra-grid" class="deck-card-grid" style="grid-template-columns: repeat(15, 1fr);"></div>
+                                </div>
+
+                                <!-- Side Deck -->
+                                <div class="deck-section mb-0.5" data-zone="side">
+                                    <div class="flex items-center justify-between">
+                                        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider">
+                                            Side Deck <span id="deckbuilder-side-count" class="text-gray-600 font-normal">(0/15)</span>
+                                        </h3>
+                                        <span id="deckbuilder-side-points" class="text-xs text-gray-500">0 pts</span>
+                                    </div>
+                                    <div id="deckbuilder-side-grid" class="deck-card-grid" style="grid-template-columns: repeat(15, 1fr);"></div>
+                                </div>
+                            </div>
+
+                            <div id="deckbuilder-footer" class="flex-shrink-0 border-t border-gray-700/50" style="padding: 2px 0 10px;">
+                                <div class="flex items-center justify-between">
+                                    <div class="text-xs">
+                                        Total: <span id="deckbuilder-total-cards" class="text-white font-bold">0</span>
+                                        <span class="text-gray-500"> cards | </span>
+                                        <span id="deckbuilder-total-pts" class="text-blue-400 font-bold border border-blue-500/60 rounded px-1.5 py-0.5">0</span>
+                                        <span class="text-gray-500"> pts</span>
+                                    </div>
+                                    <div class="flex gap-1.5">
+                                        <div class="relative">
+                                            <button id="deckbuilder-sort-btn" class="px-2 py-1 bg-gray-700 hover:bg-gray-600 rounded text-xs font-bold transition-colors">Sort ▼</button>
+                                            <div id="deckbuilder-sort-dropdown" class="hidden absolute bottom-full right-0 mb-1 bg-gray-700 border border-gray-600 rounded overflow-hidden shadow-xl z-10">
+                                                <button id="deckbuilder-sort-type" class="block w-full text-left px-3 py-1.5 text-xs text-gray-300 hover:bg-gray-600 whitespace-nowrap">Sort by Type</button>
+                                                <button id="deckbuilder-sort-name" class="block w-full text-left px-3 py-1.5 text-xs text-gray-300 hover:bg-gray-600 whitespace-nowrap">Sort A-Z</button>
+                                            </div>
+                                        </div>
+                                        <div class="relative">
+                                            <button id="deckbuilder-export-btn" class="px-2 py-1 bg-blue-600 hover:bg-blue-500 rounded text-xs font-bold transition-colors">Export ▼</button>
+                                            <div id="deckbuilder-export-dropdown" class="hidden absolute bottom-full right-0 mb-1 bg-gray-700 border border-gray-600 rounded overflow-hidden shadow-xl z-10">
+                                                <button id="deckbuilder-export-ydk" class="block w-full text-left px-3 py-1.5 text-xs text-gray-300 hover:bg-gray-600 whitespace-nowrap">YDK</button>
+                                                <button id="deckbuilder-export-ydke" class="block w-full text-left px-3 py-1.5 text-xs text-gray-300 hover:bg-gray-600 whitespace-nowrap">YDKE (Link)</button>
+                                                <button id="deckbuilder-export-txt" class="block w-full text-left px-3 py-1.5 text-xs text-gray-300 hover:bg-gray-600 whitespace-nowrap">TXT (Card Names)</button>
+                                            </div>
+                                        </div>
+                                        <button id="deckbuilder-clear-btn" class="px-2 py-1 bg-red-900/40 hover:bg-red-900/60 text-red-400 rounded text-xs font-bold transition-colors">Clear</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right: Search Results -->
+                        <aside id="deckbuilder-search-panel" class="w-72 flex-shrink-0 flex flex-col pr-2" style="min-height: 0;">
+                            <div class="flex items-center gap-2 mb-2 flex-shrink-0">
+                                <div class="relative flex-1">
+                                    <input type="text" id="deckbuilder-search-input" placeholder="Search cards..."
+                                        class="w-full bg-gray-700 border border-gray-600 rounded-lg py-1.5 pl-8 pr-3 text-sm focus:outline-none focus:border-blue-500 transition-all">
+                                    <i data-lucide="search" class="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400 w-3.5 h-3.5"></i>
+                                </div>
+                                <button id="deckbuilder-filter-btn" class="p-1.5 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors flex-shrink-0" title="Filters">
+                                    <i data-lucide="sliders-horizontal" class="w-4 h-4 text-gray-400"></i>
+                                </button>
+                            </div>
+                            <div id="deckbuilder-search-results" class="grid grid-cols-4 gap-0.5 overflow-y-auto overflow-x-hidden flex-1" style="min-height: 0; align-content: start; align-items: start;">
+                            </div>
+                            <div id="deckbuilder-search-empty" class="hidden text-center py-6 text-gray-500 flex-shrink-0">
+                                <i data-lucide="search-x" class="w-6 h-6 mx-auto mb-1"></i>
+                                <p class="text-xs">No cards found</p>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deckbuilder Filter Popup -->
+            <div id="deckbuilder-filter-modal" class="fixed inset-0 bg-black/80 z-[100] flex items-center justify-center p-4 hidden">
+                <div class="bg-gray-800 rounded-xl max-w-lg w-full max-h-[85vh] flex flex-col p-6 overflow-hidden">
+                    <div class="flex items-center justify-between mb-6 flex-shrink-0">
+                        <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                            <i data-lucide="sliders-horizontal" class="w-5 h-5"></i>
+                            Search Filters
+                        </h2>
+                    </div>
+
+                    <div class="overflow-y-auto flex-1 pr-3">
+
+                    <!-- Description Search -->
+                    <div class="mb-5">
+                        <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Description Search</h3>
+                        <div id="deckbuilder-desc-terms" class="space-y-2">
+                            <div class="flex items-center gap-2 desc-term">
+                                <input type="text" placeholder="Search term..." class="flex-1 bg-gray-700 border border-gray-600 rounded px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
+                                <select class="bg-gray-700 border border-gray-600 rounded px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-blue-500">
+                                    <option value="and">AND</option>
+                                    <option value="or">OR</option>
+                                    <option value="not">NOT</option>
+                                </select>
+                                <button class="deckbuilder-remove-term p-1 hover:bg-gray-700 rounded transition-colors">
+                                    <i data-lucide="x" class="w-3.5 h-3.5 text-gray-500"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button id="deckbuilder-add-term" class="mt-2 text-xs text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1">
+                            <i data-lucide="plus" class="w-3 h-3"></i>
+                            Add term
+                        </button>
+                    </div>
+
+                    <!-- Card Type -->
+                    <div class="mb-5">
+                        <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Card Type</h3>
+                        <div class="flex gap-2">
+                            <label class="flex items-center gap-1.5 text-sm text-gray-400 cursor-pointer">
+                                <input type="radio" name="db-card-type" value="" checked class="text-blue-500 focus:ring-blue-500 bg-gray-700 border-gray-600">
+                                <span>All</span>
+                            </label>
+                            <label class="flex items-center gap-1.5 text-sm text-gray-400 cursor-pointer">
+                                <input type="radio" name="db-card-type" value="monster" class="text-blue-500 focus:ring-blue-500 bg-gray-700 border-gray-600">
+                                <span>Monster</span>
+                            </label>
+                            <label class="flex items-center gap-1.5 text-sm text-gray-400 cursor-pointer">
+                                <input type="radio" name="db-card-type" value="spell" class="text-blue-500 focus:ring-blue-500 bg-gray-700 border-gray-600">
+                                <span>Spell</span>
+                            </label>
+                            <label class="flex items-center gap-1.5 text-sm text-gray-400 cursor-pointer">
+                                <input type="radio" name="db-card-type" value="trap" class="text-blue-500 focus:ring-blue-500 bg-gray-700 border-gray-600">
+                                <span>Trap</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Attribute -->
+                    <div class="mb-5" id="db-attribute-container">
+                        <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Attribute</h3>
+                        <div id="db-attribute-filters" class="flex flex-wrap gap-2"></div>
+                    </div>
+
+                    <!-- Monster Frame -->
+                    <div class="mb-5" id="db-frame-container">
+                        <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Frame</h3>
+                        <div id="db-frame-filters" class="flex flex-wrap gap-2"></div>
+                    </div>
+
+                    <!-- Spell Type -->
+                    <div class="mb-5" id="db-spell-type-container">
+                        <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Spell Type</h3>
+                        <div id="db-spell-type-filters" class="flex flex-wrap gap-2"></div>
+                    </div>
+
+                    <!-- Trap Type -->
+                    <div class="mb-5" id="db-trap-type-container">
+                        <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Trap Type</h3>
+                        <div id="db-trap-type-filters" class="flex flex-wrap gap-2"></div>
+                    </div>
+
+                    <!-- Type/Race -->
+                    <div class="mb-5" id="db-race-container">
+                        <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Monster Type</h3>
+                        <div id="db-race-filters" class="flex flex-wrap gap-2 max-h-32 overflow-y-auto"></div>
+                    </div>
+
+                    <!-- Level -->
+                    <div class="mb-5" id="db-level-container">
+                        <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Level</h3>
+                        <div id="db-level-filters" class="flex flex-wrap gap-1"></div>
+                    </div>
+
+                    <!-- Tags & Lists -->
+                    <div class="mb-5">
+                        <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Tags</h3>
+                        <div id="db-tag-filters" class="flex flex-wrap gap-2"></div>
+                    </div>
+                    <div class="mb-5">
+                        <label class="flex items-center gap-2 text-xs text-gray-400 cursor-pointer px-2 py-1 bg-gray-700 rounded hover:bg-gray-600 transition-colors">
+                            <input type="checkbox" id="db-staples-filter" class="text-blue-500 focus:ring-blue-500 bg-gray-700 border-gray-600 rounded">
+                            <span>0 Point Staples Only</span>
+                        </label>
+                    </div>
+
+                    <!-- Points Range -->
+                    <div class="mb-5">
+                        <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Genesys Points</h3>
+                        <div class="flex items-center gap-2">
+                            <input type="number" id="db-points-min" min="0" max="100" step="1" placeholder="Min" class="w-full bg-gray-700 border border-gray-600 rounded px-2 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
+                            <span class="text-gray-500 text-xs">—</span>
+                            <input type="number" id="db-points-max" min="0" max="100" step="1" placeholder="Max" class="w-full bg-gray-700 border border-gray-600 rounded px-2 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
+                        </div>
+                    </div>
+
+                    <!-- ATK Range -->
+                    <div class="mb-5">
+                        <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">ATK</h3>
+                        <div class="flex items-center gap-2">
+                            <input type="number" id="db-atk-min" min="0" max="99999" step="50" placeholder="Min" class="w-full bg-gray-700 border border-gray-600 rounded px-2 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
+                            <span class="text-gray-500 text-xs">—</span>
+                            <input type="number" id="db-atk-max" min="0" max="99999" step="50" placeholder="Max" class="w-full bg-gray-700 border border-gray-600 rounded px-2 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
+                        </div>
+                    </div>
+
+                    <!-- DEF Range -->
+                    <div class="mb-5">
+                        <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">DEF</h3>
+                        <div class="flex items-center gap-2">
+                            <input type="number" id="db-def-min" min="0" max="99999" step="50" placeholder="Min" class="w-full bg-gray-700 border border-gray-600 rounded px-2 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
+                            <span class="text-gray-500 text-xs">—</span>
+                            <input type="number" id="db-def-max" min="0" max="99999" step="50" placeholder="Max" class="w-full bg-gray-700 border border-gray-600 rounded px-2 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
+                        </div>
+                    </div>
+
+                    <!-- Sort -->
+                    <div class="mb-6">
+                        <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Sort Order</h3>
+                        <select id="db-sort-select" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
+                            <option value="points-desc">Points: High to Low</option>
+                            <option value="points-asc">Points: Low to High</option>
+                            <option value="name-asc" selected>Name: A to Z</option>
+                            <option value="name-desc">Name: Z to A</option>
+                            <option value="type">Card Type</option>
+                        </select>
+                    </div>
+
+                    </div>
+
+                    <div class="flex gap-2 mt-6 pt-4 border-t border-gray-700/50 flex-shrink-0">
+                        <button id="deckbuilder-filter-apply" class="flex-1 py-2 bg-blue-600 hover:bg-blue-500 rounded transition-colors text-sm font-medium">Apply</button>
+                        <button id="deckbuilder-filter-reset" class="flex-1 py-2 bg-red-900/30 text-red-400 rounded border border-red-900/50 hover:bg-red-900/50 transition-colors text-sm font-medium">Reset Filters</button>
+                    </div>
+                </div>
+            </div>
+
             <div id="card-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
             </div>
             <div id="loading-sentinel" class="h-20 flex items-center justify-center mt-8">
@@ -230,7 +522,31 @@
         </main>
     </div>
 
-    <!-- Card Detail Modal -->
+            <!-- Deck Builder Mobile Preview -->
+            <div id="deckbuilder-mobile-preview" class="lg:hidden">
+                <div class="flex items-start gap-3">
+                    <img id="db-mobile-preview-image" src="" alt="Preview" class="w-16 rounded-lg flex-shrink-0">
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-start justify-between gap-2">
+                            <div class="min-w-0">
+                                <h3 id="db-mobile-preview-name" class="text-sm font-bold text-white truncate"></h3>
+                                <p id="db-mobile-preview-type" class="text-xs text-blue-400 uppercase tracking-wider"></p>
+                            </div>
+                            <button id="db-mobile-preview-close" class="p-1 hover:bg-gray-700 rounded transition-colors flex-shrink-0">
+                                <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400"></i>
+                            </button>
+                        </div>
+                        <div id="db-mobile-preview-meta" class="flex items-center gap-2 mt-1">
+                            <span id="db-mobile-preview-points" class="text-xs font-bold text-blue-400"></span>
+                            <span id="db-mobile-preview-attribute" class="text-xs text-gray-500"></span>
+                            <span id="db-mobile-preview-race" class="text-xs text-gray-500"></span>
+                        </div>
+                        <p id="db-mobile-preview-desc" class="text-xs text-gray-400 mt-1 line-clamp-2 leading-relaxed"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Detail Modal -->
     <div id="modal" class="fixed inset-0 bg-black/80 z-[100] flex items-center justify-center p-4 hidden">
         <div class="bg-gray-800 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col md:flex-row relative">
             <button id="close-modal" class="absolute top-4 right-4 p-2 bg-black/50 rounded-full hover:bg-black/70 transition-colors z-10">

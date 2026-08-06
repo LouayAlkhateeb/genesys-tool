@@ -1,12 +1,12 @@
 {
-  "desc": "When this card is activated: You can add 1 \"K9\" monster from your Deck to your hand. \"K9\" monsters you control gain 900 ATK during any turn in which your opponent has activated a monster effect in the hand or GY. If this card in the Spell & Trap Zone is destroyed by card effect: You can Set 1 \"K9\" Quick-Play Spell from your Deck or GY. You can only use this effect of \"\"A Case for K9\"\" once per turn. You can only activate 1 \"\"A Case for K9\"\" per turn.",
-  "ygoprodeck_url": "https://ygoprodeck.com/card/a-case-for-k9-14990",
-  "type": "Spell Card",
-  "frameType": "spell",
   "archetype": "K9",
-  "humanReadableCardType": "Continuous Spell",
   "name": "\"A Case for K9\"",
-  "race": "Continuous",
+  "humanReadableCardType": "Continuous Spell",
+  "ygoprodeck_url": "https://ygoprodeck.com/card/a-case-for-k9-14990",
   "id": 80181649,
+  "frameType": "spell",
+  "race": "Continuous",
+  "type": "Spell Card",
+  "desc": "When this card is activated: You can add 1 \"K9\" monster from your Deck to your hand. \"K9\" monsters you control gain 900 ATK during any turn in which your opponent has activated a monster effect in the hand or GY. If this card in the Spell & Trap Zone is destroyed by card effect: You can Set 1 \"K9\" Quick-Play Spell from your Deck or GY. You can only use this effect of \"\"A Case for K9\"\" once per turn. You can only activate 1 \"\"A Case for K9\"\" per turn.",
   "genesys_points": 20
 }

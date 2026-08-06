@@ -33,7 +33,7 @@ const IMAGE_BASE_URL = 'https://ik.imagekit.io/louaykh/cards/';
 const DATA_BASE_URL = './data/';
 
 const LIST_BUILD_VERSION = "2026-07-24-20-52";
-const CARD_BUILD_VERSION = "2026-06-28-23-11";
+const CARD_BUILD_VERSION = "2026-08-06-08-31";
 
 const imageCache = new ImageCache();
 

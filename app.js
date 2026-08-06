@@ -2665,10 +2665,22 @@ function renderSearchResults() {
             const full = getFullCardData(c.id);
             if (!full || !full.desc) return false;
             const desc = full.desc.toLowerCase();
-            return dbDescTerms.every(term => {
-                const match = desc.includes(term.text.toLowerCase());
-                return term.negate ? !match : match;
-            });
+
+            let orMatch = false;
+            let hasOr = false;
+            for (const term of dbDescTerms) {
+                const contains = desc.includes(term.text.toLowerCase());
+                if (term.operator === 'not') {
+                    if (contains) return false;
+                } else if (term.operator === 'or') {
+                    hasOr = true;
+                    if (contains) orMatch = true;
+                } else if (!contains) {
+                    return false;
+                }
+            }
+            if (hasOr && !orMatch) return false;
+            return true;
         });
     }
 
@@ -3073,6 +3085,14 @@ function setupDeckBuilderEvents() {
         const d2 = defMax !== '' ? parseInt(defMax, 10) : null;
         dbActiveFilters.defMin = d1 !== null && !isNaN(d1) ? d1 : null;
         dbActiveFilters.defMax = d2 !== null && !isNaN(d2) ? d2 : null;
+
+        dbDescTerms = [];
+        els.descTerms.querySelectorAll('.desc-term').forEach(row => {
+            const text = row.querySelector('input[type="text"]')?.value?.trim();
+            const operator = row.querySelector('select')?.value || 'and';
+            if (!text) return;
+            dbDescTerms.push({ text, operator, negate: operator === 'not' });
+        });
     }
 
     els.filterModal.addEventListener('click', (e) => {

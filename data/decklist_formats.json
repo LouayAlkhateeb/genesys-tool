@@ -666,6 +666,76 @@
               "path": "decklists/Chaos Origins - June 22nd update/Oceanic WCQ Genesys 2026/Tistina.txt"
             }
           ]
+        },
+        {
+          "name": "Santa Clara Genesys Regional",
+          "path": "decklists/Chaos Origins - June 22nd update/Santa Clara Genesys Regional",
+          "decklists": [
+            {
+              "name": "Gem-Knight Constellar Tellarknights",
+              "path": "decklists/Chaos Origins - June 22nd update/Santa Clara Genesys Regional/Gem-Knight Constellar Tellarknights.txt"
+            },
+            {
+              "name": "Invoked Chimera",
+              "path": "decklists/Chaos Origins - June 22nd update/Santa Clara Genesys Regional/Invoked Chimera.txt"
+            }
+          ]
+        },
+        {
+          "name": "Spanish Fork Genesys Regional",
+          "path": "decklists/Chaos Origins - June 22nd update/Spanish Fork Genesys Regional",
+          "decklists": [
+            {
+              "name": "Armored Argostars",
+              "path": "decklists/Chaos Origins - June 22nd update/Spanish Fork Genesys Regional/Armored Argostars.txt"
+            },
+            {
+              "name": "Darklord",
+              "path": "decklists/Chaos Origins - June 22nd update/Spanish Fork Genesys Regional/Darklord.txt"
+            },
+            {
+              "name": "Fairy Tail",
+              "path": "decklists/Chaos Origins - June 22nd update/Spanish Fork Genesys Regional/Fairy Tail.txt"
+            },
+            {
+              "name": "Sacred Beasts Machina B.E.S. Trains",
+              "path": "decklists/Chaos Origins - June 22nd update/Spanish Fork Genesys Regional/Sacred Beasts Machina B.E.S. Trains.txt"
+            },
+            {
+              "name": "Shining Sarcophagus Light and Darkness Ritual",
+              "path": "decklists/Chaos Origins - June 22nd update/Spanish Fork Genesys Regional/Shining Sarcophagus Light and Darkness Ritual.txt"
+            }
+          ]
+        },
+        {
+          "name": "The Side Deck Remote Duel Genesys Regional",
+          "path": "decklists/Chaos Origins - June 22nd update/The Side Deck Remote Duel Genesys Regional",
+          "decklists": [
+            {
+              "name": "Blitzclique",
+              "path": "decklists/Chaos Origins - June 22nd update/The Side Deck Remote Duel Genesys Regional/Blitzclique.txt"
+            },
+            {
+              "name": "Gem-Knight Constellar Tellarknights",
+              "path": "decklists/Chaos Origins - June 22nd update/The Side Deck Remote Duel Genesys Regional/Gem-Knight Constellar Tellarknights.txt"
+            },
+            {
+              "name": "Nekroz Fairy Tail (1)",
+              "path": "decklists/Chaos Origins - June 22nd update/The Side Deck Remote Duel Genesys Regional/Nekroz Fairy Tail (1).txt"
+            },
+            {
+              "name": "Nekroz Fairy Tail",
+              "path": "decklists/Chaos Origins - June 22nd update/The Side Deck Remote Duel Genesys Regional/Nekroz Fairy Tail.txt"
+            },
+            {
+              "name": "Sacred Beasts Blitzclique",
+              "path": "decklists/Chaos Origins - June 22nd update/The Side Deck Remote Duel Genesys Regional/Sacred Beasts Blitzclique.txt"
+            },
+            {
+              "name": "Shaddoll Fairy Dracotail",
+              "path": "decklists/Chaos Origins - June 22nd update/The Side Deck Remote Duel Genesys Regional/Shaddoll Fairy_Dracotail.txt"
+            }
+          ]
         }
       ]
     }

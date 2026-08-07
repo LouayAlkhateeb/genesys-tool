@@ -32,6 +32,10 @@ const IMAGE_BASE_URL = 'https://ik.imagekit.io/louaykh/cards/';
 //const IMAGE_BASE_URL = 'https://images.ygoprodeck.com/images/cards_small/';
 const DATA_BASE_URL = './data/';
 
+function chunkFilePath(chunkNum) {
+    return `${DATA_BASE_URL}cards/chunk_${String(chunkNum).padStart(4, '0')}.json`;
+}
+
 const LIST_BUILD_VERSION = "2026-07-24-20-52";
 const CARD_BUILD_VERSION = "2026-08-06-08-31";
 
@@ -557,8 +561,8 @@ function initializeChunkFilesMap() {
     if (chunkFilesMap === null) {
         chunkFilesMap = new Set();
         allCards.forEach(card => {
-            if (card.location && card.location.file) {
-                chunkFilesMap.add(card.location.file);
+            if (card.location && card.location.c !== undefined) {
+                chunkFilesMap.add(chunkFilePath(card.location.c));
             }
         });
     }
@@ -1249,7 +1253,7 @@ async function showCardDetails(card) {
     </div>`;
 
     try {
-        const chunkPath = card.location.file;
+        const chunkPath = chunkFilePath(card.location.c);
         
         // Track chunk access for prefetching
         trackChunkAccess(chunkPath);
@@ -1273,7 +1277,7 @@ async function showCardDetails(card) {
             }, 100);
         }
         
-        const fullCard = chunk[card.location.idx];
+        const fullCard = chunk[card.location.i];
 
         modalContent.innerHTML = `
             <div class="space-y-4">

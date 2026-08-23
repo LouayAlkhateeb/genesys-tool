@@ -116,6 +116,9 @@ let isBrowseView = false;
 let navigationPath = []; // track position in the hierarchy [categoryIndex, subcategoryIndex]
 let trackedCardsData = { additional_card_ids: [] };
 
+// Genesys points lookup
+let genesysPointsMap = new Map();
+
 // Spell and Trap race options
 const SPELL_RACES = ['Normal', 'Quick-Play', 'Continuous', 'Equip', 'Field', 'Ritual'];
 const TRAP_RACES = ['Normal', 'Continuous', 'Counter'];
@@ -694,7 +697,7 @@ async function init() {
         listToggle = document.getElementById('list-toggle');
 
         // Load index and filters in parallel
-        const [indexData, attributes, levels, races, frameTypes] = await Promise.all([
+        const [indexData, attributes, levels, races, frameTypes, genesysPointsData] = await Promise.all([
             fetch(`${DATA_BASE_URL}index.json?v=${CARD_BUILD_VERSION}`).then(r => {
                 if (!r.ok) throw new Error(`Failed to load index: ${r.status}`);
                 return r.json();
@@ -714,8 +717,15 @@ async function init() {
             fetch(`${DATA_BASE_URL}frame_types.json?v=${CARD_BUILD_VERSION}`).then(r => {
                 if (!r.ok) throw new Error(`Failed to load frame types: ${r.status}`);
                 return r.json();
+            }),
+            fetch(`${DATA_BASE_URL}genesys-points.json?v=${CARD_BUILD_VERSION}`).then(r => {
+                if (!r.ok) throw new Error(`Failed to load genesys points: ${r.status}`);
+                return r.json();
             })
         ]);
+
+        // Build genesys points lookup map: id → points
+        genesysPointsMap = new Map(genesysPointsData.map(entry => [entry[1], entry[2]]));
 
         // Convert optimized index to full card objects for frontend
         allCards = Object.entries(indexData).map(([id, card]) => ({
@@ -725,7 +735,7 @@ async function init() {
             race: card.r,  // race
             attribute: card.a, // attribute
             level: card.l, // level
-            genesys_points: card.g, // genesys_points
+            genesys_points: genesysPointsMap.get(parseInt(id)) || 0, // genesys_points from genesys-points.json
             location: card.loc // location
         }));
         cardMap = new Map(allCards.map(c => [c.id, c]));
@@ -1278,6 +1288,7 @@ async function showCardDetails(card) {
         }
         
         const fullCard = chunk[card.location.i];
+        fullCard.genesys_points = genesysPointsMap.get(fullCard.id) || 0;
 
         modalContent.innerHTML = `
             <div class="space-y-4">
@@ -2242,6 +2253,7 @@ async function loadAllChunks() {
                 const { data } = result.value;
                 for (const card of data) {
                     if (card.id) {
+                        card.genesys_points = genesysPointsMap.get(card.id) || 0;
                         fullCardDataMap.set(card.id, card);
                     }
                 }

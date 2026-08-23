@@ -63,6 +63,7 @@
       {
         "name": "Rank 6 Engines",
         "lists": [
+          { "id": "zombie-r6", "name": "Zombies Rank 6"},
           { "id": "r6-extenders", "name": "Level 6 Extenders" }
         ]
       },

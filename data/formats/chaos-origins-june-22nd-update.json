@@ -1,0 +1,354 @@
+{
+  "name": "Chaos Origins - June 22nd update",
+  "path": "decklists/Chaos Origins - June 22nd update",
+  "events": [
+    {
+      "name": "North America WCQ Genesys 2026",
+      "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026",
+      "decklists": [
+        {
+          "name": "Angelechy Artmage",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Angelechy Artmage.txt"
+        },
+        {
+          "name": "Angelechy Blitzclique",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Angelechy Blitzclique.txt"
+        },
+        {
+          "name": "Blitzclique (1)",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Blitzclique (1).txt"
+        },
+        {
+          "name": "Blitzclique (10)",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Blitzclique (10).txt"
+        },
+        {
+          "name": "Blitzclique (11)",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Blitzclique (11).txt"
+        },
+        {
+          "name": "Blitzclique (12)",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Blitzclique (12).txt"
+        },
+        {
+          "name": "Blitzclique (13)",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Blitzclique (13).txt"
+        },
+        {
+          "name": "Blitzclique (2)",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Blitzclique (2).txt"
+        },
+        {
+          "name": "Blitzclique (3)",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Blitzclique (3).txt"
+        },
+        {
+          "name": "Blitzclique (4)",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Blitzclique (4).txt"
+        },
+        {
+          "name": "Blitzclique (5)",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Blitzclique (5).txt"
+        },
+        {
+          "name": "Blitzclique (6)",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Blitzclique (6).txt"
+        },
+        {
+          "name": "Blitzclique (7)",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Blitzclique (7).txt"
+        },
+        {
+          "name": "Blitzclique (8)",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Blitzclique (8).txt"
+        },
+        {
+          "name": "Blitzclique (9)",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Blitzclique (9).txt"
+        },
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Blitzclique.txt"
+        },
+        {
+          "name": "Branded",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Branded.txt"
+        },
+        {
+          "name": "Chimera Hecahands (1)",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Chimera Hecahands (1).txt"
+        },
+        {
+          "name": "Constellar Tellarknights (1)",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Constellar Tellarknights (1).txt"
+        },
+        {
+          "name": "Constellar Tellarknights",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Constellar Tellarknights.txt"
+        },
+        {
+          "name": "Dark World Sacred Beasts",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Dark World Sacred Beasts.txt"
+        },
+        {
+          "name": "HERO (1)",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/HERO (1).txt"
+        },
+        {
+          "name": "HERO",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/HERO.txt"
+        },
+        {
+          "name": "Kaiju Invoked",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Kaiju Invoked.txt"
+        },
+        {
+          "name": "Mimighoul",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Mimighoul.txt"
+        },
+        {
+          "name": "Nekroz Fairy Tail",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Nekroz Fairy Tail.txt"
+        },
+        {
+          "name": "Predaplant Dracotail",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Predaplant Dracotail.txt"
+        },
+        {
+          "name": "Radiant Typhoon Blitzclique",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Radiant Typhoon Blitzclique.txt"
+        },
+        {
+          "name": "Regenesis Voiceless Voice",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Regenesis Voiceless Voice.txt"
+        },
+        {
+          "name": "Sacred Beasts",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Sacred Beasts.txt"
+        },
+        {
+          "name": "Shaddoll Fairy_Dracotail",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Shaddoll Fairy_Dracotail.txt"
+        },
+        {
+          "name": "Super Quant",
+          "path": "decklists/Chaos Origins - June 22nd update/North America WCQ Genesys 2026/Super Quant.txt"
+        }
+      ]
+    },
+    {
+      "name": "European WCQ Genesys 2026",
+      "path": "decklists/Chaos Origins - June 22nd update/European WCQ Genesys 2026",
+      "decklists": [
+        {
+          "name": "Angelechy Clown Crew",
+          "path": "decklists/Chaos Origins - June 22nd update/European WCQ Genesys 2026/Angelechy Clown Crew.txt"
+        },
+        {
+          "name": "Blitzclique (1)",
+          "path": "decklists/Chaos Origins - June 22nd update/European WCQ Genesys 2026/Blitzclique (1).txt"
+        },
+        {
+          "name": "Blitzclique (2)",
+          "path": "decklists/Chaos Origins - June 22nd update/European WCQ Genesys 2026/Blitzclique (2).txt"
+        },
+        {
+          "name": "Blitzclique (3)",
+          "path": "decklists/Chaos Origins - June 22nd update/European WCQ Genesys 2026/Blitzclique (3).txt"
+        },
+        {
+          "name": "Blitzclique (4)",
+          "path": "decklists/Chaos Origins - June 22nd update/European WCQ Genesys 2026/Blitzclique (4).txt"
+        },
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - June 22nd update/European WCQ Genesys 2026/Blitzclique.txt"
+        },
+        {
+          "name": "Darklord",
+          "path": "decklists/Chaos Origins - June 22nd update/European WCQ Genesys 2026/Darklord.txt"
+        },
+        {
+          "name": "DoomZ",
+          "path": "decklists/Chaos Origins - June 22nd update/European WCQ Genesys 2026/DoomZ.txt"
+        },
+        {
+          "name": "Elfnote Crystron",
+          "path": "decklists/Chaos Origins - June 22nd update/European WCQ Genesys 2026/Elfnote Crystron.txt"
+        },
+        {
+          "name": "Fairy Tail",
+          "path": "decklists/Chaos Origins - June 22nd update/European WCQ Genesys 2026/Fairy Tail.txt"
+        },
+        {
+          "name": "Invoked",
+          "path": "decklists/Chaos Origins - June 22nd update/European WCQ Genesys 2026/Invoked.txt"
+        },
+        {
+          "name": "Labrynth",
+          "path": "decklists/Chaos Origins - June 22nd update/European WCQ Genesys 2026/Labrynth.txt"
+        },
+        {
+          "name": "Magnet Warrior",
+          "path": "decklists/Chaos Origins - June 22nd update/European WCQ Genesys 2026/Magnet Warrior.txt"
+        },
+        {
+          "name": "Nekroz Fairy Tail (1)",
+          "path": "decklists/Chaos Origins - June 22nd update/European WCQ Genesys 2026/Nekroz Fairy Tail (1).txt"
+        },
+        {
+          "name": "Nekroz Fairy Tail",
+          "path": "decklists/Chaos Origins - June 22nd update/European WCQ Genesys 2026/Nekroz Fairy Tail.txt"
+        },
+        {
+          "name": "Red Dragon Archfiend Light and Darkness Ritual (1)",
+          "path": "decklists/Chaos Origins - June 22nd update/European WCQ Genesys 2026/Red Dragon Archfiend Light and Darkness Ritual (1).txt"
+        },
+        {
+          "name": "Red Dragon Archfiend Light and Darkness Ritual",
+          "path": "decklists/Chaos Origins - June 22nd update/European WCQ Genesys 2026/Red Dragon Archfiend Light and Darkness Ritual.txt"
+        },
+        {
+          "name": "Rose Dragon Predaplant",
+          "path": "decklists/Chaos Origins - June 22nd update/European WCQ Genesys 2026/Rose Dragon Predaplant.txt"
+        },
+        {
+          "name": "Sacred Beasts Blitzclique",
+          "path": "decklists/Chaos Origins - June 22nd update/European WCQ Genesys 2026/Sacred Beasts Blitzclique.txt"
+        }
+      ]
+    },
+    {
+      "name": "Oceanic WCQ Genesys 2026",
+      "path": "decklists/Chaos Origins - June 22nd update/Oceanic WCQ Genesys 2026",
+      "decklists": [
+        {
+          "name": "B.E.S. Crystron",
+          "path": "decklists/Chaos Origins - June 22nd update/Oceanic WCQ Genesys 2026/B.E.S. Crystron.txt"
+        },
+        {
+          "name": "Blitzclique (1)",
+          "path": "decklists/Chaos Origins - June 22nd update/Oceanic WCQ Genesys 2026/Blitzclique (1).txt"
+        },
+        {
+          "name": "Blitzclique (2)",
+          "path": "decklists/Chaos Origins - June 22nd update/Oceanic WCQ Genesys 2026/Blitzclique (2).txt"
+        },
+        {
+          "name": "Blitzclique (3)",
+          "path": "decklists/Chaos Origins - June 22nd update/Oceanic WCQ Genesys 2026/Blitzclique (3).txt"
+        },
+        {
+          "name": "Blitzclique (4)",
+          "path": "decklists/Chaos Origins - June 22nd update/Oceanic WCQ Genesys 2026/Blitzclique (4).txt"
+        },
+        {
+          "name": "Blitzclique (5)",
+          "path": "decklists/Chaos Origins - June 22nd update/Oceanic WCQ Genesys 2026/Blitzclique (5).txt"
+        },
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - June 22nd update/Oceanic WCQ Genesys 2026/Blitzclique.txt"
+        },
+        {
+          "name": "HERO Constellar Tellarknights (1)",
+          "path": "decklists/Chaos Origins - June 22nd update/Oceanic WCQ Genesys 2026/HERO Constellar Tellarknights (1).txt"
+        },
+        {
+          "name": "HERO Constellar Tellarknights",
+          "path": "decklists/Chaos Origins - June 22nd update/Oceanic WCQ Genesys 2026/HERO Constellar Tellarknights.txt"
+        },
+        {
+          "name": "Invoked Fairy Tail",
+          "path": "decklists/Chaos Origins - June 22nd update/Oceanic WCQ Genesys 2026/Invoked Fairy Tail.txt"
+        },
+        {
+          "name": "Nekroz Fairy Tail",
+          "path": "decklists/Chaos Origins - June 22nd update/Oceanic WCQ Genesys 2026/Nekroz Fairy Tail.txt"
+        },
+        {
+          "name": "Sacred Beasts (1)",
+          "path": "decklists/Chaos Origins - June 22nd update/Oceanic WCQ Genesys 2026/Sacred Beasts (1).txt"
+        },
+        {
+          "name": "Sacred Beasts",
+          "path": "decklists/Chaos Origins - June 22nd update/Oceanic WCQ Genesys 2026/Sacred Beasts.txt"
+        },
+        {
+          "name": "Tistina",
+          "path": "decklists/Chaos Origins - June 22nd update/Oceanic WCQ Genesys 2026/Tistina.txt"
+        }
+      ]
+    },
+    {
+      "name": "Santa Clara Genesys Regional",
+      "path": "decklists/Chaos Origins - June 22nd update/Santa Clara Genesys Regional",
+      "decklists": [
+        {
+          "name": "Gem-Knight Constellar Tellarknights",
+          "path": "decklists/Chaos Origins - June 22nd update/Santa Clara Genesys Regional/Gem-Knight Constellar Tellarknights.txt"
+        },
+        {
+          "name": "Invoked Chimera",
+          "path": "decklists/Chaos Origins - June 22nd update/Santa Clara Genesys Regional/Invoked Chimera.txt"
+        }
+      ]
+    },
+    {
+      "name": "Spanish Fork Genesys Regional",
+      "path": "decklists/Chaos Origins - June 22nd update/Spanish Fork Genesys Regional",
+      "decklists": [
+        {
+          "name": "Armored Argostars",
+          "path": "decklists/Chaos Origins - June 22nd update/Spanish Fork Genesys Regional/Armored Argostars.txt"
+        },
+        {
+          "name": "Darklord",
+          "path": "decklists/Chaos Origins - June 22nd update/Spanish Fork Genesys Regional/Darklord.txt"
+        },
+        {
+          "name": "Fairy Tail",
+          "path": "decklists/Chaos Origins - June 22nd update/Spanish Fork Genesys Regional/Fairy Tail.txt"
+        },
+        {
+          "name": "Sacred Beasts Machina B.E.S. Trains",
+          "path": "decklists/Chaos Origins - June 22nd update/Spanish Fork Genesys Regional/Sacred Beasts Machina B.E.S. Trains.txt"
+        },
+        {
+          "name": "Shining Sarcophagus Light and Darkness Ritual",
+          "path": "decklists/Chaos Origins - June 22nd update/Spanish Fork Genesys Regional/Shining Sarcophagus Light and Darkness Ritual.txt"
+        }
+      ]
+    },
+    {
+      "name": "The Side Deck Remote Duel Genesys Regional",
+      "path": "decklists/Chaos Origins - June 22nd update/The Side Deck Remote Duel Genesys Regional",
+      "decklists": [
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - June 22nd update/The Side Deck Remote Duel Genesys Regional/Blitzclique.txt"
+        },
+        {
+          "name": "Gem-Knight Constellar Tellarknights",
+          "path": "decklists/Chaos Origins - June 22nd update/The Side Deck Remote Duel Genesys Regional/Gem-Knight Constellar Tellarknights.txt"
+        },
+        {
+          "name": "Nekroz Fairy Tail (1)",
+          "path": "decklists/Chaos Origins - June 22nd update/The Side Deck Remote Duel Genesys Regional/Nekroz Fairy Tail (1).txt"
+        },
+        {
+          "name": "Nekroz Fairy Tail",
+          "path": "decklists/Chaos Origins - June 22nd update/The Side Deck Remote Duel Genesys Regional/Nekroz Fairy Tail.txt"
+        },
+        {
+          "name": "Sacred Beasts Blitzclique",
+          "path": "decklists/Chaos Origins - June 22nd update/The Side Deck Remote Duel Genesys Regional/Sacred Beasts Blitzclique.txt"
+        },
+        {
+          "name": "Shaddoll Fairy Dracotail",
+          "path": "decklists/Chaos Origins - June 22nd update/The Side Deck Remote Duel Genesys Regional/Shaddoll Fairy_Dracotail.txt"
+        }
+      ]
+    }
+  ]
+}

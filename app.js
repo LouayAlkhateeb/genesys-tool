@@ -36,7 +36,7 @@ function chunkFilePath(chunkNum) {
     return `${DATA_BASE_URL}cards/chunk_${String(chunkNum).padStart(4, '0')}.json`;
 }
 
-const LIST_BUILD_VERSION = "2026-07-24-20-52";
+const LIST_BUILD_VERSION = "2026-06-27-18-11";
 const CARD_BUILD_VERSION = "2026-08-06-08-31";
 
 const imageCache = new ImageCache();
@@ -1559,7 +1559,7 @@ async function loadDecklistFormats() {
 
 async function loadDecklistsForFormat(formatPath) {
     try {
-        // Load the decklist formats JSON to get the decklists for the selected format
+        // Load format index
         const response = await fetch(`${DATA_BASE_URL}decklist_formats.json?v=${CARD_BUILD_VERSION}`);
         if (!response.ok) {
             throw new Error('Could not load decklist formats');
@@ -1573,10 +1573,22 @@ async function loadDecklistsForFormat(formatPath) {
             console.error(`Format not found: ${formatPath}`);
             return [];
         }
+
+        if (!selectedFormat.manifest) {
+            throw new Error(`Format manifest missing for: ${formatPath}`);
+        }
+
+        // Load selected format's events and decklist references
+        const manifestResponse = await fetch(`${DATA_BASE_URL}${selectedFormat.manifest}?v=${CARD_BUILD_VERSION}`);
+        if (!manifestResponse.ok) {
+            throw new Error(`Could not load format manifest: ${manifestResponse.status}`);
+        }
+
+        const formatData = await manifestResponse.json();
         
-        // Collect all decklists from all events in the format
         const decklists = [];
-        selectedFormat.events.forEach(event => {
+        // Collect all decklists from all events in the format
+        formatData.events.forEach(event => {
             event.decklists.forEach(decklist => {
                 decklists.push(decklist.path);
             });

@@ -1,0 +1,174 @@
+{
+  "name": "Maze of Muertos - March 5th update",
+  "path": "decklists/Maze of Muertos - March 5th update",
+  "events": [
+    {
+      "name": "Mabrik Genesys Celebration",
+      "path": "decklists/Maze of Muertos - March 5th update/Mabrik Genesys Celebration",
+      "decklists": [
+        {
+          "name": "DoomZ",
+          "path": "decklists/Maze of Muertos - March 5th update/Mabrik Genesys Celebration/DoomZ.txt"
+        },
+        {
+          "name": "Hecahands Chimera",
+          "path": "decklists/Maze of Muertos - March 5th update/Mabrik Genesys Celebration/Hecahands Chimera.txt"
+        },
+        {
+          "name": "Kewl Tune",
+          "path": "decklists/Maze of Muertos - March 5th update/Mabrik Genesys Celebration/Kewl Tune.txt"
+        },
+        {
+          "name": "Teleport P.U.N.K.",
+          "path": "decklists/Maze of Muertos - March 5th update/Mabrik Genesys Celebration/Teleport P.U.N.K..txt"
+        }
+      ]
+    },
+    {
+      "name": "Genesys Celebration Reutlingen",
+      "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Reutlingen",
+      "decklists": [
+        {
+          "name": "Vernusylph Magnet Warrior",
+          "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Reutlingen/Vernusylph Magnet Warrior.txt"
+        }
+      ]
+    },
+    {
+      "name": "Super Heroes Comic Cards and Games Genesys Celebration",
+      "path": "decklists/Maze of Muertos - March 5th update/Super Heroes Comic Cards and Games Genesys Celebration",
+      "decklists": [
+        {
+          "name": "Branded Blue-Eyes Dracotail",
+          "path": "decklists/Maze of Muertos - March 5th update/Super Heroes Comic Cards and Games Genesys Celebration/Branded Blue-Eyes Dracotail.txt"
+        },
+        {
+          "name": "Exosister",
+          "path": "decklists/Maze of Muertos - March 5th update/Super Heroes Comic Cards and Games Genesys Celebration/Exosister.txt"
+        },
+        {
+          "name": "Hecahands Chimera",
+          "path": "decklists/Maze of Muertos - March 5th update/Super Heroes Comic Cards and Games Genesys Celebration/Hecahands Chimera.txt"
+        },
+        {
+          "name": "Invoked Generaider",
+          "path": "decklists/Maze of Muertos - March 5th update/Super Heroes Comic Cards and Games Genesys Celebration/Invoked Generaider.txt"
+        },
+        {
+          "name": "Jurrac Fire King",
+          "path": "decklists/Maze of Muertos - March 5th update/Super Heroes Comic Cards and Games Genesys Celebration/Jurrac Fire King.txt"
+        },
+        {
+          "name": "Red Dragon Archfiend",
+          "path": "decklists/Maze of Muertos - March 5th update/Super Heroes Comic Cards and Games Genesys Celebration/Red Dragon Archfiend.txt"
+        },
+        {
+          "name": "Spirit Ryzeal",
+          "path": "decklists/Maze of Muertos - March 5th update/Super Heroes Comic Cards and Games Genesys Celebration/Spirit Ryzeal.txt"
+        },
+        {
+          "name": "ZSW Onomat",
+          "path": "decklists/Maze of Muertos - March 5th update/Super Heroes Comic Cards and Games Genesys Celebration/ZSW Onomat.txt"
+        }
+      ]
+    },
+    {
+      "name": "UK Open Genesys Challenge",
+      "path": "decklists/Maze of Muertos - March 5th update/UK Open Genesys Challenge",
+      "decklists": [
+        {
+          "name": "Artmage",
+          "path": "decklists/Maze of Muertos - March 5th update/UK Open Genesys Challenge/Artmage.txt"
+        },
+        {
+          "name": "Darklord",
+          "path": "decklists/Maze of Muertos - March 5th update/UK Open Genesys Challenge/Darklord.txt"
+        },
+        {
+          "name": "Gem-Knight Branded",
+          "path": "decklists/Maze of Muertos - March 5th update/UK Open Genesys Challenge/Gem-Knight Branded.txt"
+        },
+        {
+          "name": "Kewl Tune",
+          "path": "decklists/Maze of Muertos - March 5th update/UK Open Genesys Challenge/Kewl Tune.txt"
+        },
+        {
+          "name": "Magnet Warrior",
+          "path": "decklists/Maze of Muertos - March 5th update/UK Open Genesys Challenge/Magnet Warrior.txt"
+        },
+        {
+          "name": "Monarch",
+          "path": "decklists/Maze of Muertos - March 5th update/UK Open Genesys Challenge/Monarch.txt"
+        },
+        {
+          "name": "Radiant Typhoon",
+          "path": "decklists/Maze of Muertos - March 5th update/UK Open Genesys Challenge/Radiant Typhoon.txt"
+        },
+        {
+          "name": "Toy White Forest",
+          "path": "decklists/Maze of Muertos - March 5th update/UK Open Genesys Challenge/Toy White Forest.txt"
+        }
+      ]
+    },
+    {
+      "name": "Genesys Celebration Copenhagen",
+      "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Copenhagen",
+      "decklists": [
+        {
+          "name": "Magnet Warrior",
+          "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Copenhagen/Magnet Warrior.txt"
+        },
+        {
+          "name": "Odion",
+          "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Copenhagen/Odion.txt"
+        }
+      ]
+    },
+    {
+      "name": "Genesys Celebration Spanish Fork",
+      "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Spanish Fork",
+      "decklists": [
+        {
+          "name": "Dogmatika Despia Branded",
+          "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Spanish Fork/Dogmatika Despia Branded.txt"
+        },
+        {
+          "name": "DoomZ",
+          "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Spanish Fork/DoomZ.txt"
+        }
+      ]
+    },
+    {
+      "name": "Genesys Celebration Braunschweig",
+      "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Braunschweig",
+      "decklists": [
+        {
+          "name": "Artmage",
+          "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Braunschweig/Artmage.txt"
+        },
+        {
+          "name": "Kewl Tune",
+          "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Braunschweig/Kewl Tune.txt"
+        },
+        {
+          "name": "Magnet Warrior (1)",
+          "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Braunschweig/Magnet Warrior (1).txt"
+        },
+        {
+          "name": "Magnet Warrior",
+          "path": "decklists/Maze of Muertos - March 5th update/Genesys Celebration Braunschweig/Magnet Warrior.txt"
+        }
+      ]
+    },
+    {
+      "name": "Edinburgh Genesys Celebration",
+      "path": "decklists/Maze of Muertos - March 5th update/Edinburgh Genesys Celebration",
+      "decklists": [
+        {
+          "name": "Armed Dragon Dragon Ruler",
+          "path": "decklists/Maze of Muertos - March 5th update/Edinburgh Genesys Celebration/Armed Dragon Dragon Ruler.txt"
+        }
+      ]
+    }
+  ]
+}

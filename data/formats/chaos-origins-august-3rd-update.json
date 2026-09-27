@@ -1,0 +1,1224 @@
+{
+  "name": "Chaos Origins - August 3rd Update",
+  "path": "decklists/Chaos Origins - August 3rd Update",
+  "events": [
+    {
+      "name": "Aalborg Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Aalborg Genesys Regional",
+      "decklists": [
+        {
+          "name": "Artmage",
+          "path": "decklists/Chaos Origins - August 3rd Update/Aalborg Genesys Regional/Artmage.txt"
+        },
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Aalborg Genesys Regional/Blitzclique.txt"
+        },
+        {
+          "name": "Elfnote Snake-Eye",
+          "path": "decklists/Chaos Origins - August 3rd Update/Aalborg Genesys Regional/Elfnote Snake-Eye.txt"
+        },
+        {
+          "name": "Invoked Chimera Hecahands",
+          "path": "decklists/Chaos Origins - August 3rd Update/Aalborg Genesys Regional/Invoked Chimera Hecahands.txt"
+        },
+        {
+          "name": "Kewl Tune Red Dragon Archfiend",
+          "path": "decklists/Chaos Origins - August 3rd Update/Aalborg Genesys Regional/Kewl Tune Red Dragon Archfiend.txt"
+        },
+        {
+          "name": "Odion",
+          "path": "decklists/Chaos Origins - August 3rd Update/Aalborg Genesys Regional/Odion.txt"
+        },
+        {
+          "name": "Radiant Typhoon",
+          "path": "decklists/Chaos Origins - August 3rd Update/Aalborg Genesys Regional/Radiant Typhoon.txt"
+        },
+        {
+          "name": "Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/Aalborg Genesys Regional/Sacred Beasts.txt"
+        }
+      ]
+    },
+    {
+      "name": "Athens Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Athens Genesys Regional",
+      "decklists": [
+        {
+          "name": "Invoked Fairy Tail",
+          "path": "decklists/Chaos Origins - August 3rd Update/Athens Genesys Regional/Invoked Fairy Tail.txt"
+        },
+        {
+          "name": "Spright Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Athens Genesys Regional/Spright Blitzclique.txt"
+        }
+      ]
+    },
+    {
+      "name": "Aurora Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Aurora Genesys Regional",
+      "decklists": [
+        {
+          "name": "Evil HERO Sacred Beasts Chimera",
+          "path": "decklists/Chaos Origins - August 3rd Update/Aurora Genesys Regional/Evil HERO Sacred Beasts Chimera.txt"
+        },
+        {
+          "name": "Mimighoul",
+          "path": "decklists/Chaos Origins - August 3rd Update/Aurora Genesys Regional/Mimighoul.txt"
+        },
+        {
+          "name": "Snake-Eye Fire King",
+          "path": "decklists/Chaos Origins - August 3rd Update/Aurora Genesys Regional/Snake-Eye Fire King.txt"
+        },
+        {
+          "name": "Vernusylph Madolche",
+          "path": "decklists/Chaos Origins - August 3rd Update/Aurora Genesys Regional/Vernusylph Madolche.txt"
+        }
+      ]
+    },
+    {
+      "name": "Bainbridge Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Bainbridge Genesys Regional",
+      "decklists": [
+        {
+          "name": "Melffy",
+          "path": "decklists/Chaos Origins - August 3rd Update/Bainbridge Genesys Regional/Melffy.txt"
+        },
+        {
+          "name": "Spright Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Bainbridge Genesys Regional/Spright Blitzclique.txt"
+        },
+        {
+          "name": "Super Quant",
+          "path": "decklists/Chaos Origins - August 3rd Update/Bainbridge Genesys Regional/Super Quant.txt"
+        }
+      ]
+    },
+    {
+      "name": "Belgrade Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Belgrade Genesys Regional",
+      "decklists": [
+        {
+          "name": "Armored Phantom Knights",
+          "path": "decklists/Chaos Origins - August 3rd Update/Belgrade Genesys Regional/Armored Phantom Knights.txt"
+        },
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Belgrade Genesys Regional/Blitzclique.txt"
+        },
+        {
+          "name": "Elfnote Crystron",
+          "path": "decklists/Chaos Origins - August 3rd Update/Belgrade Genesys Regional/Elfnote Crystron.txt"
+        },
+        {
+          "name": "Invoked",
+          "path": "decklists/Chaos Origins - August 3rd Update/Belgrade Genesys Regional/Invoked.txt"
+        },
+        {
+          "name": "Predaplant Dracotail",
+          "path": "decklists/Chaos Origins - August 3rd Update/Belgrade Genesys Regional/Predaplant Dracotail.txt"
+        },
+        {
+          "name": "Red Dragon Archfiend Light and Darkness Ritual",
+          "path": "decklists/Chaos Origins - August 3rd Update/Belgrade Genesys Regional/Red Dragon Archfiend Light and Darkness Ritual.txt"
+        },
+        {
+          "name": "Synchron Kewl Tune",
+          "path": "decklists/Chaos Origins - August 3rd Update/Belgrade Genesys Regional/Synchron Kewl Tune.txt"
+        },
+        {
+          "name": "Toy White Forest",
+          "path": "decklists/Chaos Origins - August 3rd Update/Belgrade Genesys Regional/Toy White Forest.txt"
+        }
+      ]
+    },
+    {
+      "name": "Bogota Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Bogota Genesys Regional",
+      "decklists": [
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Bogota Genesys Regional/Blitzclique.txt"
+        }
+      ]
+    },
+    {
+      "name": "Bristol Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Bristol Genesys Regional",
+      "decklists": [
+        {
+          "name": "Angelechy Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/Bristol Genesys Regional/Angelechy Sacred Beasts.txt"
+        },
+        {
+          "name": "Armored Charmer Goblin Biker",
+          "path": "decklists/Chaos Origins - August 3rd Update/Bristol Genesys Regional/Armored Charmer Goblin Biker.txt"
+        },
+        {
+          "name": "Blitzclique (1)",
+          "path": "decklists/Chaos Origins - August 3rd Update/Bristol Genesys Regional/Blitzclique (1).txt"
+        },
+        {
+          "name": "Blitzclique (2)",
+          "path": "decklists/Chaos Origins - August 3rd Update/Bristol Genesys Regional/Blitzclique (2).txt"
+        },
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Bristol Genesys Regional/Blitzclique.txt"
+        },
+        {
+          "name": "Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/Bristol Genesys Regional/Sacred Beasts.txt"
+        },
+        {
+          "name": "Shaddoll",
+          "path": "decklists/Chaos Origins - August 3rd Update/Bristol Genesys Regional/Shaddoll.txt"
+        },
+        {
+          "name": "Tistina Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/Bristol Genesys Regional/Tistina Sacred Beasts.txt"
+        }
+      ]
+    },
+    {
+      "name": "Cagliari Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Cagliari Genesys Regional",
+      "decklists": [
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Cagliari Genesys Regional/Blitzclique.txt"
+        },
+        {
+          "name": "Invoked",
+          "path": "decklists/Chaos Origins - August 3rd Update/Cagliari Genesys Regional/Invoked.txt"
+        }
+      ]
+    },
+    {
+      "name": "Calgary Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Calgary Genesys Regional",
+      "decklists": [
+        {
+          "name": "Angelechy Dragunity",
+          "path": "decklists/Chaos Origins - August 3rd Update/Calgary Genesys Regional/Angelechy Dragunity.txt"
+        },
+        {
+          "name": "Eldlich Artmage",
+          "path": "decklists/Chaos Origins - August 3rd Update/Calgary Genesys Regional/Eldlich Artmage.txt"
+        }
+      ]
+    },
+    {
+      "name": "Caracas Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Caracas Genesys Regional",
+      "decklists": [
+        {
+          "name": "Angelechy B.E.S. Crystron",
+          "path": "decklists/Chaos Origins - August 3rd Update/Caracas Genesys Regional/Angelechy B.E.S. Crystron.txt"
+        }
+      ]
+    },
+    {
+      "name": "Champaign Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Champaign Genesys Regional",
+      "decklists": [
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Champaign Genesys Regional/Blitzclique.txt"
+        },
+        {
+          "name": "Invoked Hecahands Chimera",
+          "path": "decklists/Chaos Origins - August 3rd Update/Champaign Genesys Regional/Invoked Hecahands Chimera.txt"
+        },
+        {
+          "name": "Light and Darkness Ritual Hecahands Chimera",
+          "path": "decklists/Chaos Origins - August 3rd Update/Champaign Genesys Regional/Light and Darkness Ritual Hecahands Chimera.txt"
+        }
+      ]
+    },
+    {
+      "name": "Chiclayo Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Chiclayo Genesys Regional",
+      "decklists": [
+        {
+          "name": "Red Dragon Archfiend",
+          "path": "decklists/Chaos Origins - August 3rd Update/Chiclayo Genesys Regional/Red Dragon Archfiend.txt"
+        }
+      ]
+    },
+    {
+      "name": "Cochabamba Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Cochabamba Genesys Regional",
+      "decklists": [
+        {
+          "name": "Dark World Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/Cochabamba Genesys Regional/Dark World Sacred Beasts.txt"
+        },
+        {
+          "name": "GMX Dinosaurs",
+          "path": "decklists/Chaos Origins - August 3rd Update/Cochabamba Genesys Regional/GMX Dinosaurs.txt"
+        }
+      ]
+    },
+    {
+      "name": "Columbus Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Columbus Genesys Regional",
+      "decklists": [
+        {
+          "name": "Angelechy Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/Columbus Genesys Regional/Angelechy Sacred Beasts.txt"
+        },
+        {
+          "name": "Blitzclique (1)",
+          "path": "decklists/Chaos Origins - August 3rd Update/Columbus Genesys Regional/Blitzclique (1).txt"
+        },
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Columbus Genesys Regional/Blitzclique.txt"
+        },
+        {
+          "name": "Despia Branded",
+          "path": "decklists/Chaos Origins - August 3rd Update/Columbus Genesys Regional/Despia Branded.txt"
+        }
+      ]
+    },
+    {
+      "name": "Duluth Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Duluth Genesys Regional",
+      "decklists": [
+        {
+          "name": "B.E.S. Crystron",
+          "path": "decklists/Chaos Origins - August 3rd Update/Duluth Genesys Regional/B.E.S. Crystron.txt"
+        }
+      ]
+    },
+    {
+      "name": "Fargo Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Fargo Genesys Regional",
+      "decklists": [
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Fargo Genesys Regional/Blitzclique.txt"
+        },
+        {
+          "name": "Pumpking",
+          "path": "decklists/Chaos Origins - August 3rd Update/Fargo Genesys Regional/Pumpking.txt"
+        },
+        {
+          "name": "Radiant Typhoon",
+          "path": "decklists/Chaos Origins - August 3rd Update/Fargo Genesys Regional/Radiant Typhoon.txt"
+        }
+      ]
+    },
+    {
+      "name": "Genesys YCS Paris",
+      "path": "decklists/Chaos Origins - August 3rd Update/Genesys YCS Paris",
+      "decklists": [
+        {
+          "name": "Angelechy White Forest",
+          "path": "decklists/Chaos Origins - August 3rd Update/Genesys YCS Paris/Angelechy White Forest.txt"
+        },
+        {
+          "name": "Archfiend Sacred Beasts (1)",
+          "path": "decklists/Chaos Origins - August 3rd Update/Genesys YCS Paris/Archfiend Sacred Beasts (1).txt"
+        },
+        {
+          "name": "Archfiend Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/Genesys YCS Paris/Archfiend Sacred Beasts.txt"
+        },
+        {
+          "name": "Archfiend Shining Sarcophagus Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/Genesys YCS Paris/Archfiend Shining Sarcophagus Sacred Beasts.txt"
+        },
+        {
+          "name": "Blitzclique (1)",
+          "path": "decklists/Chaos Origins - August 3rd Update/Genesys YCS Paris/Blitzclique (1).txt"
+        },
+        {
+          "name": "Blitzclique (2)",
+          "path": "decklists/Chaos Origins - August 3rd Update/Genesys YCS Paris/Blitzclique (2).txt"
+        },
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Genesys YCS Paris/Blitzclique.txt"
+        },
+        {
+          "name": "Drytron",
+          "path": "decklists/Chaos Origins - August 3rd Update/Genesys YCS Paris/Drytron.txt"
+        },
+        {
+          "name": "Hecahands Chimera",
+          "path": "decklists/Chaos Origins - August 3rd Update/Genesys YCS Paris/Hecahands Chimera.txt"
+        },
+        {
+          "name": "Invoked Fairy Tail",
+          "path": "decklists/Chaos Origins - August 3rd Update/Genesys YCS Paris/Invoked Fairy Tail.txt"
+        },
+        {
+          "name": "Predaplant Dracotail",
+          "path": "decklists/Chaos Origins - August 3rd Update/Genesys YCS Paris/Predaplant Dracotail.txt"
+        },
+        {
+          "name": "Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/Genesys YCS Paris/Sacred Beasts.txt"
+        }
+      ]
+    },
+    {
+      "name": "Gottingen Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Gottingen Genesys Regional",
+      "decklists": [
+        {
+          "name": "Blitzclique (1)",
+          "path": "decklists/Chaos Origins - August 3rd Update/Gottingen Genesys Regional/Blitzclique (1).txt"
+        },
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Gottingen Genesys Regional/Blitzclique.txt"
+        },
+        {
+          "name": "Drytron",
+          "path": "decklists/Chaos Origins - August 3rd Update/Gottingen Genesys Regional/Drytron.txt"
+        },
+        {
+          "name": "Predaplant Dracotail",
+          "path": "decklists/Chaos Origins - August 3rd Update/Gottingen Genesys Regional/Predaplant Dracotail.txt"
+        }
+      ]
+    },
+    {
+      "name": "Houston Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Houston Genesys Regional",
+      "decklists": [
+        {
+          "name": "Angelechy White Forest",
+          "path": "decklists/Chaos Origins - August 3rd Update/Houston Genesys Regional/Angelechy White Forest.txt"
+        },
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Houston Genesys Regional/Blitzclique.txt"
+        },
+        {
+          "name": "Invoked Fairy Tail",
+          "path": "decklists/Chaos Origins - August 3rd Update/Houston Genesys Regional/Invoked Fairy Tail.txt"
+        }
+      ]
+    },
+    {
+      "name": "Indianapolis Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Indianapolis Genesys Regional",
+      "decklists": [
+        {
+          "name": "Angelechy White Forest",
+          "path": "decklists/Chaos Origins - August 3rd Update/Indianapolis Genesys Regional/Angelechy White Forest.txt"
+        },
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Indianapolis Genesys Regional/Blitzclique.txt"
+        },
+        {
+          "name": "Radiant Typhoon",
+          "path": "decklists/Chaos Origins - August 3rd Update/Indianapolis Genesys Regional/Radiant Typhoon.txt"
+        },
+        {
+          "name": "Super Quant",
+          "path": "decklists/Chaos Origins - August 3rd Update/Indianapolis Genesys Regional/Super Quant.txt"
+        }
+      ]
+    },
+    {
+      "name": "Jaworzno Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Jaworzno Genesys Regional",
+      "decklists": [
+        {
+          "name": "Angelechy Clown Crew",
+          "path": "decklists/Chaos Origins - August 3rd Update/Jaworzno Genesys Regional/Angelechy Clown Crew.txt"
+        },
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Jaworzno Genesys Regional/Blitzclique.txt"
+        },
+        {
+          "name": "Darklord",
+          "path": "decklists/Chaos Origins - August 3rd Update/Jaworzno Genesys Regional/Darklord.txt"
+        },
+        {
+          "name": "Light and Darkness Ritual Chimera",
+          "path": "decklists/Chaos Origins - August 3rd Update/Jaworzno Genesys Regional/Light and Darkness Ritual Chimera.txt"
+        },
+        {
+          "name": "Madolche",
+          "path": "decklists/Chaos Origins - August 3rd Update/Jaworzno Genesys Regional/Madolche.txt"
+        },
+        {
+          "name": "Mikanko",
+          "path": "decklists/Chaos Origins - August 3rd Update/Jaworzno Genesys Regional/Mikanko.txt"
+        },
+        {
+          "name": "Red Dragon Archfiend",
+          "path": "decklists/Chaos Origins - August 3rd Update/Jaworzno Genesys Regional/Red Dragon Archfiend.txt"
+        }
+      ]
+    },
+    {
+      "name": "Kenner Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Kenner Genesys Regional",
+      "decklists": [
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Kenner Genesys Regional/Blitzclique.txt"
+        }
+      ]
+    },
+    {
+      "name": "Kettering Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Kettering Genesys Regional",
+      "decklists": [
+        {
+          "name": "Nekroz Fairy Tail",
+          "path": "decklists/Chaos Origins - August 3rd Update/Kettering Genesys Regional/Nekroz Fairy Tail.txt"
+        }
+      ]
+    },
+    {
+      "name": "Lansing Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Lansing Genesys Regional",
+      "decklists": [
+        {
+          "name": "Branded _Assault Mode",
+          "path": "decklists/Chaos Origins - August 3rd Update/Lansing Genesys Regional/Branded _Assault Mode.txt"
+        },
+        {
+          "name": "Branded Predaplant",
+          "path": "decklists/Chaos Origins - August 3rd Update/Lansing Genesys Regional/Branded Predaplant.txt"
+        },
+        {
+          "name": "Chimera Hecahands",
+          "path": "decklists/Chaos Origins - August 3rd Update/Lansing Genesys Regional/Chimera Hecahands.txt"
+        },
+        {
+          "name": "Invoked",
+          "path": "decklists/Chaos Origins - August 3rd Update/Lansing Genesys Regional/Invoked.txt"
+        },
+        {
+          "name": "Nekroz Fairy Tail",
+          "path": "decklists/Chaos Origins - August 3rd Update/Lansing Genesys Regional/Nekroz Fairy Tail.txt"
+        },
+        {
+          "name": "Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/Lansing Genesys Regional/Sacred Beasts.txt"
+        }
+      ]
+    },
+    {
+      "name": "Las Vegas Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Las Vegas Genesys Regional",
+      "decklists": [
+        {
+          "name": "Dark World Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/Las Vegas Genesys Regional/Dark World Sacred Beasts.txt"
+        },
+        {
+          "name": "Darklord",
+          "path": "decklists/Chaos Origins - August 3rd Update/Las Vegas Genesys Regional/Darklord.txt"
+        },
+        {
+          "name": "Drytron",
+          "path": "decklists/Chaos Origins - August 3rd Update/Las Vegas Genesys Regional/Drytron.txt"
+        }
+      ]
+    },
+    {
+      "name": "Latin America Remote Duel YCS Genesys",
+      "path": "decklists/Chaos Origins - August 3rd Update/Latin America Remote Duel YCS Genesys",
+      "decklists": [
+        {
+          "name": "Archfiend Sacred Beasts (1)",
+          "path": "decklists/Chaos Origins - August 3rd Update/Latin America Remote Duel YCS Genesys/Archfiend Sacred Beasts (1).txt"
+        },
+        {
+          "name": "Archfiend Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/Latin America Remote Duel YCS Genesys/Archfiend Sacred Beasts.txt"
+        },
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Latin America Remote Duel YCS Genesys/Blitzclique.txt"
+        },
+        {
+          "name": "Exosister",
+          "path": "decklists/Chaos Origins - August 3rd Update/Latin America Remote Duel YCS Genesys/Exosister.txt"
+        },
+        {
+          "name": "Nekroz Fairy Tail",
+          "path": "decklists/Chaos Origins - August 3rd Update/Latin America Remote Duel YCS Genesys/Nekroz Fairy Tail.txt"
+        },
+        {
+          "name": "Synchron Flame Swordsman Infernoble Knight",
+          "path": "decklists/Chaos Origins - August 3rd Update/Latin America Remote Duel YCS Genesys/Synchron Flame Swordsman Infernoble Knight.txt"
+        }
+      ]
+    },
+    {
+      "name": "Lima Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Lima Genesys Regional",
+      "decklists": [
+        {
+          "name": "Azamina Centur-Ion White Forest",
+          "path": "decklists/Chaos Origins - August 3rd Update/Lima Genesys Regional/Azamina Centur-Ion White Forest.txt"
+        },
+        {
+          "name": "Blitzclique (1)",
+          "path": "decklists/Chaos Origins - August 3rd Update/Lima Genesys Regional/Blitzclique (1).txt"
+        },
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Lima Genesys Regional/Blitzclique.txt"
+        },
+        {
+          "name": "Drytron",
+          "path": "decklists/Chaos Origins - August 3rd Update/Lima Genesys Regional/Drytron.txt"
+        },
+        {
+          "name": "Red Dragon Archfiend",
+          "path": "decklists/Chaos Origins - August 3rd Update/Lima Genesys Regional/Red Dragon Archfiend.txt"
+        },
+        {
+          "name": "Sacred Beasts Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Lima Genesys Regional/Sacred Beasts Blitzclique.txt"
+        },
+        {
+          "name": "Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/Lima Genesys Regional/Sacred Beasts.txt"
+        },
+        {
+          "name": "Shark",
+          "path": "decklists/Chaos Origins - August 3rd Update/Lima Genesys Regional/Shark.txt"
+        }
+      ]
+    },
+    {
+      "name": "Los Angeles Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Los Angeles Genesys Regional",
+      "decklists": [
+        {
+          "name": "Archfiend Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/Los Angeles Genesys Regional/Archfiend Sacred Beasts.txt"
+        },
+        {
+          "name": "Evil HERO Sacred Beasts Chimera",
+          "path": "decklists/Chaos Origins - August 3rd Update/Los Angeles Genesys Regional/Evil HERO Sacred Beasts Chimera.txt"
+        },
+        {
+          "name": "Gem-Knight Constellar Tellarknights",
+          "path": "decklists/Chaos Origins - August 3rd Update/Los Angeles Genesys Regional/Gem-Knight Constellar Tellarknights.txt"
+        },
+        {
+          "name": "Invoked Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/Los Angeles Genesys Regional/Invoked Sacred Beasts.txt"
+        },
+        {
+          "name": "Vernusylph Madolche",
+          "path": "decklists/Chaos Origins - August 3rd Update/Los Angeles Genesys Regional/Vernusylph Madolche.txt"
+        }
+      ]
+    },
+    {
+      "name": "Lubbock Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Lubbock Genesys Regional",
+      "decklists": [
+        {
+          "name": "Assault Mode Synchron",
+          "path": "decklists/Chaos Origins - August 3rd Update/Lubbock Genesys Regional/Assault Mode Synchron.txt"
+        },
+        {
+          "name": "Invoked (1)",
+          "path": "decklists/Chaos Origins - August 3rd Update/Lubbock Genesys Regional/Invoked (1).txt"
+        },
+        {
+          "name": "Invoked",
+          "path": "decklists/Chaos Origins - August 3rd Update/Lubbock Genesys Regional/Invoked.txt"
+        }
+      ]
+    },
+    {
+      "name": "Merida Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Merida Genesys Regional",
+      "decklists": [
+        {
+          "name": "Burning Abyss",
+          "path": "decklists/Chaos Origins - August 3rd Update/Merida Genesys Regional/Burning Abyss.txt"
+        },
+        {
+          "name": "Constellar Tellarknights",
+          "path": "decklists/Chaos Origins - August 3rd Update/Merida Genesys Regional/Constellar Tellarknights.txt"
+        },
+        {
+          "name": "Labrynth",
+          "path": "decklists/Chaos Origins - August 3rd Update/Merida Genesys Regional/Labrynth.txt"
+        },
+        {
+          "name": "Nekroz Fairy Tail",
+          "path": "decklists/Chaos Origins - August 3rd Update/Merida Genesys Regional/Nekroz Fairy Tail.txt"
+        },
+        {
+          "name": "Predaplant",
+          "path": "decklists/Chaos Origins - August 3rd Update/Merida Genesys Regional/Predaplant.txt"
+        },
+        {
+          "name": "Snake-Eye Infernoid",
+          "path": "decklists/Chaos Origins - August 3rd Update/Merida Genesys Regional/Snake-Eye Infernoid.txt"
+        },
+        {
+          "name": "Spright Purrely",
+          "path": "decklists/Chaos Origins - August 3rd Update/Merida Genesys Regional/Spright Purrely.txt"
+        }
+      ]
+    },
+    {
+      "name": "Milwaukee Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Milwaukee Genesys Regional",
+      "decklists": [
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Milwaukee Genesys Regional/Blitzclique.txt"
+        },
+        {
+          "name": "Exosister",
+          "path": "decklists/Chaos Origins - August 3rd Update/Milwaukee Genesys Regional/Exosister.txt"
+        },
+        {
+          "name": "Invoked",
+          "path": "decklists/Chaos Origins - August 3rd Update/Milwaukee Genesys Regional/Invoked.txt"
+        },
+        {
+          "name": "Snake-Eye Infernoid",
+          "path": "decklists/Chaos Origins - August 3rd Update/Milwaukee Genesys Regional/Snake-Eye Infernoid.txt"
+        }
+      ]
+    },
+    {
+      "name": "Monterrey Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Monterrey Genesys Regional",
+      "decklists": [
+        {
+          "name": "Armored Argostars",
+          "path": "decklists/Chaos Origins - August 3rd Update/Monterrey Genesys Regional/Armored Argostars.txt"
+        },
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Monterrey Genesys Regional/Blitzclique.txt"
+        },
+        {
+          "name": "GMX Jurrac Dinosaurs",
+          "path": "decklists/Chaos Origins - August 3rd Update/Monterrey Genesys Regional/GMX Jurrac Dinosaurs.txt"
+        },
+        {
+          "name": "Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/Monterrey Genesys Regional/Sacred Beasts.txt"
+        }
+      ]
+    },
+    {
+      "name": "Munich Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Munich Genesys Regional",
+      "decklists": [
+        {
+          "name": "Elfnote Crystron",
+          "path": "decklists/Chaos Origins - August 3rd Update/Munich Genesys Regional/Elfnote Crystron.txt"
+        },
+        {
+          "name": "Light and Darkness Ritual Chimera",
+          "path": "decklists/Chaos Origins - August 3rd Update/Munich Genesys Regional/Light and Darkness Ritual Chimera.txt"
+        },
+        {
+          "name": "Predaplant Dracotail",
+          "path": "decklists/Chaos Origins - August 3rd Update/Munich Genesys Regional/Predaplant Dracotail.txt"
+        },
+        {
+          "name": "Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/Munich Genesys Regional/Sacred Beasts.txt"
+        }
+      ]
+    },
+    {
+      "name": "Olathe Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Olathe Genesys Regional",
+      "decklists": []
+    },
+    {
+      "name": "Omaha Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Omaha Genesys Regional",
+      "decklists": [
+        {
+          "name": "Exosister",
+          "path": "decklists/Chaos Origins - August 3rd Update/Omaha Genesys Regional/Exosister.txt"
+        },
+        {
+          "name": "Toy White Forest (1)",
+          "path": "decklists/Chaos Origins - August 3rd Update/Omaha Genesys Regional/Toy White Forest (1).txt"
+        },
+        {
+          "name": "Toy White Forest",
+          "path": "decklists/Chaos Origins - August 3rd Update/Omaha Genesys Regional/Toy White Forest.txt"
+        }
+      ]
+    },
+    {
+      "name": "Oranienburg Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Oranienburg Genesys Regional",
+      "decklists": [
+        {
+          "name": "Blitzclique (1)",
+          "path": "decklists/Chaos Origins - August 3rd Update/Oranienburg Genesys Regional/Blitzclique (1).txt"
+        },
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Oranienburg Genesys Regional/Blitzclique.txt"
+        },
+        {
+          "name": "Kaiju Shaddoll",
+          "path": "decklists/Chaos Origins - August 3rd Update/Oranienburg Genesys Regional/Kaiju Shaddoll.txt"
+        },
+        {
+          "name": "Synchron _Assault Mode",
+          "path": "decklists/Chaos Origins - August 3rd Update/Oranienburg Genesys Regional/Synchron _Assault Mode.txt"
+        }
+      ]
+    },
+    {
+      "name": "Pachuca Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Pachuca Genesys Regional",
+      "decklists": [
+        {
+          "name": "Flame Swordsman Infernoble Knight",
+          "path": "decklists/Chaos Origins - August 3rd Update/Pachuca Genesys Regional/Flame Swordsman Infernoble Knight.txt"
+        }
+      ]
+    },
+    {
+      "name": "Philadelphia Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Philadelphia Genesys Regional",
+      "decklists": [
+        {
+          "name": "Archfiend Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/Philadelphia Genesys Regional/Archfiend Sacred Beasts.txt"
+        },
+        {
+          "name": "Assault Mode Synchron Elfnote",
+          "path": "decklists/Chaos Origins - August 3rd Update/Philadelphia Genesys Regional/Assault Mode Synchron Elfnote.txt"
+        },
+        {
+          "name": "Sacred Beasts Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Philadelphia Genesys Regional/Sacred Beasts Blitzclique.txt"
+        }
+      ]
+    },
+    {
+      "name": "Pittsboro Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Pittsboro Genesys Regional",
+      "decklists": [
+        {
+          "name": "Dark World Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/Pittsboro Genesys Regional/Dark World Sacred Beasts.txt"
+        },
+        {
+          "name": "Jurrac Snake-Eye Fire King",
+          "path": "decklists/Chaos Origins - August 3rd Update/Pittsboro Genesys Regional/Jurrac Snake-Eye Fire King.txt"
+        },
+        {
+          "name": "Melffy Invoked Chimera",
+          "path": "decklists/Chaos Origins - August 3rd Update/Pittsboro Genesys Regional/Melffy Invoked Chimera.txt"
+        }
+      ]
+    },
+    {
+      "name": "Porto Alegre Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Porto Alegre Genesys Regional",
+      "decklists": [
+        {
+          "name": "Chimera Hecahands",
+          "path": "decklists/Chaos Origins - August 3rd Update/Porto Alegre Genesys Regional/Chimera Hecahands.txt"
+        },
+        {
+          "name": "Exosister",
+          "path": "decklists/Chaos Origins - August 3rd Update/Porto Alegre Genesys Regional/Exosister.txt"
+        }
+      ]
+    },
+    {
+      "name": "Richmond Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Richmond Genesys Regional",
+      "decklists": [
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Richmond Genesys Regional/Blitzclique.txt"
+        },
+        {
+          "name": "Dark World Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/Richmond Genesys Regional/Dark World Sacred Beasts.txt"
+        },
+        {
+          "name": "Invoked Chimera",
+          "path": "decklists/Chaos Origins - August 3rd Update/Richmond Genesys Regional/Invoked Chimera.txt"
+        },
+        {
+          "name": "Invoked",
+          "path": "decklists/Chaos Origins - August 3rd Update/Richmond Genesys Regional/Invoked.txt"
+        },
+        {
+          "name": "Light and Darkness Ritual",
+          "path": "decklists/Chaos Origins - August 3rd Update/Richmond Genesys Regional/Light and Darkness Ritual.txt"
+        },
+        {
+          "name": "Sacred Beasts Light and Darkness Ritual Red Dragon Archfiend",
+          "path": "decklists/Chaos Origins - August 3rd Update/Richmond Genesys Regional/Sacred Beasts Light and Darkness Ritual Red Dragon Archfiend.txt"
+        },
+        {
+          "name": "Sacred Beasts Super Quant",
+          "path": "decklists/Chaos Origins - August 3rd Update/Richmond Genesys Regional/Sacred Beasts Super Quant.txt"
+        }
+      ]
+    },
+    {
+      "name": "Rome Genesys Championship",
+      "path": "decklists/Chaos Origins - August 3rd Update/Rome Genesys Championship",
+      "decklists": [
+        {
+          "name": "Angelechy Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/Rome Genesys Championship/Angelechy Sacred Beasts.txt"
+        }
+      ]
+    },
+    {
+      "name": "Salem Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Salem Genesys Regional",
+      "decklists": []
+    },
+    {
+      "name": "Seattle Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Seattle Genesys Regional",
+      "decklists": [
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Seattle Genesys Regional/Blitzclique.txt"
+        },
+        {
+          "name": "Chimera Hecahands",
+          "path": "decklists/Chaos Origins - August 3rd Update/Seattle Genesys Regional/Chimera Hecahands.txt"
+        },
+        {
+          "name": "Gem-Knight Constellar Tellarknights",
+          "path": "decklists/Chaos Origins - August 3rd Update/Seattle Genesys Regional/Gem-Knight Constellar Tellarknights.txt"
+        },
+        {
+          "name": "Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/Seattle Genesys Regional/Sacred Beasts.txt"
+        }
+      ]
+    },
+    {
+      "name": "Sofia Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Sofia Genesys Regional",
+      "decklists": [
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Sofia Genesys Regional/Blitzclique.txt"
+        },
+        {
+          "name": "Invoked Fairy Tail",
+          "path": "decklists/Chaos Origins - August 3rd Update/Sofia Genesys Regional/Invoked Fairy Tail.txt"
+        }
+      ]
+    },
+    {
+      "name": "South Park Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/South Park Genesys Regional",
+      "decklists": [
+        {
+          "name": "B.E.S. Crystron",
+          "path": "decklists/Chaos Origins - August 3rd Update/South Park Genesys Regional/B.E.S. Crystron.txt"
+        },
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/South Park Genesys Regional/Blitzclique.txt"
+        }
+      ]
+    },
+    {
+      "name": "Springfield Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Springfield Genesys Regional",
+      "decklists": [
+        {
+          "name": "Angelechy Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/Springfield Genesys Regional/Angelechy Sacred Beasts.txt"
+        },
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Springfield Genesys Regional/Blitzclique.txt"
+        },
+        {
+          "name": "Dark World Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/Springfield Genesys Regional/Dark World Sacred Beasts.txt"
+        },
+        {
+          "name": "Despia Darklord",
+          "path": "decklists/Chaos Origins - August 3rd Update/Springfield Genesys Regional/Despia Darklord.txt"
+        },
+        {
+          "name": "Light and Darkness Ritual Hecahands Chimera",
+          "path": "decklists/Chaos Origins - August 3rd Update/Springfield Genesys Regional/Light and Darkness Ritual Hecahands Chimera.txt"
+        }
+      ]
+    },
+    {
+      "name": "The Side Deck Remote Duel Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/The Side Deck Remote Duel Genesys Regional",
+      "decklists": [
+        {
+          "name": "Angelechy Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/The Side Deck Remote Duel Genesys Regional/Angelechy Sacred Beasts.txt"
+        },
+        {
+          "name": "Blitzclique (1)",
+          "path": "decklists/Chaos Origins - August 3rd Update/The Side Deck Remote Duel Genesys Regional/Blitzclique (1).txt"
+        },
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/The Side Deck Remote Duel Genesys Regional/Blitzclique.txt"
+        },
+        {
+          "name": "Dracotail",
+          "path": "decklists/Chaos Origins - August 3rd Update/The Side Deck Remote Duel Genesys Regional/Dracotail.txt"
+        },
+        {
+          "name": "Invoked Fairy Tail",
+          "path": "decklists/Chaos Origins - August 3rd Update/The Side Deck Remote Duel Genesys Regional/Invoked Fairy Tail.txt"
+        },
+        {
+          "name": "Nekroz Fairy Tail",
+          "path": "decklists/Chaos Origins - August 3rd Update/The Side Deck Remote Duel Genesys Regional/Nekroz Fairy Tail.txt"
+        },
+        {
+          "name": "Teleport P.U.N.K.",
+          "path": "decklists/Chaos Origins - August 3rd Update/The Side Deck Remote Duel Genesys Regional/Teleport P.U.N.K..txt"
+        }
+      ]
+    },
+    {
+      "name": "The Side Deck Remote Duel Genesys Regional 2",
+      "path": "decklists/Chaos Origins - August 3rd Update/The Side Deck Remote Duel Genesys Regional 2",
+      "decklists": [
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/The Side Deck Remote Duel Genesys Regional 2/Blitzclique.txt"
+        },
+        {
+          "name": "Exosister",
+          "path": "decklists/Chaos Origins - August 3rd Update/The Side Deck Remote Duel Genesys Regional 2/Exosister.txt"
+        },
+        {
+          "name": "Monarch",
+          "path": "decklists/Chaos Origins - August 3rd Update/The Side Deck Remote Duel Genesys Regional 2/Monarch.txt"
+        },
+        {
+          "name": "Nekroz Fairy Tail",
+          "path": "decklists/Chaos Origins - August 3rd Update/The Side Deck Remote Duel Genesys Regional 2/Nekroz Fairy Tail.txt"
+        },
+        {
+          "name": "Sacred Beasts Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/The Side Deck Remote Duel Genesys Regional 2/Sacred Beasts Blitzclique.txt"
+        }
+      ]
+    },
+    {
+      "name": "Vancouver Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Vancouver Genesys Regional",
+      "decklists": [
+        {
+          "name": "Artmage",
+          "path": "decklists/Chaos Origins - August 3rd Update/Vancouver Genesys Regional/Artmage.txt"
+        },
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/Vancouver Genesys Regional/Blitzclique.txt"
+        },
+        {
+          "name": "Dark World Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/Vancouver Genesys Regional/Dark World Sacred Beasts.txt"
+        },
+        {
+          "name": "Exosister",
+          "path": "decklists/Chaos Origins - August 3rd Update/Vancouver Genesys Regional/Exosister.txt"
+        },
+        {
+          "name": "Kaiju Invoked",
+          "path": "decklists/Chaos Origins - August 3rd Update/Vancouver Genesys Regional/Kaiju Invoked.txt"
+        }
+      ]
+    },
+    {
+      "name": "Wien Genesys Regional",
+      "path": "decklists/Chaos Origins - August 3rd Update/Wien Genesys Regional",
+      "decklists": [
+        {
+          "name": "_Assault Mode Synchron",
+          "path": "decklists/Chaos Origins - August 3rd Update/Wien Genesys Regional/_Assault Mode Synchron.txt"
+        },
+        {
+          "name": "Armored Magnet Warrior",
+          "path": "decklists/Chaos Origins - August 3rd Update/Wien Genesys Regional/Armored Magnet Warrior.txt"
+        },
+        {
+          "name": "Centur-Ion White Forest",
+          "path": "decklists/Chaos Origins - August 3rd Update/Wien Genesys Regional/Centur-Ion White Forest.txt"
+        },
+        {
+          "name": "Gem-Knight Constellar Tellarknights",
+          "path": "decklists/Chaos Origins - August 3rd Update/Wien Genesys Regional/Gem-Knight Constellar Tellarknights.txt"
+        },
+        {
+          "name": "Machina Trains",
+          "path": "decklists/Chaos Origins - August 3rd Update/Wien Genesys Regional/Machina Trains.txt"
+        },
+        {
+          "name": "Toy White Forest",
+          "path": "decklists/Chaos Origins - August 3rd Update/Wien Genesys Regional/Toy White Forest.txt"
+        }
+      ]
+    },
+    {
+      "name": "YCS Montreal (Genesys)",
+      "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)",
+      "decklists": [
+        {
+          "name": "Angelechy Sacred Beasts",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Angelechy Sacred Beasts.txt"
+        },
+        {
+          "name": "Angelechy White Forest",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Angelechy White Forest.txt"
+        },
+        {
+          "name": "Blitzclique (1)",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Blitzclique (1).txt"
+        },
+        {
+          "name": "Blitzclique (2)",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Blitzclique (2).txt"
+        },
+        {
+          "name": "Blitzclique (3)",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Blitzclique (3).txt"
+        },
+        {
+          "name": "Blitzclique (4)",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Blitzclique (4).txt"
+        },
+        {
+          "name": "Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Blitzclique.txt"
+        },
+        {
+          "name": "Chimera Hecahands",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Chimera Hecahands.txt"
+        },
+        {
+          "name": "Darklord",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Darklord.txt"
+        },
+        {
+          "name": "Despia Branded",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Despia Branded.txt"
+        },
+        {
+          "name": "DoomZ",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/DoomZ.txt"
+        },
+        {
+          "name": "Dracotail",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Dracotail.txt"
+        },
+        {
+          "name": "Exosister",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Exosister.txt"
+        },
+        {
+          "name": "Hecahands Melffy Chimera",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Hecahands Melffy Chimera.txt"
+        },
+        {
+          "name": "Invoked (1)",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Invoked (1).txt"
+        },
+        {
+          "name": "Invoked Fairy Tail (1)",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Invoked Fairy Tail (1).txt"
+        },
+        {
+          "name": "Invoked Fairy Tail",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Invoked Fairy Tail.txt"
+        },
+        {
+          "name": "Invoked",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Invoked.txt"
+        },
+        {
+          "name": "Light and Darkness Ritual Chimera",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Light and Darkness Ritual Chimera.txt"
+        },
+        {
+          "name": "Magnet Warrior",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Magnet Warrior.txt"
+        },
+        {
+          "name": "Mimighoul",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Mimighoul.txt"
+        },
+        {
+          "name": "Nekroz Fairy Tail (1)",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Nekroz Fairy Tail (1).txt"
+        },
+        {
+          "name": "Nekroz Fairy Tail",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Nekroz Fairy Tail.txt"
+        },
+        {
+          "name": "Predaplant Dracotail",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Predaplant Dracotail.txt"
+        },
+        {
+          "name": "Radiant Typhoon (1)",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Radiant Typhoon (1).txt"
+        },
+        {
+          "name": "Radiant Typhoon",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Radiant Typhoon.txt"
+        },
+        {
+          "name": "Red Dragon Archfiend",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Red Dragon Archfiend.txt"
+        },
+        {
+          "name": "Snake-Eye Fire King",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Snake-Eye Fire King.txt"
+        },
+        {
+          "name": "Spright Blitzclique",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Spright Blitzclique.txt"
+        },
+        {
+          "name": "Toy White Forest",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Toy White Forest.txt"
+        },
+        {
+          "name": "Unchained",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Unchained.txt"
+        },
+        {
+          "name": "Vernusylph Madolche",
+          "path": "decklists/Chaos Origins - August 3rd Update/YCS Montreal (Genesys)/Vernusylph Madolche.txt"
+        }
+      ]
+    }
+  ]
+}

@@ -36,8 +36,8 @@ function chunkFilePath(chunkNum) {
     return `${DATA_BASE_URL}cards/chunk_${String(chunkNum).padStart(4, '0')}.json`;
 }
 
-const LIST_BUILD_VERSION = "2026-06-27-18-11";
-const CARD_BUILD_VERSION = "2026-08-06-08-31";
+const LIST_BUILD_VERSION = "2026-10-04-21-30";
+const CARD_BUILD_VERSION = "2026-10-04-20-51";
 
 const imageCache = new ImageCache();
 

@@ -1,8 +1,8 @@
 {
-  "total_cards": 13507,
+  "total_cards": 13512,
   "chunk_size": 75,
   "total_chunks": 181,
-  "last_updated": "2026-10-04T18:03:37Z",
+  "last_updated": "2026-10-12T20:19:11Z",
   "filters": {
     "archetypes_count": 648,
     "types_count": 18,

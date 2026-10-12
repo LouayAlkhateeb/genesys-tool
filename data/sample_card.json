@@ -1,10 +1,10 @@
 {
   "frameType": "spell",
   "type": "Spell Card",
-  "name": "???",
-  "race": "Normal",
-  "desc": "This card is used as a placeholder in tournament deck profiles. The card(s) were intentionally left unrevealed by the player.",
-  "humanReadableCardType": "Normal Spell",
   "id": 149694341,
-  "ygoprodeck_url": "https://ygoprodeck.com/card/placeholder-15961"
+  "desc": "This card is used as a placeholder in tournament deck profiles. The card(s) were intentionally left unrevealed by the player.",
+  "ygoprodeck_url": "https://ygoprodeck.com/card/placeholder-15961",
+  "race": "Normal",
+  "name": "???",
+  "humanReadableCardType": "Normal Spell"
 }
